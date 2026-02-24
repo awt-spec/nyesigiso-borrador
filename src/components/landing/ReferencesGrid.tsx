@@ -717,7 +717,7 @@ const ReferencesGrid = () => {
                 </div>
               </button>
 
-              <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"}`}>
+              <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? "max-h-[3000px] opacity-100" : "max-h-0 opacity-0"}`}>
                 <div className="px-4 pb-4 pl-[3.75rem] space-y-3">
                   {/* Contact info */}
                   {(ref.contact || ref.email || ref.phone || ref.web) && (

@@ -71,7 +71,7 @@ const DomainSection = ({ domain, index }: DomainSectionProps) => {
   };
 
   // Check if this domain has an architecture section to show at the bottom
-  const showArchitecture = domain.id === "presentacion";
+  const showArchitecture = domain.id === "tecnicas";
 
   return (
     <section

@@ -33,9 +33,9 @@ export const domains: Domain[] = [
         fr: "Identité",
         en: "Identity",
         scope: {
-          es: "SYSDE — Empresa tecnológica con sede en Costa Rica, con más de 25 años de experiencia en el sector financiero. Especializada en el diseño, desarrollo, implementación y soporte de sistemas core financieros modulares. Dirección: Torre Humboldt, Calle 53 Este, Distrito de Marbella, Ciudad de Panamá, Panamá.",
-          fr: "SYSDE — Entreprise technologique basée au Costa Rica, avec plus de 25 ans d'expérience dans le secteur financier. Spécialisée dans la conception, le développement, l'implémentation et le support de systèmes core financiers modulaires. Adresse : Tour Humboldt, 53ème Rue Est, District de Marbella, Panama City, Panama.",
-          en: "SYSDE — Technology company based in Costa Rica, with over 25 years of experience in the financial sector. Specialized in the design, development, implementation, and support of modular financial core systems. Address: Humboldt Tower, 53rd Street East, Marbella District, Panama City, Panama.",
+          es: "SYSDE — Empresa tecnológica especializada en el sector financiero con más de 25 años de experiencia. Diseño, desarrollo, implementación y soporte de sistemas core financieros modulares.",
+          fr: "SYSDE — Entreprise technologique spécialisée dans le secteur financier avec plus de 25 ans d'expérience. Conception, développement, implémentation et support de systèmes core financiers modulaires.",
+          en: "SYSDE — Technology company specialized in the financial sector with over 25 years of experience. Design, development, implementation, and support of modular financial core systems.",
         },
       },
       {
@@ -53,9 +53,9 @@ export const domains: Domain[] = [
         fr: "Bilan Financier",
         en: "Financial Statement",
         scope: {
-          es: "Informe anual disponible en anexo. Información financiera detallada disponible bajo solicitud formal.",
-          fr: "Rapport annuel disponible en annexe. Informations financières détaillées disponibles sur demande formelle.",
-          en: "Annual report available in annex. Detailed financial information available upon formal request.",
+          es: "Ingresos promedio anuales USD 10M, utilidad neta promedio USD 1.1M. Ratio Deuda/Patrimonio 0.085 (8.5%), indicativo de bajo riesgo financiero. Informe anual detallado disponible bajo solicitud.",
+          fr: "Revenus moyens annuels USD 10M, bénéfice net moyen USD 1.1M. Ratio Dette/Capitaux propres 0.085 (8.5%), indicatif de faible risque financier. Rapport annuel détaillé disponible sur demande.",
+          en: "Average annual revenue USD 10M, average net profit USD 1.1M. Debt-to-Equity ratio 0.085 (8.5%), indicative of low financial risk. Detailed annual report available upon request.",
         },
       },
       {
@@ -63,9 +63,9 @@ export const domains: Domain[] = [
         fr: "Taille",
         en: "Size",
         scope: {
-          es: "Equipo técnico dedicado con presencia en Latinoamérica y África. Operaciones en 35+ países en 4 continentes: Américas (19 países), África (13 países), Europa (2 países), Asia (1 país).",
-          fr: "Équipe technique dédiée avec présence en Amérique Latine et en Afrique. Opérations dans 35+ pays sur 4 continents : Amériques (19 pays), Afrique (13 pays), Europe (2 pays), Asie (1 pays).",
-          en: "Dedicated technical team with presence in Latin America and Africa. Operations in 35+ countries across 4 continents: Americas (19 countries), Africa (13 countries), Europe (2 countries), Asia (1 country).",
+          es: "Equipo de +200 personas. Oficinas comerciales, fábricas de desarrollo y centros SVA en Latinoamérica y África. Operaciones en 35+ países en 4 continentes.",
+          fr: "Équipe de +200 personnes. Bureaux commerciaux, usines de développement et centres SVA en Amérique Latine et Afrique. Opérations dans 35+ pays sur 4 continents.",
+          en: "Team of 200+ people. Commercial offices, development factories, and SVA centers in Latin America and Africa. Operations in 35+ countries across 4 continents.",
         },
       },
       {
@@ -73,9 +73,9 @@ export const domains: Domain[] = [
         fr: "Recherche et Développement",
         en: "Research & Development",
         scope: {
-          es: "Desarrollo continuo de SAF UPV con actualizaciones regulatorias permanentes. Equipo dedicado de I+D para evolución del producto, mejoras funcionales y adaptación a nuevas normativas por jurisdicción.",
-          fr: "Développement continu de SAF UPV avec mises à jour réglementaires permanentes. Équipe dédiée de R&D pour l'évolution du produit, améliorations fonctionnelles et adaptation aux nouvelles réglementations par juridiction.",
-          en: "Continuous SAF UPV development with permanent regulatory updates. Dedicated R&D team for product evolution, functional improvements, and adaptation to new regulations by jurisdiction.",
+          es: "Equipo dedicado de 120 personas en I+D. Desarrollo continuo de SAF UPV con actualizaciones regulatorias permanentes, mejoras funcionales y adaptación a nuevas normativas por jurisdicción.",
+          fr: "Équipe dédiée de 120 personnes en R&D. Développement continu de SAF UPV avec mises à jour réglementaires permanentes, améliorations fonctionnelles et adaptation aux nouvelles réglementations par juridiction.",
+          en: "Dedicated team of 120 people in R&D. Continuous SAF UPV development with permanent regulatory updates, functional improvements, and adaptation to new regulations by jurisdiction.",
         },
       },
       {
@@ -93,9 +93,9 @@ export const domains: Domain[] = [
         fr: "Évolution du Produit",
         en: "Product Evolution",
         scope: {
-          es: "Versiones continuas con contrato de mantenimiento activo. Compatibilidad garantizada entre versiones. Hoja de ruta alineada con la estrategia del negocio y requerimientos regulatorios.",
-          fr: "Versions continues avec contrat de maintenance actif. Compatibilité garantie entre versions. Feuille de route alignée avec la stratégie métier et les exigences réglementaires.",
-          en: "Continuous versions with active maintenance contract. Guaranteed version compatibility. Roadmap aligned with business strategy and regulatory requirements.",
+          es: "Política de releases estructurada: Major (1-2/año), Minor (trimestral), Patches (mensual), Hotfix (inmediato). Compatibilidad garantizada entre versiones con contrato de mantenimiento activo.",
+          fr: "Politique de releases structurée : Major (1-2/an), Minor (trimestriel), Patches (mensuel), Hotfix (immédiat). Compatibilité garantie entre versions avec contrat de maintenance actif.",
+          en: "Structured release policy: Major (1-2/year), Minor (quarterly), Patches (monthly), Hotfix (immediate). Guaranteed version compatibility with active maintenance contract.",
         },
       },
       {

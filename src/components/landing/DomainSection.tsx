@@ -2,8 +2,12 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { Domain } from "@/data/domains";
 import { CheckCircle2, ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import IdentityCard from "./IdentityCard";
+import FinancialSummary from "./FinancialSummary";
+import CompanyStructure from "./CompanyStructure";
 import WorldMap from "./WorldMap";
 import BusinessLines from "./BusinessLines";
+import ProductEvolution from "./ProductEvolution";
 import ArchitectureDiagram from "./ArchitectureDiagram";
 
 interface DomainSectionProps {
@@ -14,8 +18,11 @@ interface DomainSectionProps {
 // Map specific item indices in domain "presentacion" to custom components
 const CUSTOM_RENDERERS: Record<string, Record<number, React.FC>> = {
   presentacion: {
-    3: WorldMap,           // "Tamaño" — countries map
+    0: IdentityCard,       // "Identidad" — structured address card
+    2: FinancialSummary,   // "Balance Financiero" — financial stats
+    3: CompanyStructure,   // "Tamaño" — offices/factories/SVA structure
     5: BusinessLines,      // "Producto" — business lines
+    6: ProductEvolution,   // "Evolución del Producto" — release policy
   },
 };
 
@@ -146,6 +153,13 @@ const DomainSection = ({ domain, index }: DomainSectionProps) => {
                     {CustomRenderer && (
                       <div className="mt-2">
                         <CustomRenderer />
+                      </div>
+                    )}
+
+                    {/* WorldMap shown after CompanyStructure in Tamaño */}
+                    {domain.id === "presentacion" && i === 3 && (
+                      <div className="mt-4">
+                        <WorldMap />
                       </div>
                     )}
                   </div>

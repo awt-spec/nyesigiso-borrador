@@ -1,46 +1,76 @@
 import { Building2, MapPin, Globe, Calendar } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
+
+const t = {
+  es: {
+    commercialName: "Nombre Comercial",
+    years: "+25 años en el sector financiero",
+    headquarters: "Dirección Corporativa",
+    building: "Edificio",
+    street: "Calle",
+    district: "Distrito",
+    city: "Ciudad",
+    country: "País",
+  },
+  fr: {
+    commercialName: "Nom Commercial",
+    years: "+25 ans dans le secteur financier",
+    headquarters: "Siège Social",
+    building: "Bâtiment",
+    street: "Rue",
+    district: "Quartier",
+    city: "Ville",
+    country: "Pays",
+  },
+  en: {
+    commercialName: "Trade Name",
+    years: "+25 years in the financial sector",
+    headquarters: "Corporate Headquarters",
+    building: "Building",
+    street: "Street",
+    district: "District",
+    city: "City",
+    country: "Country",
+  },
+};
 
 const IdentityCard = () => {
+  const { language } = useLanguage();
+  const l = t[language];
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      {/* Company */}
       <div className="rounded-xl border border-border bg-card p-5 space-y-3">
         <div className="flex items-center gap-2 text-primary">
           <Building2 className="w-5 h-5" />
-          <span className="text-xs font-bold uppercase tracking-wider">Nombre Comercial</span>
+          <span className="text-xs font-bold uppercase tracking-wider">{l.commercialName}</span>
         </div>
         <p className="text-lg font-black text-foreground">SYSDE</p>
         <div className="flex items-center gap-2 text-muted-foreground text-xs">
           <Calendar className="w-3.5 h-3.5" />
-          <span>+25 años en el sector financiero</span>
+          <span>{l.years}</span>
         </div>
       </div>
 
-      {/* Address */}
       <div className="rounded-xl border border-border bg-card p-5 space-y-3">
         <div className="flex items-center gap-2 text-primary">
           <MapPin className="w-5 h-5" />
-          <span className="text-xs font-bold uppercase tracking-wider">Dirección Corporativa</span>
+          <span className="text-xs font-bold uppercase tracking-wider">{l.headquarters}</span>
         </div>
         <div className="space-y-1.5 text-sm text-foreground">
+          {[
+            [l.building, "Humboldt Tower"],
+            [l.street, "53rd Street East"],
+            [l.district, "Marbella District"],
+            [l.city, "Panama City"],
+          ].map(([label, value]) => (
+            <div key={label} className="flex gap-2">
+              <span className="text-muted-foreground text-xs min-w-[70px]">{label}</span>
+              <span className="font-semibold">{value}</span>
+            </div>
+          ))}
           <div className="flex gap-2">
-            <span className="text-muted-foreground text-xs min-w-[70px]">Edificio</span>
-            <span className="font-semibold">Humboldt Tower</span>
-          </div>
-          <div className="flex gap-2">
-            <span className="text-muted-foreground text-xs min-w-[70px]">Calle</span>
-            <span className="font-semibold">53rd Street East</span>
-          </div>
-          <div className="flex gap-2">
-            <span className="text-muted-foreground text-xs min-w-[70px]">Distrito</span>
-            <span className="font-semibold">Marbella District</span>
-          </div>
-          <div className="flex gap-2">
-            <span className="text-muted-foreground text-xs min-w-[70px]">Ciudad</span>
-            <span className="font-semibold">Panama City</span>
-          </div>
-          <div className="flex gap-2">
-            <span className="text-muted-foreground text-xs min-w-[70px]">País</span>
+            <span className="text-muted-foreground text-xs min-w-[70px]">{l.country}</span>
             <span className="font-semibold flex items-center gap-1">
               <Globe className="w-3.5 h-3.5 text-primary" /> Panama
             </span>

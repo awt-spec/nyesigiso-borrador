@@ -9,6 +9,7 @@ import WorldMap from "./WorldMap";
 import BusinessLines from "./BusinessLines";
 import ProductEvolution from "./ProductEvolution";
 import ArchitectureDiagram from "./ArchitectureDiagram";
+import ReferencesGrid from "./ReferencesGrid";
 
 interface DomainSectionProps {
   domain: Domain;
@@ -18,12 +19,19 @@ interface DomainSectionProps {
 // Map specific item indices in domain "presentacion" to custom components
 const CUSTOM_RENDERERS: Record<string, Record<number, React.FC>> = {
   presentacion: {
-    0: IdentityCard,       // "Identidad" — structured address card
-    2: FinancialSummary,   // "Balance Financiero" — financial stats
-    3: CompanyStructure,   // "Tamaño" — offices/factories/SVA structure
-    5: BusinessLines,      // "Producto" — business lines
-    6: ProductEvolution,   // "Evolución del Producto" — release policy
+    0: IdentityCard,
+    2: FinancialSummary,
+    3: CompanyStructure,
+    5: BusinessLines,
+    6: ProductEvolution,
+    7: ReferencesGrid,
   },
+};
+
+const sectionLabels = {
+  es: { scope: "Alcance", expand: "Expandir", collapse: "Colapsar" },
+  fr: { scope: "Portée", expand: "Développer", collapse: "Réduire" },
+  en: { scope: "Scope", expand: "Expand", collapse: "Collapse" },
 };
 
 const DomainSection = ({ domain, index }: DomainSectionProps) => {
@@ -98,7 +106,7 @@ const DomainSection = ({ domain, index }: DomainSectionProps) => {
               onClick={toggleAll}
               className="text-xs text-muted-foreground hover:text-primary font-medium px-2.5 py-1.5 rounded-md hover:bg-muted transition-colors border border-border"
             >
-              {allExpanded ? "Colapsar" : "Expandir"}
+              {allExpanded ? sectionLabels[language].collapse : sectionLabels[language].expand}
             </button>
           </div>
         </div>
@@ -142,7 +150,7 @@ const DomainSection = ({ domain, index }: DomainSectionProps) => {
                     {/* Text scope */}
                     <div className="bg-muted/50 rounded-lg p-4 border border-border/50 mb-4">
                       <p className="text-xs font-bold text-primary uppercase tracking-wider mb-1.5">
-                        Alcance
+                        {sectionLabels[language].scope}
                       </p>
                       <p className="text-muted-foreground text-sm leading-relaxed">
                         {item.scope[language]}

@@ -38,7 +38,7 @@ const Hero = () => {
   const { language } = useLanguage();
   const t = translations[language];
 
-  const stat1 = useCountUp(77);
+  const stat1 = useCountUp(74);
   const stat2 = useCountUp(100);
   const stat3 = useCountUp(12);
   const stat4 = useCountUp(87);
@@ -93,7 +93,7 @@ const Hero = () => {
           <Button
             size="lg"
             className="bg-primary text-primary-foreground hover:bg-primary/90 font-bold text-sm px-6 py-5 rounded-lg mt-2"
-            onClick={() => document.getElementById("presentacion")?.scrollIntoView({ behavior: "smooth" })}
+            onClick={() => document.getElementById("sintesis")?.scrollIntoView({ behavior: "smooth" })}
           >
             {t.hero.cta}
             <ArrowDown className="w-4 h-4 ml-2" />

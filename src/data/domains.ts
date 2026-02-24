@@ -23,20 +23,71 @@ export const domains: Domain[] = [
       en: "General Presentation",
     },
     description: {
-      es: "Información corporativa, arquitectura del sistema, modelo de datos, seguridad y documentación técnica.",
-      fr: "Informations corporatives, architecture du système, modèle de données, sécurité et documentation technique.",
-      en: "Corporate information, system architecture, data model, security, and technical documentation.",
+      es: "Información corporativa de SYSDE: identidad, presencia global, clientes activos, diferenciadores del sistema y líneas de negocio.",
+      fr: "Informations corporatives de SYSDE : identité, présence mondiale, clients actifs, différenciateurs du système et lignes d'activité.",
+      en: "SYSDE corporate information: identity, global presence, active clients, system differentiators, and lines of business.",
     },
     items: [
-      { es: "Identidad del editor", fr: "Identité de l'éditeur", en: "Publisher Identity", scope: { es: "Razón social, estructura jurídica, capital, países de operación", fr: "Raison sociale, structure juridique, capital, pays d'opération", en: "Legal name, corporate structure, capital, operating countries" } },
-      { es: "Referencias del editor", fr: "Références de l'éditeur", en: "Publisher References", scope: { es: "Clientes activos, casos de éxito, certificaciones", fr: "Clients actifs, cas de réussite, certifications", en: "Active clients, success stories, certifications" } },
-      { es: "Arquitectura funcional", fr: "Architecture fonctionnelle globale", en: "Functional Architecture", scope: { es: "Diagrama de módulos, capas funcionales, flujos principales", fr: "Diagramme des modules, couches fonctionnelles, flux principaux", en: "Module diagram, functional layers, main flows" } },
-      { es: "Arquitectura técnica", fr: "Architecture technique globale", en: "Technical Architecture", scope: { es: "Stack tecnológico, infraestructura, protocolos de comunicación", fr: "Stack technologique, infrastructure, protocoles de communication", en: "Technology stack, infrastructure, communication protocols" } },
-      { es: "Modelo de datos", fr: "Modèle de données", en: "Data Model", scope: { es: "Esquema relacional, entidades principales, diccionario de datos", fr: "Schéma relationnel, entités principales, dictionnaire de données", en: "Relational schema, main entities, data dictionary" } },
-      { es: "Parametrización", fr: "Principes de paramétrage", en: "Parameterization", scope: { es: "Configuración sin código, reglas de negocio, tablas de referencia", fr: "Configuration sans code, règles métier, tables de référence", en: "No-code configuration, business rules, reference tables" } },
-      { es: "Seguridad y acceso", fr: "Sécurité et contrôle d'accès", en: "Security & Access", scope: { es: "Autenticación, roles, permisos granulares, cifrado", fr: "Authentification, rôles, permissions granulaires, chiffrement", en: "Authentication, roles, granular permissions, encryption" } },
-      { es: "Auditoría", fr: "Pistes d'audit", en: "Audit Trails", scope: { es: "Trazabilidad de operaciones, logs inmutables, reportes de auditoría", fr: "Traçabilité des opérations, logs immuables, rapports d'audit", en: "Operation traceability, immutable logs, audit reports" } },
-      { es: "Documentación", fr: "Documentation et aide en ligne", en: "Documentation", scope: { es: "Manuales técnicos, guías de usuario, ayuda contextual en línea", fr: "Manuels techniques, guides utilisateur, aide contextuelle en ligne", en: "Technical manuals, user guides, contextual online help" } },
+      {
+        es: "Nombre de la Empresa",
+        fr: "Nom de l'Entreprise",
+        en: "Company Name",
+        scope: {
+          es: "SYSDE — Empresa tecnológica especializada en el diseño, desarrollo, implementación y soporte de sistemas core financieros modulares e independientes.",
+          fr: "SYSDE — Entreprise technologique spécialisée dans la conception, le développement, l'implémentation et le support de systèmes core financiers modulaires et indépendants.",
+          en: "SYSDE — Technology company specialized in the design, development, implementation, and support of modular, independent financial core systems.",
+        },
+      },
+      {
+        es: "Dirección de la Empresa",
+        fr: "Adresse de l'Entreprise",
+        en: "Company Address",
+        scope: {
+          es: "Torre Humboldt, Calle 53 Este, Distrito de Marbella, Ciudad de Panamá, Panamá.",
+          fr: "Tour Humboldt, 53ème Rue Est, District de Marbella, Panama City, Panama.",
+          en: "Humboldt Tower, 53rd Street East, Marbella District, Panama City, Panama.",
+        },
+      },
+      {
+        es: "Países de Operación",
+        fr: "Pays d'Opération",
+        en: "Countries of Operation",
+        scope: {
+          es: "Américas: Costa Rica, Ecuador, El Salvador, Guatemala, Honduras, Nicaragua, Bolivia, Brasil, Canadá, Chile, Colombia, Haití, México, Panamá, Paraguay, Perú, Rep. Dominicana, Uruguay, Venezuela. África: Benín, Burkina Faso, Djibouti, Gabón, Guinea, Madagascar, Malí, Mauritania, Níger, Senegal, Tanzania, Togo, Zambia. Europa: Bulgaria, Polonia. Asia: Corea del Sur.",
+          fr: "Amériques : Costa Rica, Équateur, El Salvador, Guatemala, Honduras, Nicaragua, Bolivie, Brésil, Canada, Chili, Colombie, Haïti, Mexique, Panama, Paraguay, Pérou, Rép. Dominicaine, Uruguay, Venezuela. Afrique : Bénin, Burkina Faso, Djibouti, Gabon, Guinée, Madagascar, Mali, Mauritanie, Niger, Sénégal, Tanzanie, Togo, Zambie. Europe : Bulgarie, Pologne. Asie : Corée du Sud.",
+          en: "Americas: Costa Rica, Ecuador, El Salvador, Guatemala, Honduras, Nicaragua, Bolivia, Brazil, Canada, Chile, Colombia, Haiti, Mexico, Panama, Paraguay, Peru, Dominican Republic, Uruguay, Venezuela. Africa: Benin, Burkina Faso, Djibouti, Gabon, Guinea, Madagascar, Mali, Mauritania, Niger, Senegal, Tanzania, Togo, Zambia. Europe: Bulgaria, Poland. Asia: South Korea.",
+        },
+      },
+      {
+        es: "Clientes Activos del Core System",
+        fr: "Clients Actifs du Core System",
+        en: "Active Core System Clients",
+        scope: {
+          es: "Centroamérica: 159 | Caribe: 84 | Sudamérica: 187 | Global: 830. En África, más de 400 clientes activos operando SAF.",
+          fr: "Amérique Centrale : 159 | Caraïbes : 84 | Amérique du Sud : 187 | Global : 830. En Afrique, plus de 400 clients actifs opérant SAF.",
+          en: "Central America: 159 | Caribbean: 84 | South America: 187 | Global: 830. In Africa, over 400 active clients running SAF.",
+        },
+      },
+      {
+        es: "Diferenciadores del Credit Core System",
+        fr: "Différenciateurs du Credit Core System",
+        en: "Credit Core System Differentiators",
+        scope: {
+          es: "Suite financiera integrada con vista 360° del cliente. +34 años de experiencia en mercados financieros. Licenciamiento ilimitado sin restricciones de usuarios ni transacciones. Arquitectura modular y escalable (SaaS, on-premise o híbrido). Configuración avanzada sin desarrollo a medida. Capacidades de cumplimiento regulatorio multi-jurisdicción. Optimizado para crédito retail y operaciones de alto volumen. Fábrica de desarrollo dedicada opcional. Soporte integral con expertise regional en español.",
+          fr: "Suite financière intégrée avec vue 360° du client. +34 ans d'expérience dans les marchés financiers. Licence illimitée sans restrictions d'utilisateurs ni de transactions. Architecture modulaire et évolutive (SaaS, on-premise ou hybride). Configuration avancée sans développement sur mesure. Capacités de conformité réglementaire multi-juridiction. Optimisé pour le crédit retail et les opérations à haut volume. Usine de développement dédiée optionnelle. Support intégral avec expertise régionale.",
+          en: "Integrated financial suite with 360° customer view. 34+ years of financial market experience. Unlimited licensing with no user or transaction restrictions. Modular, scalable architecture (SaaS, on-premise, or hybrid). Advanced configuration without custom development. Multi-jurisdiction regulatory compliance capabilities. Optimized for retail credit and high-volume operations. Optional dedicated development factory. Comprehensive support with regional expertise.",
+        },
+      },
+      {
+        es: "Líneas Principales de Negocio",
+        fr: "Principales Lignes d'Activité",
+        en: "Main Lines of Business",
+        scope: {
+          es: "SAF+ Credits (Core de Crédito): origination, administración y gestión del ciclo completo. SAF+ Leasing: gestión integral de leasing financiero y operativo. SAF+ Factoring: core especializado en factoring y confirming. SAF+ Cards: administración de productos de tarjetas. SAF+ Pension: core para administración de fondos de pensión. Servicios adicionales: consultoría, implementación, integración (APIs), formación y soporte.",
+          fr: "SAF+ Credits (Core de Crédit) : origination, administration et gestion du cycle complet. SAF+ Leasing : gestion intégrale du leasing financier et opérationnel. SAF+ Factoring : core spécialisé en factoring et confirming. SAF+ Cards : administration de produits de cartes. SAF+ Pension : core pour l'administration de fonds de pension. Services additionnels : conseil, implémentation, intégration (APIs), formation et support.",
+          en: "SAF+ Credits (Credit Core): origination, administration, and full lifecycle management. SAF+ Leasing: comprehensive financial and operating leasing management. SAF+ Factoring: specialized factoring and confirming core. SAF+ Cards: card product administration. SAF+ Pension: pension fund administration core. Additional services: consulting, implementation, integration (APIs), training, and support.",
+        },
+      },
     ],
   },
   {

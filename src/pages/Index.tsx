@@ -12,10 +12,10 @@ const Index = () => {
       <div className="min-h-screen">
         <Header />
         <Hero />
+        <SynthesisTable />
         {domains.map((domain, i) => (
           <DomainSection key={domain.id} domain={domain} index={i} />
         ))}
-        <SynthesisTable />
         <Footer />
       </div>
     </LanguageProvider>

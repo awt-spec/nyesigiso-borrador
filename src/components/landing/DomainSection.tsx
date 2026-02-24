@@ -11,6 +11,7 @@ import ProductEvolution from "./ProductEvolution";
 import ArchitectureDiagram from "./ArchitectureDiagram";
 import ReferencesGrid from "./ReferencesGrid";
 import RDOrgChart from "./RDOrgChart";
+import CreditScopeRenderer from "./CreditScopeRenderer";
 
 interface DomainSectionProps {
   domain: Domain;
@@ -143,6 +144,7 @@ const DomainSection = ({ domain, index }: DomainSectionProps) => {
     const status = item.status;
     const config = status ? statusConfig[status] : null;
     const StatusIcon = config?.icon || CheckCircle2;
+    const isCreditItem = item.group === "creditos";
 
     const iconColor = !status
       ? "text-sysde-green"
@@ -196,14 +198,18 @@ const DomainSection = ({ domain, index }: DomainSectionProps) => {
                 </span>
               </div>
             )}
-            <div className="bg-muted/50 rounded-lg p-4 border border-border/50 mb-4">
-              <p className="text-xs font-bold text-primary uppercase tracking-wider mb-1.5">
-                {sectionLabels[language].scope}
-              </p>
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                {item.scope[language]}
-              </p>
-            </div>
+            {isCreditItem ? (
+              <CreditScopeRenderer text={item.scope[language]} />
+            ) : (
+              <div className="bg-muted/50 rounded-lg p-4 border border-border/50 mb-4">
+                <p className="text-xs font-bold text-primary uppercase tracking-wider mb-1.5">
+                  {sectionLabels[language].scope}
+                </p>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  {item.scope[language]}
+                </p>
+              </div>
+            )}
             {CustomRenderer && (
               <div className="mt-2">
                 <CustomRenderer />

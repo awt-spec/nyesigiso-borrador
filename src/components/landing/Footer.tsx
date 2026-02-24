@@ -6,19 +6,23 @@ const Footer = () => {
   const t = translations[language];
 
   return (
-    <footer className="bg-[hsl(var(--sysde-blue-dark))] text-primary-foreground py-12 px-4">
-      <div className="max-w-5xl mx-auto text-center space-y-3">
-        <div className="flex items-center justify-center gap-3 mb-6">
-          <div className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center font-bold text-accent-foreground text-sm">
-            SYS
+    <footer className="bg-foreground border-t border-background/10 py-10 px-4">
+      <div className="max-w-5xl mx-auto">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded bg-primary flex items-center justify-center font-bold text-primary-foreground text-xs">
+              SYS
+            </div>
+            <span className="font-bold text-background text-sm">SYSDE</span>
           </div>
-          <span className="font-display text-xl font-bold">SYSDE</span>
+          <div className="text-center md:text-right space-y-1">
+            <p className="text-background/50 text-xs">{t.footer.prepared}</p>
+            <p className="text-background/30 text-[10px]">{t.footer.reference}</p>
+          </div>
         </div>
-        <p className="text-primary-foreground/70 text-sm">{t.footer.prepared}</p>
-        <p className="text-primary-foreground/50 text-xs">{t.footer.reference}</p>
-        <p className="text-primary-foreground/50 text-xs">{t.footer.contact}</p>
-        <div className="border-t border-primary-foreground/10 pt-6 mt-6">
-          <p className="text-primary-foreground/40 text-xs">{t.footer.rights}</p>
+        <div className="border-t border-background/10 mt-6 pt-4 flex flex-col md:flex-row items-center justify-between gap-2">
+          <p className="text-background/30 text-[10px]">{t.footer.rights}</p>
+          <p className="text-background/30 text-[10px]">{t.footer.contact}</p>
         </div>
       </div>
     </footer>

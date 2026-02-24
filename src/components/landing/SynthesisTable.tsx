@@ -12,6 +12,9 @@ const SynthesisTable = () => {
   const [visible, setVisible] = useState(false);
   const [hoveredDomain, setHoveredDomain] = useState<string | null>(null);
   const ref = useRef<HTMLElement>(null);
+  const totalItems = domains.reduce((acc, d) => acc + d.items.length, 0);
+  const totalCovered = domains.reduce((acc, d) => acc + d.items.filter(i => !i.status || i.status === "cubierto").length, 0);
+  const globalPercent = Math.round((totalCovered / totalItems) * 100);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -24,11 +27,20 @@ const SynthesisTable = () => {
 
   useEffect(() => {
     if (!visible) return;
-    const timer = setTimeout(() => setProgress(100), 300);
+    const timer = setTimeout(() => setProgress(globalPercent), 300);
     return () => clearTimeout(timer);
-  }, [visible]);
+  }, [visible, globalPercent]);
 
-  const totalItems = domains.reduce((acc, d) => acc + d.items.length, 0);
+  const getDomainCoverage = (d: typeof domains[0]) => {
+    const covered = d.items.filter(i => !i.status || i.status === "cubierto").length;
+    return Math.round((covered / d.items.length) * 100);
+  };
+
+  const getCoverageColor = (pct: number) => {
+    if (pct >= 80) return "text-emerald-400";
+    if (pct >= 50) return "text-amber-400";
+    return "text-red-400";
+  };
 
   return (
     <section id="sintesis" ref={ref} className="py-12 md:py-16 px-4 bg-foreground">
@@ -56,9 +68,9 @@ const SynthesisTable = () => {
             >
               <div className="flex items-start justify-between gap-2 mb-2">
                 <span className="text-xs font-black text-primary/60">{d.number}</span>
-                <span className="inline-flex items-center gap-1 text-[hsl(var(--sysde-green))] font-bold text-[10px]">
+                <span className={`inline-flex items-center gap-1 font-bold text-[10px] ${getCoverageColor(getDomainCoverage(d))}`}>
                   <CheckCircle2 className="w-3 h-3" />
-                  100%
+                  {getDomainCoverage(d)}%
                 </span>
               </div>
               <h3 className="text-background/90 font-bold text-sm leading-snug mb-1.5 group-hover:text-primary transition-colors">
@@ -79,7 +91,7 @@ const SynthesisTable = () => {
               <span className="text-background font-bold text-sm">{t.synthesis.total}</span>
               <span className="text-background/40 text-xs ml-2 font-mono">{totalItems} items</span>
             </div>
-            <span className="text-[hsl(var(--sysde-green))] font-black text-lg">{progress}%</span>
+            <span className={`font-black text-lg ${getCoverageColor(progress)}`}>{progress}%</span>
           </div>
           <Progress value={progress} className="h-2.5 bg-background/10 [&>div]:bg-primary [&>div]:transition-all [&>div]:duration-[2s]" />
         </div>

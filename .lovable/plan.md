@@ -1,74 +1,86 @@
 
 
-# Landing Page SYSDE → NYESIGISO | "100% Cobertura Total"
-## Con soporte multiidioma: Español, Francés e Inglés
+# Plan: Reestructurar el sitio con la estructura exacta del documento RFP
 
----
+## Problema actual
+Los dominios 02-12 tienen una estructura plana (lista de items sin sub-categorias), pero el documento PDF muestra que cada dominio tiene **sub-categorias** con encabezados (ej: "Agencia / Agence", "Banca a Distancia / Banque a distance") y cada item tiene un **estado de cobertura** con colores ([CUBIERTO], [PARCIAL], [NO CUBIERTO - A COTIZAR], [EXCLUIDO - Art. 6]).
 
-## 1. Selector de Idioma
-- Botón/dropdown en el header (esquina superior derecha) con banderas o códigos: **ES | FR | EN**
-- Al cambiar idioma, todo el contenido se traduce instantáneamente (sin recarga)
-- El idioma seleccionado se guarda y se mantiene al navegar entre secciones
-- Animación suave de transición al cambiar idioma (fade)
+## Cambios propuestos
 
-## 2. Header / Navegación
-- Logo SYSDE + nombre del proyecto (traducido según idioma)
-- Menú sticky con links a cada dominio (scroll suave)
-- Selector de idioma integrado en el header
-- Colores corporativos SYSDE (azul institucional, blanco, verde, acento dorado)
+### 1. Actualizar el modelo de datos (`src/data/domains.ts`)
 
-## 3. Hero Section con Contadores Animados
-- Título, subtítulo y CTA traducidos según idioma seleccionado
-- 4 contadores animados (count-up al entrar en viewport):
-  - **77** Items evaluados
-  - **100%** Cobertura funcional
-  - **12** Dominios cubiertos
-  - **87** Bases de datos a consolidar
+Agregar soporte para sub-categorias y estados de cobertura:
 
-## 4. Leyenda de Estados
-- Todo en verde ✅ CUBIERTO
-- Mensaje de confianza traducido
+```text
+DomainItem (actualizado):
+  - es, fr, en (nombre del item)
+  - scope: { es, fr, en } (descripcion)
+  - status: "cubierto" | "parcial" | "no-cubierto" | "excluido"
+  - group?: string (sub-categoria a la que pertenece)
 
-## 5. 12 Secciones por Dominio (full-width con scroll)
-- Cada sección con título en el idioma seleccionado (ej: francés original + traducción)
-- Animación fade-in + slide-up al scroll
-- Lista de items con ícono ✅ y descripción traducida
-- Fondos alternados claro/oscuro
+Domain (actualizado):
+  - groups?: { id: string, title: { es, fr, en } }[]
+```
 
-### Dominios:
-1. Presentación General (9 items)
-2. Multicanal (6 items)
-3. Marketing y Comercial (6 items)
-4. Referencial de Terceros (4 items)
-5. Gestión de Clientes (10 items)
-6. Productos y Servicios (11 items)
-7. Intercambios Externos (1 item)
-8. Funciones de Soporte (15 items)
-9. Pilotaje y Decisión (7 items)
-10. Intercambios Internos (4 items)
-11. Características Técnicas (12 items)
-12. Prestaciones Anexas (8 items)
+Actualizar **todos los dominios 02-12** con los datos exactos del PDF:
+- **Dominio 02 (Multicanal)**: 2 grupos (Agencia, Banca a Distancia) con 6 items y estados correctos
+- **Dominio 03 (Marketing)**: 2 grupos (Marketing, Comercial) con 6 items
+- **Dominio 04 (Referencial)**: 4 items sin sub-grupos
+- **Dominio 05 (Gestion Clientes)**: 3 grupos (Gestion, Riesgos, Juridico) con ~11 items
+- **Dominio 06 (Productos)**: 4 grupos (Depositos, Ahorro, Creditos, Catalogo) con ~12 items
+- **Dominio 07 (Intercambios Externos)**: 1 item
+- **Dominio 08 (Funciones Soporte)**: 5 grupos (Contabilidad, RRHH, Control General, Finanzas, Logistica)
+- **Dominio 09 (Pilotaje)**: 2 grupos (Pilotaje, Apoyo a la Decision)
+- **Dominio 10 (Intercambios Internos)**: 4 items
+- **Dominio 11 (Caracteristicas Tecnicas)**: 12 items tecnicas
+- **Dominio 12 (Prestaciones Anexas)**: 8 items
 
-## 6. Tabla Síntesis
-- Resumen visual: **100% CUBIERTO**
-- Barra de progreso animada al 100%
-- Contenido traducido
+**El Dominio 01 (Presentacion) NO se toca** - se mantiene tal cual con los componentes custom ya creados.
 
-## 7. Footer
-- Datos de SYSDE, referencia al documento, contacto
-- Traducido según idioma
+### 2. Actualizar el componente `DomainSection.tsx`
 
-## Sistema de Idiomas (Implementación)
-- Diccionario de traducciones con las 3 versiones de todo el contenido (ES/FR/EN)
-- Context de React para manejar el idioma activo globalmente
-- Transición suave (fade) al cambiar entre idiomas
-- Idioma por defecto: Español
+- Renderizar **encabezados de sub-categoria** como barras azules (estilo del screenshot) cuando un grupo cambia
+- Mostrar **badges de estado** con colores:
+  - Verde: [CUBIERTO]
+  - Naranja/amarillo: [PARCIAL]
+  - Rojo: [NO CUBIERTO - A COTIZAR]
+  - Gris oscuro: [EXCLUIDO - Art. 6]
+- Actualizar el contador del header para mostrar items cubiertos vs total (ej: "35/77")
+- Mantener todos los custom renderers existentes para el Dominio 01
 
-## Transiciones y Animaciones
-- Scroll suave entre secciones
-- Count-up animado en contadores
-- Fade-in + slide-up por sección al hacer scroll
-- Hover effects en items
-- Barra de progreso de navegación superior
-- Fade suave al cambiar de idioma
+### 3. Estilo visual (referencia del screenshot)
+
+```text
++--------------------------------------------------+
+| Agencia / Agence                    [barra azul]  |
++--------------------------------------------------+
+| * Puesto de Trabajo / Poste de travail [CUBIERTO] |
+|   Descripcion del alcance...                      |
+| * Operaciones de Ventanilla          [CUBIERTO]   |
+|   Descripcion...                                  |
+| * Cambio Manual de Divisas           [PARCIAL]    |
+|   Descripcion...                                  |
++--------------------------------------------------+
+| Banca a Distancia / Banque a distance [barra azul]|
++--------------------------------------------------+
+| * Internet Banking      [NO CUBIERTO - A COTIZAR] |
+|   Descripcion...                                  |
+```
+
+## Lo que NO se modifica
+- Componentes custom existentes: IdentityCard, FinancialSummary, CompanyStructure, WorldMap, BusinessLines, ProductEvolution, ReferencesGrid, ArchitectureDiagram
+- Dominio 01 (Presentacion General) - permanece intacto
+- Header, Hero, SynthesisTable, DomainNav, Footer
+- Estructura general de la pagina
+
+## Seccion tecnica
+
+### Archivos a modificar:
+1. **`src/data/domains.ts`** - Agregar campos `status` y `group` al interface `DomainItem`, agregar `groups` al interface `Domain`, actualizar datos de dominios 02-12
+2. **`src/components/landing/DomainSection.tsx`** - Renderizar sub-categorias como barras azules, badges de estado con colores, contador actualizado
+
+### Archivos sin cambios:
+- Todos los componentes en `src/components/landing/` (excepto DomainSection)
+- `src/pages/Index.tsx`, `src/App.tsx`
+- Todos los componentes UI
 

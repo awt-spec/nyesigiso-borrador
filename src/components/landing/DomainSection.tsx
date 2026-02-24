@@ -10,6 +10,7 @@ import BusinessLines from "./BusinessLines";
 import ProductEvolution from "./ProductEvolution";
 import ArchitectureDiagram from "./ArchitectureDiagram";
 import ReferencesGrid from "./ReferencesGrid";
+import RDOrgChart from "./RDOrgChart";
 
 interface DomainSectionProps {
   domain: Domain;
@@ -21,6 +22,7 @@ const CUSTOM_RENDERERS: Record<string, Record<number, React.FC>> = {
     0: IdentityCard,
     2: FinancialSummary,
     3: CompanyStructure,
+    4: RDOrgChart,
     5: BusinessLines,
     6: ProductEvolution,
     7: ReferencesGrid,

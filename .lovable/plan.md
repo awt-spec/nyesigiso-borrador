@@ -1,86 +1,24 @@
 
 
-# Plan: Reestructurar el sitio con la estructura exacta del documento RFP
+# Plan: Actualizar descripciones de los 7 productos de crédito existentes
 
-## Problema actual
-Los dominios 02-12 tienen una estructura plana (lista de items sin sub-categorias), pero el documento PDF muestra que cada dominio tiene **sub-categorias** con encabezados (ej: "Agencia / Agence", "Banca a Distancia / Banque a distance") y cada item tiene un **estado de cobertura** con colores ([CUBIERTO], [PARCIAL], [NO CUBIERTO - A COTIZAR], [EXCLUIDO - Art. 6]).
+Solo se actualizan los `scope` (descripciones) de los 7 items que ya existen en el grupo "creditos" del Dominio 06. **No se agregan productos nuevos.**
 
-## Cambios propuestos
+## Items a actualizar (líneas 245-251 de `src/data/domains.ts`)
 
-### 1. Actualizar el modelo de datos (`src/data/domains.ts`)
+1. **Crédito Personal** (L245) → Contexto Crédit Consommation / Salaire-Pension, fórmula cuota sistema francés, regla BCEAO 33%, ejemplo numérico
+2. **Crédito Inmobiliario** (L246) → 3 modalidades Habitat, LTV ≤70%, fórmula para no-asalariados por flujo de negocio
+3. **Crédito Profesional** (L247) → AGR <1M / >1M XOF, análisis flujo de caja, ROI mínimo, capacidad de pago 40%
+4. **Avales/Fianzas** (L248) → Avales solidarios cooperativos, comisión de aval, provisión contingente PD×LGD×CCF
+5. **Compromiso por Firma** (L249) → Cartas de compromiso ante proveedores/fondeo, exposición pre-desembolso
+6. **Sobregiro** (L250) → Découvert Salaire/Pension, factor 50-70%, liquidación automática contra nómina
+7. **Gestión de Balances** (L251) → Reestructuración preventiva, consolidación de deudas, nueva cuota
 
-Agregar soporte para sub-categorias y estados de cobertura:
-
-```text
-DomainItem (actualizado):
-  - es, fr, en (nombre del item)
-  - scope: { es, fr, en } (descripcion)
-  - status: "cubierto" | "parcial" | "no-cubierto" | "excluido"
-  - group?: string (sub-categoria a la que pertenece)
-
-Domain (actualizado):
-  - groups?: { id: string, title: { es, fr, en } }[]
-```
-
-Actualizar **todos los dominios 02-12** con los datos exactos del PDF:
-- **Dominio 02 (Multicanal)**: 2 grupos (Agencia, Banca a Distancia) con 6 items y estados correctos
-- **Dominio 03 (Marketing)**: 2 grupos (Marketing, Comercial) con 6 items
-- **Dominio 04 (Referencial)**: 4 items sin sub-grupos
-- **Dominio 05 (Gestion Clientes)**: 3 grupos (Gestion, Riesgos, Juridico) con ~11 items
-- **Dominio 06 (Productos)**: 4 grupos (Depositos, Ahorro, Creditos, Catalogo) con ~12 items
-- **Dominio 07 (Intercambios Externos)**: 1 item
-- **Dominio 08 (Funciones Soporte)**: 5 grupos (Contabilidad, RRHH, Control General, Finanzas, Logistica)
-- **Dominio 09 (Pilotaje)**: 2 grupos (Pilotaje, Apoyo a la Decision)
-- **Dominio 10 (Intercambios Internos)**: 4 items
-- **Dominio 11 (Caracteristicas Tecnicas)**: 12 items tecnicas
-- **Dominio 12 (Prestaciones Anexas)**: 8 items
-
-**El Dominio 01 (Presentacion) NO se toca** - se mantiene tal cual con los componentes custom ya creados.
-
-### 2. Actualizar el componente `DomainSection.tsx`
-
-- Renderizar **encabezados de sub-categoria** como barras azules (estilo del screenshot) cuando un grupo cambia
-- Mostrar **badges de estado** con colores:
-  - Verde: [CUBIERTO]
-  - Naranja/amarillo: [PARCIAL]
-  - Rojo: [NO CUBIERTO - A COTIZAR]
-  - Gris oscuro: [EXCLUIDO - Art. 6]
-- Actualizar el contador del header para mostrar items cubiertos vs total (ej: "35/77")
-- Mantener todos los custom renderers existentes para el Dominio 01
-
-### 3. Estilo visual (referencia del screenshot)
-
-```text
-+--------------------------------------------------+
-| Agencia / Agence                    [barra azul]  |
-+--------------------------------------------------+
-| * Puesto de Trabajo / Poste de travail [CUBIERTO] |
-|   Descripcion del alcance...                      |
-| * Operaciones de Ventanilla          [CUBIERTO]   |
-|   Descripcion...                                  |
-| * Cambio Manual de Divisas           [PARCIAL]    |
-|   Descripcion...                                  |
-+--------------------------------------------------+
-| Banca a Distancia / Banque a distance [barra azul]|
-+--------------------------------------------------+
-| * Internet Banking      [NO CUBIERTO - A COTIZAR] |
-|   Descripcion...                                  |
-```
+## Archivo a modificar
+- **`src/data/domains.ts`** — Líneas 245-251: reemplazar los `scope` cortos actuales por descripciones extensas trilingües (ES/FR/EN) con el contenido del documento Nyèsigiso
 
 ## Lo que NO se modifica
-- Componentes custom existentes: IdentityCard, FinancialSummary, CompanyStructure, WorldMap, BusinessLines, ProductEvolution, ReferencesGrid, ArchitectureDiagram
-- Dominio 01 (Presentacion General) - permanece intacto
-- Header, Hero, SynthesisTable, DomainNav, Footer
-- Estructura general de la pagina
-
-## Seccion tecnica
-
-### Archivos a modificar:
-1. **`src/data/domains.ts`** - Agregar campos `status` y `group` al interface `DomainItem`, agregar `groups` al interface `Domain`, actualizar datos de dominios 02-12
-2. **`src/components/landing/DomainSection.tsx`** - Renderizar sub-categorias como barras azules, badges de estado con colores, contador actualizado
-
-### Archivos sin cambios:
-- Todos los componentes en `src/components/landing/` (excepto DomainSection)
-- `src/pages/Index.tsx`, `src/App.tsx`
-- Todos los componentes UI
+- No se agregan items nuevos
+- No se tocan otros dominios ni grupos
+- No se modifican componentes
 

@@ -1,7 +1,7 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translations } from "@/data/translations";
 import { domains } from "@/data/domains";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, ArrowRight } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { useEffect, useRef, useState } from "react";
 
@@ -10,6 +10,7 @@ const SynthesisTable = () => {
   const t = translations[language];
   const [progress, setProgress] = useState(0);
   const [visible, setVisible] = useState(false);
+  const [hoveredDomain, setHoveredDomain] = useState<string | null>(null);
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -30,46 +31,57 @@ const SynthesisTable = () => {
   const totalItems = domains.reduce((acc, d) => acc + d.items.length, 0);
 
   return (
-    <section id="sintesis" ref={ref} className="py-16 px-4 bg-foreground">
-      <div className={`max-w-4xl mx-auto transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+    <section id="sintesis" ref={ref} className="py-12 md:py-16 px-4 bg-foreground">
+      <div className={`max-w-5xl mx-auto transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
         <p className="text-primary text-xs font-bold tracking-widest uppercase mb-2">{t.synthesis.subtitle}</p>
-        <h2 className="text-2xl md:text-3xl font-black text-background mb-8">{t.synthesis.title}</h2>
+        <h2 className="text-2xl md:text-3xl font-black text-background mb-3">{t.synthesis.title}</h2>
+        <p className="text-background/40 text-sm mb-8 max-w-xl">
+          {language === "es" && "Haga clic en cualquier dominio para navegar directamente a su sección detallada."}
+          {language === "fr" && "Cliquez sur un domaine pour accéder directement à sa section détaillée."}
+          {language === "en" && "Click any domain to navigate directly to its detailed section."}
+        </p>
 
-        <div className="rounded-xl border border-background/10 overflow-hidden">
-          {/* Header row */}
-          <div className="grid grid-cols-[1fr_80px_100px] gap-4 px-5 py-3 bg-background/5 text-xs font-bold text-background/50 uppercase tracking-wider">
-            <span>{t.synthesis.domain}</span>
-            <span className="text-center">{t.synthesis.items}</span>
-            <span className="text-right">{t.synthesis.status}</span>
-          </div>
-
+        {/* Grid cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-8">
           {domains.map((d, i) => (
-            <div key={d.id} className={`grid grid-cols-[1fr_80px_100px] gap-4 px-5 py-3 text-sm border-t border-background/5 hover:bg-background/5 transition-colors ${visible ? "opacity-100" : "opacity-0"}`} style={{ transitionDelay: `${200 + i * 50}ms`, transitionDuration: "500ms" }}>
-              <span className="text-background/80 font-medium">{d.number}. {d.title[language]}</span>
-              <span className="text-center text-background/40 font-mono">{d.items.length}</span>
-              <span className="text-right">
-                <span className="inline-flex items-center gap-1 text-[hsl(var(--sysde-green))] font-bold text-xs">
+            <a
+              key={d.id}
+              href={`#${d.id}`}
+              className={`group relative rounded-xl border border-background/10 p-4 transition-all duration-300 cursor-pointer hover:border-primary/40 hover:bg-background/5 ${
+                visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              } ${hoveredDomain === d.id ? "border-primary/40 bg-background/5 scale-[1.02]" : ""}`}
+              style={{ transitionDelay: `${100 + i * 40}ms` }}
+              onMouseEnter={() => setHoveredDomain(d.id)}
+              onMouseLeave={() => setHoveredDomain(null)}
+            >
+              <div className="flex items-start justify-between gap-2 mb-2">
+                <span className="text-xs font-black text-primary/60">{d.number}</span>
+                <span className="inline-flex items-center gap-1 text-[hsl(var(--sysde-green))] font-bold text-[10px]">
                   <CheckCircle2 className="w-3 h-3" />
                   100%
                 </span>
-              </span>
-            </div>
+              </div>
+              <h3 className="text-background/90 font-bold text-sm leading-snug mb-1.5 group-hover:text-primary transition-colors">
+                {d.title[language]}
+              </h3>
+              <div className="flex items-center justify-between">
+                <span className="text-background/30 text-xs font-mono">{d.items.length} items</span>
+                <ArrowRight className="w-3.5 h-3.5 text-background/20 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+              </div>
+            </a>
           ))}
-
-          {/* Total row */}
-          <div className="grid grid-cols-[1fr_80px_100px] gap-4 px-5 py-4 bg-primary/20 border-t border-background/10 font-bold text-sm">
-            <span className="text-background">{t.synthesis.total}</span>
-            <span className="text-center text-background font-mono">{totalItems}</span>
-            <span className="text-right text-[hsl(var(--sysde-green))] font-black">100%</span>
-          </div>
         </div>
 
-        <div className="mt-6">
-          <div className="flex justify-between text-xs mb-2">
-            <span className="text-background/40 font-medium">{t.synthesis.total}</span>
-            <span className="font-black text-primary">{progress}%</span>
+        {/* Total summary bar */}
+        <div className="rounded-xl border border-background/10 bg-background/5 p-5">
+          <div className="flex items-center justify-between mb-3">
+            <div>
+              <span className="text-background font-bold text-sm">{t.synthesis.total}</span>
+              <span className="text-background/40 text-xs ml-2 font-mono">{totalItems} items</span>
+            </div>
+            <span className="text-[hsl(var(--sysde-green))] font-black text-lg">{progress}%</span>
           </div>
-          <Progress value={progress} className="h-2 bg-background/10 [&>div]:bg-primary [&>div]:transition-all [&>div]:duration-[2s]" />
+          <Progress value={progress} className="h-2.5 bg-background/10 [&>div]:bg-primary [&>div]:transition-all [&>div]:duration-[2s]" />
         </div>
       </div>
     </section>

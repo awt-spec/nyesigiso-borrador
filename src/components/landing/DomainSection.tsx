@@ -14,8 +14,8 @@ interface DomainSectionProps {
 // Map specific item indices in domain "presentacion" to custom components
 const CUSTOM_RENDERERS: Record<string, Record<number, React.FC>> = {
   presentacion: {
-    2: WorldMap,           // "Países de Operación"
-    5: BusinessLines,      // "Líneas Principales de Negocio"
+    3: WorldMap,           // "Tamaño" — countries map
+    5: BusinessLines,      // "Producto" — business lines
   },
 };
 

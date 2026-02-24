@@ -1,6 +1,6 @@
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Domain } from "@/data/domains";
-import { CheckCircle2, ChevronDown } from "lucide-react";
+import { Domain, CoverageStatus } from "@/data/domains";
+import { CheckCircle2, ChevronDown, AlertTriangle, XCircle, Ban } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import IdentityCard from "./IdentityCard";
 import FinancialSummary from "./FinancialSummary";
@@ -16,7 +16,6 @@ interface DomainSectionProps {
   index: number;
 }
 
-// Map specific item indices in domain "presentacion" to custom components
 const CUSTOM_RENDERERS: Record<string, Record<number, React.FC>> = {
   presentacion: {
     0: IdentityCard,
@@ -34,6 +33,33 @@ const sectionLabels = {
   en: { scope: "Scope", expand: "Expand", collapse: "Collapse" },
 };
 
+const statusConfig: Record<CoverageStatus, {
+  label: { es: string; fr: string; en: string };
+  className: string;
+  icon: React.FC<{ className?: string }>;
+}> = {
+  cubierto: {
+    label: { es: "CUBIERTO", fr: "COUVERT", en: "COVERED" },
+    className: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border-emerald-500/30",
+    icon: CheckCircle2,
+  },
+  parcial: {
+    label: { es: "PARCIAL", fr: "PARTIEL", en: "PARTIAL" },
+    className: "bg-amber-500/15 text-amber-700 dark:text-amber-400 border-amber-500/30",
+    icon: AlertTriangle,
+  },
+  "no-cubierto": {
+    label: { es: "NO CUBIERTO - A COTIZAR", fr: "NON COUVERT - À CHIFFRER", en: "NOT COVERED - TO QUOTE" },
+    className: "bg-red-500/15 text-red-700 dark:text-red-400 border-red-500/30",
+    icon: XCircle,
+  },
+  excluido: {
+    label: { es: "EXCLUIDO - Art. 6", fr: "EXCLU - Art. 6", en: "EXCLUDED - Art. 6" },
+    className: "bg-gray-500/15 text-gray-600 dark:text-gray-400 border-gray-500/30",
+    icon: Ban,
+  },
+};
+
 const DomainSection = ({ domain, index }: DomainSectionProps) => {
   const { language } = useLanguage();
   const [visible, setVisible] = useState(false);
@@ -41,6 +67,11 @@ const DomainSection = ({ domain, index }: DomainSectionProps) => {
   const [allExpanded, setAllExpanded] = useState(false);
   const ref = useRef<HTMLElement>(null);
   const isEven = index % 2 === 0;
+  const hasStatuses = domain.items.some(item => item.status);
+
+  // Coverage stats
+  const coveredCount = domain.items.filter(i => i.status === "cubierto").length;
+  const totalCount = domain.items.length;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -70,8 +101,122 @@ const DomainSection = ({ domain, index }: DomainSectionProps) => {
     }
   };
 
-  // Check if this domain has an architecture section to show at the bottom
   const showArchitecture = domain.id === "tecnicas";
+
+  // Group items by their group field
+  const renderItems = () => {
+    if (!domain.groups || domain.groups.length === 0) {
+      // No groups — flat list
+      return domain.items.map((item, i) => renderItem(item, i));
+    }
+
+    // Render grouped
+    const elements: React.ReactNode[] = [];
+    let currentGroup = "";
+    domain.items.forEach((item, i) => {
+      if (item.group && item.group !== currentGroup) {
+        currentGroup = item.group;
+        const groupDef = domain.groups!.find(g => g.id === item.group);
+        if (groupDef) {
+          elements.push(
+            <div
+              key={`group-${item.group}`}
+              className="rounded-lg bg-primary/10 border border-primary/20 px-4 py-2.5 mt-4 first:mt-0"
+            >
+              <h3 className="text-sm font-bold text-primary tracking-wide">
+                {groupDef.title[language]}
+              </h3>
+            </div>
+          );
+        }
+      }
+      elements.push(renderItem(item, i));
+    });
+    return elements;
+  };
+
+  const renderItem = (item: typeof domain.items[0], i: number) => {
+    const isOpen = expandedItems.has(i);
+    const CustomRenderer = CUSTOM_RENDERERS[domain.id]?.[i];
+    const status = item.status;
+    const config = status ? statusConfig[status] : null;
+    const StatusIcon = config?.icon || CheckCircle2;
+
+    const iconColor = !status
+      ? "text-sysde-green"
+      : status === "cubierto"
+        ? "text-emerald-500"
+        : status === "parcial"
+          ? "text-amber-500"
+          : status === "no-cubierto"
+            ? "text-red-500"
+            : "text-gray-400";
+
+    return (
+      <div
+        key={i}
+        className={`rounded-lg border transition-all duration-300 ${
+          isOpen
+            ? "border-primary/20 bg-card shadow-sm"
+            : "border-transparent hover:border-border hover:bg-card/50"
+        } ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"}`}
+        style={{ transitionDelay: `${80 + i * 30}ms` }}
+      >
+        <button
+          onClick={() => toggleItem(i)}
+          className="w-full flex items-center gap-3 p-3.5 text-left group"
+        >
+          <StatusIcon className={`w-4 h-4 ${iconColor} flex-shrink-0`} />
+          <span className="flex-1 text-foreground font-semibold text-sm group-hover:text-primary transition-colors">
+            {item[language]}
+          </span>
+          {config && (
+            <span className={`hidden sm:inline-flex items-center text-[10px] font-bold px-2 py-0.5 rounded-full border whitespace-nowrap ${config.className}`}>
+              {config.label[language]}
+            </span>
+          )}
+          <span className={`text-muted-foreground transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}>
+            <ChevronDown className="w-4 h-4" />
+          </span>
+        </button>
+
+        <div
+          className={`overflow-hidden transition-all duration-300 ease-in-out ${
+            isOpen ? "max-h-[3000px] opacity-100" : "max-h-0 opacity-0"
+          }`}
+        >
+          <div className="px-3.5 pb-4 pl-11">
+            {/* Mobile status badge */}
+            {config && (
+              <div className="sm:hidden mb-3">
+                <span className={`inline-flex items-center text-[10px] font-bold px-2 py-0.5 rounded-full border ${config.className}`}>
+                  {config.label[language]}
+                </span>
+              </div>
+            )}
+            <div className="bg-muted/50 rounded-lg p-4 border border-border/50 mb-4">
+              <p className="text-xs font-bold text-primary uppercase tracking-wider mb-1.5">
+                {sectionLabels[language].scope}
+              </p>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                {item.scope[language]}
+              </p>
+            </div>
+            {CustomRenderer && (
+              <div className="mt-2">
+                <CustomRenderer />
+              </div>
+            )}
+            {domain.id === "presentacion" && i === 3 && (
+              <div className="mt-4">
+                <WorldMap />
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <section
@@ -98,10 +243,17 @@ const DomainSection = ({ domain, index }: DomainSectionProps) => {
             </p>
           </div>
           <div className="flex items-center gap-2 flex-shrink-0">
-            <span className="hidden md:inline-flex items-center gap-1.5 text-xs font-bold text-sysde-green bg-[hsl(var(--sysde-green))]/10 px-3 py-1.5 rounded-full whitespace-nowrap">
-              <CheckCircle2 className="w-3.5 h-3.5" />
-              {domain.items.length}/{domain.items.length}
-            </span>
+            {hasStatuses ? (
+              <span className="hidden md:inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-full whitespace-nowrap">
+                <CheckCircle2 className="w-3.5 h-3.5" />
+                {coveredCount}/{totalCount}
+              </span>
+            ) : (
+              <span className="hidden md:inline-flex items-center gap-1.5 text-xs font-bold text-sysde-green bg-[hsl(var(--sysde-green))]/10 px-3 py-1.5 rounded-full whitespace-nowrap">
+                <CheckCircle2 className="w-3.5 h-3.5" />
+                {totalCount}/{totalCount}
+              </span>
+            )}
             <button
               onClick={toggleAll}
               className="text-xs text-muted-foreground hover:text-primary font-medium px-2.5 py-1.5 rounded-md hover:bg-muted transition-colors border border-border"
@@ -111,73 +263,12 @@ const DomainSection = ({ domain, index }: DomainSectionProps) => {
           </div>
         </div>
 
-        {/* Items list — accordion style */}
+        {/* Items list */}
         <div className="space-y-1.5">
-          {domain.items.map((item, i) => {
-            const isOpen = expandedItems.has(i);
-            const CustomRenderer = CUSTOM_RENDERERS[domain.id]?.[i];
-
-            return (
-              <div
-                key={i}
-                className={`rounded-lg border transition-all duration-300 ${
-                  isOpen
-                    ? "border-primary/20 bg-card shadow-sm"
-                    : "border-transparent hover:border-border hover:bg-card/50"
-                } ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"}`}
-                style={{ transitionDelay: `${80 + i * 30}ms` }}
-              >
-                <button
-                  onClick={() => toggleItem(i)}
-                  className="w-full flex items-center gap-3 p-3.5 text-left group"
-                >
-                  <CheckCircle2 className="w-4 h-4 text-sysde-green flex-shrink-0" />
-                  <span className="flex-1 text-foreground font-semibold text-sm group-hover:text-primary transition-colors">
-                    {item[language]}
-                  </span>
-                  <span className={`text-muted-foreground transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}>
-                    <ChevronDown className="w-4 h-4" />
-                  </span>
-                </button>
-
-                {/* Expandable scope detail */}
-                <div
-                  className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                    isOpen ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0"
-                  }`}
-                >
-                  <div className="px-3.5 pb-4 pl-11">
-                    {/* Text scope */}
-                    <div className="bg-muted/50 rounded-lg p-4 border border-border/50 mb-4">
-                      <p className="text-xs font-bold text-primary uppercase tracking-wider mb-1.5">
-                        {sectionLabels[language].scope}
-                      </p>
-                      <p className="text-muted-foreground text-sm leading-relaxed">
-                        {item.scope[language]}
-                      </p>
-                    </div>
-
-                    {/* Custom interactive component if available */}
-                    {CustomRenderer && (
-                      <div className="mt-2">
-                        <CustomRenderer />
-                      </div>
-                    )}
-
-                    {/* WorldMap shown after CompanyStructure in Tamaño */}
-                    {domain.id === "presentacion" && i === 3 && (
-                      <div className="mt-4">
-                        <WorldMap />
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+          {renderItems()}
         </div>
 
-        {/* Architecture diagram at the bottom of presentacion domain */}
+        {/* Architecture diagram at the bottom of tecnicas domain */}
         {showArchitecture && (
           <div className="mt-10 pt-8 border-t border-border">
             <ArchitectureDiagram />

@@ -1,12 +1,23 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Domain } from "@/data/domains";
-import { CheckCircle2, ChevronDown, ChevronRight } from "lucide-react";
+import { CheckCircle2, ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import WorldMap from "./WorldMap";
+import BusinessLines from "./BusinessLines";
+import ArchitectureDiagram from "./ArchitectureDiagram";
 
 interface DomainSectionProps {
   domain: Domain;
   index: number;
 }
+
+// Map specific item indices in domain "presentacion" to custom components
+const CUSTOM_RENDERERS: Record<string, Record<number, React.FC>> = {
+  presentacion: {
+    2: WorldMap,           // "Países de Operación"
+    5: BusinessLines,      // "Líneas Principales de Negocio"
+  },
+};
 
 const DomainSection = ({ domain, index }: DomainSectionProps) => {
   const { language } = useLanguage();
@@ -43,6 +54,9 @@ const DomainSection = ({ domain, index }: DomainSectionProps) => {
       setAllExpanded(true);
     }
   };
+
+  // Check if this domain has an architecture section to show at the bottom
+  const showArchitecture = domain.id === "presentacion";
 
   return (
     <section
@@ -86,6 +100,8 @@ const DomainSection = ({ domain, index }: DomainSectionProps) => {
         <div className="space-y-1.5">
           {domain.items.map((item, i) => {
             const isOpen = expandedItems.has(i);
+            const CustomRenderer = CUSTOM_RENDERERS[domain.id]?.[i];
+
             return (
               <div
                 key={i}
@@ -112,24 +128,39 @@ const DomainSection = ({ domain, index }: DomainSectionProps) => {
                 {/* Expandable scope detail */}
                 <div
                   className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                    isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                    isOpen ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0"
                   }`}
                 >
                   <div className="px-3.5 pb-4 pl-11">
-                    <div className="bg-muted/50 rounded-lg p-4 border border-border/50">
+                    {/* Text scope */}
+                    <div className="bg-muted/50 rounded-lg p-4 border border-border/50 mb-4">
                       <p className="text-xs font-bold text-primary uppercase tracking-wider mb-1.5">
-                        Alcance / Scope
+                        Alcance
                       </p>
                       <p className="text-muted-foreground text-sm leading-relaxed">
                         {item.scope[language]}
                       </p>
                     </div>
+
+                    {/* Custom interactive component if available */}
+                    {CustomRenderer && (
+                      <div className="mt-2">
+                        <CustomRenderer />
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
             );
           })}
         </div>
+
+        {/* Architecture diagram at the bottom of presentacion domain */}
+        {showArchitecture && (
+          <div className="mt-10 pt-8 border-t border-border">
+            <ArchitectureDiagram />
+          </div>
+        )}
       </div>
     </section>
   );

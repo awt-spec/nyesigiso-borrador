@@ -4,7 +4,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 const t = {
   es: {
     commercialName: "Nombre Comercial",
-    years: "+25 años en el sector financiero",
+    years: "+33 años desarrollando software financiero",
     headquarters: "Dirección Corporativa",
     building: "Edificio",
     street: "Calle",
@@ -14,7 +14,7 @@ const t = {
   },
   fr: {
     commercialName: "Nom Commercial",
-    years: "+25 ans dans le secteur financier",
+    years: "+33 ans de développement logiciel financier",
     headquarters: "Siège Social",
     building: "Bâtiment",
     street: "Rue",
@@ -24,7 +24,7 @@ const t = {
   },
   en: {
     commercialName: "Trade Name",
-    years: "+25 years in the financial sector",
+    years: "+33 years developing financial software",
     headquarters: "Corporate Headquarters",
     building: "Building",
     street: "Street",

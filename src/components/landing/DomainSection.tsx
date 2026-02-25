@@ -12,6 +12,8 @@ import ArchitectureDiagram from "./ArchitectureDiagram";
 import ReferencesGrid from "./ReferencesGrid";
 import RDOrgChart from "./RDOrgChart";
 import CreditScopeRenderer from "./CreditScopeRenderer";
+import RegulatoryExchanges from "./RegulatoryExchanges";
+import WorkflowDiagram from "./WorkflowDiagram";
 
 interface DomainSectionProps {
   domain: Domain;
@@ -27,6 +29,12 @@ const CUSTOM_RENDERERS: Record<string, Record<number, React.FC>> = {
     5: BusinessLines,
     6: ProductEvolution,
     7: ReferencesGrid,
+  },
+  "intercambios-ext": {
+    0: RegulatoryExchanges,
+  },
+  "intercambios-int": {
+    0: WorkflowDiagram,
   },
 };
 

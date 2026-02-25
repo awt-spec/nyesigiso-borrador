@@ -206,7 +206,11 @@ const DomainSection = ({ domain, index }: DomainSectionProps) => {
                 </span>
               </div>
             )}
-            {isCreditItem ? (
+            {CustomRenderer ? (
+              <div>
+                <CustomRenderer />
+              </div>
+            ) : isCreditItem ? (
               <CreditScopeRenderer text={item.scope[language]} />
             ) : (
               <div className="bg-muted/50 rounded-lg p-4 border border-border/50 mb-4">
@@ -216,11 +220,6 @@ const DomainSection = ({ domain, index }: DomainSectionProps) => {
                 <p className="text-muted-foreground text-sm leading-relaxed">
                   {item.scope[language]}
                 </p>
-              </div>
-            )}
-            {CustomRenderer && (
-              <div className="mt-2">
-                <CustomRenderer />
               </div>
             )}
             {domain.id === "presentacion" && i === 3 && (

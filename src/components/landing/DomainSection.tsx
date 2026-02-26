@@ -63,8 +63,8 @@ const statusConfig: Record<CoverageStatus, {
     icon: AlertTriangle,
   },
   "no-cubierto": {
-    label: { es: "A DESARROLLAR", fr: "À DÉVELOPPER", en: "TO DEVELOP" },
-    description: { es: "Requiere desarrollo adicional", fr: "Nécessite un développement additionnel", en: "Requires additional development" },
+    label: { es: "NO CUBIERTO", fr: "NON COUVERT", en: "NOT COVERED" },
+    description: { es: "No cubierto por la plataforma actual", fr: "Non couvert par la plateforme actuelle", en: "Not covered by the current platform" },
     className: "bg-red-500/15 text-red-700 dark:text-red-400 border-red-500/30",
     icon: XCircle,
   },

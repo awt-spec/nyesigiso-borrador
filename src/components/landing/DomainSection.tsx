@@ -1,6 +1,6 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Domain, CoverageStatus } from "@/data/domains";
-import { CheckCircle2, ChevronDown, AlertTriangle, XCircle, Ban } from "lucide-react";
+import { CheckCircle2, ChevronDown, AlertTriangle, XCircle, Ban, PackageCheck, PackageX } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import IdentityCard from "./IdentityCard";
 import FinancialSummary from "./FinancialSummary";
@@ -46,28 +46,46 @@ const sectionLabels = {
 
 const statusConfig: Record<CoverageStatus, {
   label: { es: string; fr: string; en: string };
+  description: { es: string; fr: string; en: string };
   className: string;
   icon: React.FC<{ className?: string }>;
 }> = {
   cubierto: {
     label: { es: "CUBIERTO", fr: "COUVERT", en: "COVERED" },
+    description: { es: "SYSDE puede realizarlo", fr: "SYSDE peut le réaliser", en: "SYSDE can deliver this" },
     className: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border-emerald-500/30",
     icon: CheckCircle2,
   },
   parcial: {
     label: { es: "PARCIAL", fr: "PARTIEL", en: "PARTIAL" },
+    description: { es: "Cobertura parcial", fr: "Couverture partielle", en: "Partial coverage" },
     className: "bg-amber-500/15 text-amber-700 dark:text-amber-400 border-amber-500/30",
     icon: AlertTriangle,
   },
   "no-cubierto": {
     label: { es: "NO CUBIERTO - A COTIZAR", fr: "NON COUVERT - À CHIFFRER", en: "NOT COVERED - TO QUOTE" },
+    description: { es: "Requiere cotización adicional", fr: "Nécessite un devis supplémentaire", en: "Requires additional quote" },
     className: "bg-red-500/15 text-red-700 dark:text-red-400 border-red-500/30",
     icon: XCircle,
   },
   excluido: {
     label: { es: "EXCLUIDO - Art. 6", fr: "EXCLU - Art. 6", en: "EXCLUDED - Art. 6" },
+    description: { es: "Excluido por normativa", fr: "Exclu par réglementation", en: "Excluded by regulation" },
     className: "bg-gray-500/15 text-gray-600 dark:text-gray-400 border-gray-500/30",
     icon: Ban,
+  },
+};
+
+const inclusionConfig = {
+  included: {
+    label: { es: "EN PROPUESTA", fr: "DANS L'OFFRE", en: "IN PROPOSAL" },
+    className: "bg-blue-500/15 text-blue-700 dark:text-blue-400 border-blue-500/30",
+    icon: PackageCheck,
+  },
+  notIncluded: {
+    label: { es: "NO EN PROPUESTA", fr: "HORS OFFRE", en: "NOT IN PROPOSAL" },
+    className: "bg-orange-500/15 text-orange-700 dark:text-orange-400 border-orange-500/30",
+    icon: PackageX,
   },
 };
 
@@ -153,6 +171,9 @@ const DomainSection = ({ domain, index }: DomainSectionProps) => {
     const config = status ? statusConfig[status] : null;
     const StatusIcon = config?.icon || CheckCircle2;
     const isCreditItem = item.group === "creditos";
+    const isIncluded = item.included !== false; // default true
+    const inclConfig = isIncluded ? inclusionConfig.included : inclusionConfig.notIncluded;
+    const InclIcon = inclConfig.icon;
 
     const iconColor = !status
       ? "text-sysde-green"
@@ -182,11 +203,17 @@ const DomainSection = ({ domain, index }: DomainSectionProps) => {
           <span className="flex-1 text-foreground font-semibold text-sm group-hover:text-primary transition-colors">
             {item[language]}
           </span>
-          {config && (
-            <span className={`hidden sm:inline-flex items-center text-[10px] font-bold px-2 py-0.5 rounded-full border whitespace-nowrap ${config.className}`}>
-              {config.label[language]}
+          <div className="hidden sm:flex items-center gap-1.5 flex-shrink-0">
+            {config && (
+              <span className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full border whitespace-nowrap ${config.className}`} title={config.description[language]}>
+                {config.label[language]}
+              </span>
+            )}
+            <span className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full border whitespace-nowrap ${inclConfig.className}`}>
+              <InclIcon className="w-3 h-3" />
+              {inclConfig.label[language]}
             </span>
-          )}
+          </div>
           <span className={`text-muted-foreground transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}>
             <ChevronDown className="w-4 h-4" />
           </span>
@@ -198,14 +225,18 @@ const DomainSection = ({ domain, index }: DomainSectionProps) => {
           }`}
         >
           <div className="px-3.5 pb-4 pl-11">
-            {/* Mobile status badge */}
-            {config && (
-              <div className="sm:hidden mb-3">
+            {/* Mobile status badges */}
+            <div className="sm:hidden mb-3 flex flex-wrap gap-1.5">
+              {config && (
                 <span className={`inline-flex items-center text-[10px] font-bold px-2 py-0.5 rounded-full border ${config.className}`}>
                   {config.label[language]}
                 </span>
-              </div>
-            )}
+              )}
+              <span className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full border ${inclConfig.className}`}>
+                <InclIcon className="w-3 h-3" />
+                {inclConfig.label[language]}
+              </span>
+            </div>
             {CustomRenderer ? (
               <div>
                 <CustomRenderer />

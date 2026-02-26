@@ -51,20 +51,20 @@ const statusConfig: Record<CoverageStatus, {
   icon: React.FC<{ className?: string }>;
 }> = {
   cubierto: {
-    label: { es: "CUBIERTO", fr: "COUVERT", en: "COVERED" },
-    description: { es: "SYSDE puede realizarlo", fr: "SYSDE peut le réaliser", en: "SYSDE can deliver this" },
+    label: { es: "CAPACIDAD SYSDE ✓", fr: "CAPACITÉ SYSDE ✓", en: "SYSDE CAPABILITY ✓" },
+    description: { es: "SYSDE tiene la capacidad técnica para realizarlo", fr: "SYSDE a la capacité technique pour le réaliser", en: "SYSDE has the technical capability to deliver this" },
     className: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border-emerald-500/30",
     icon: CheckCircle2,
   },
   parcial: {
-    label: { es: "PARCIAL", fr: "PARTIEL", en: "PARTIAL" },
-    description: { es: "Cobertura parcial", fr: "Couverture partielle", en: "Partial coverage" },
+    label: { es: "CAPACIDAD PARCIAL", fr: "CAPACITÉ PARTIELLE", en: "PARTIAL CAPABILITY" },
+    description: { es: "SYSDE cubre parcialmente esta funcionalidad", fr: "SYSDE couvre partiellement cette fonctionnalité", en: "SYSDE partially covers this functionality" },
     className: "bg-amber-500/15 text-amber-700 dark:text-amber-400 border-amber-500/30",
     icon: AlertTriangle,
   },
   "no-cubierto": {
-    label: { es: "NO CUBIERTO - A COTIZAR", fr: "NON COUVERT - À CHIFFRER", en: "NOT COVERED - TO QUOTE" },
-    description: { es: "Requiere cotización adicional", fr: "Nécessite un devis supplémentaire", en: "Requires additional quote" },
+    label: { es: "SIN CAPACIDAD", fr: "SANS CAPACITÉ", en: "NO CAPABILITY" },
+    description: { es: "SYSDE no cubre esta funcionalidad actualmente", fr: "SYSDE ne couvre pas cette fonctionnalité actuellement", en: "SYSDE does not currently cover this functionality" },
     className: "bg-red-500/15 text-red-700 dark:text-red-400 border-red-500/30",
     icon: XCircle,
   },
@@ -78,12 +78,14 @@ const statusConfig: Record<CoverageStatus, {
 
 const inclusionConfig = {
   included: {
-    label: { es: "EN PROPUESTA", fr: "DANS L'OFFRE", en: "IN PROPOSAL" },
+    label: { es: "COTIZADO", fr: "CHIFFRÉ", en: "QUOTED" },
+    description: { es: "Incluido y cotizado en esta propuesta", fr: "Inclus et chiffré dans cette offre", en: "Included and quoted in this proposal" },
     className: "bg-blue-500/15 text-blue-700 dark:text-blue-400 border-blue-500/30",
     icon: PackageCheck,
   },
   notIncluded: {
-    label: { es: "NO EN PROPUESTA", fr: "HORS OFFRE", en: "NOT IN PROPOSAL" },
+    label: { es: "POR COTIZAR", fr: "À CHIFFRER", en: "TO QUOTE" },
+    description: { es: "No cotizado — requiere presupuesto adicional", fr: "Non chiffré — nécessite un devis additionnel", en: "Not quoted — requires additional budget" },
     className: "bg-orange-500/15 text-orange-700 dark:text-orange-400 border-orange-500/30",
     icon: PackageX,
   },

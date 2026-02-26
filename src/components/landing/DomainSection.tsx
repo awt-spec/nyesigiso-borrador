@@ -97,6 +97,7 @@ const DomainSection = ({ domain, index }: DomainSectionProps) => {
   const ref = useRef<HTMLElement>(null);
   const isEven = index % 2 === 0;
   const hasStatuses = domain.items.some(item => item.status);
+  const isInfoOnly = domain.id === "presentacion"; // No inclusion badges for info-only domains
 
   // Coverage stats
   const coveredCount = domain.items.filter(i => i.status === "cubierto").length;
@@ -209,10 +210,12 @@ const DomainSection = ({ domain, index }: DomainSectionProps) => {
                 {config.label[language]}
               </span>
             )}
-            <span className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full border whitespace-nowrap ${inclConfig.className}`}>
-              <InclIcon className="w-3 h-3" />
-              {inclConfig.label[language]}
-            </span>
+            {!isInfoOnly && (
+              <span className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full border whitespace-nowrap ${inclConfig.className}`}>
+                <InclIcon className="w-3 h-3" />
+                {inclConfig.label[language]}
+              </span>
+            )}
           </div>
           <span className={`text-muted-foreground transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}>
             <ChevronDown className="w-4 h-4" />
@@ -232,10 +235,12 @@ const DomainSection = ({ domain, index }: DomainSectionProps) => {
                   {config.label[language]}
                 </span>
               )}
-              <span className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full border ${inclConfig.className}`}>
-                <InclIcon className="w-3 h-3" />
-                {inclConfig.label[language]}
-              </span>
+              {!isInfoOnly && (
+                <span className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full border ${inclConfig.className}`}>
+                  <InclIcon className="w-3 h-3" />
+                  {inclConfig.label[language]}
+                </span>
+              )}
             </div>
             {CustomRenderer ? (
               <div>

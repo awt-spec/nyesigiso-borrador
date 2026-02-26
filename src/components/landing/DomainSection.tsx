@@ -36,6 +36,9 @@ const CUSTOM_RENDERERS: Record<string, Record<number, React.FC>> = {
   "intercambios-int": {
     0: WorkflowDiagram,
   },
+  tecnicas: {
+    2: ArchitectureDiagram,
+  },
 };
 
 const sectionLabels = {
@@ -133,7 +136,7 @@ const DomainSection = ({ domain, index }: DomainSectionProps) => {
     }
   };
 
-  const showArchitecture = domain.id === "tecnicas";
+  const showArchitecture = false;
 
   // Group items by their group field
   const renderItems = () => {

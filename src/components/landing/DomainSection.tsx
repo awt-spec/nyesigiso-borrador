@@ -51,20 +51,20 @@ const statusConfig: Record<CoverageStatus, {
   icon: React.FC<{ className?: string }>;
 }> = {
   cubierto: {
-    label: { es: "CAPACIDAD SYSDE ✓", fr: "CAPACITÉ SYSDE ✓", en: "SYSDE CAPABILITY ✓" },
-    description: { es: "SYSDE tiene la capacidad técnica para realizarlo", fr: "SYSDE a la capacité technique pour le réaliser", en: "SYSDE has the technical capability to deliver this" },
+    label: { es: "CUBIERTO", fr: "COUVERT", en: "COVERED" },
+    description: { es: "SYSDE lo realiza con su plataforma actual", fr: "SYSDE le réalise avec sa plateforme actuelle", en: "SYSDE delivers this with its current platform" },
     className: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border-emerald-500/30",
     icon: CheckCircle2,
   },
   parcial: {
-    label: { es: "CAPACIDAD PARCIAL", fr: "CAPACITÉ PARTIELLE", en: "PARTIAL CAPABILITY" },
-    description: { es: "SYSDE cubre parcialmente esta funcionalidad", fr: "SYSDE couvre partiellement cette fonctionnalité", en: "SYSDE partially covers this functionality" },
+    label: { es: "PARCIAL", fr: "PARTIEL", en: "PARTIAL" },
+    description: { es: "Cobertura parcial con la plataforma actual", fr: "Couverture partielle avec la plateforme actuelle", en: "Partial coverage with current platform" },
     className: "bg-amber-500/15 text-amber-700 dark:text-amber-400 border-amber-500/30",
     icon: AlertTriangle,
   },
   "no-cubierto": {
-    label: { es: "SIN CAPACIDAD", fr: "SANS CAPACITÉ", en: "NO CAPABILITY" },
-    description: { es: "SYSDE no cubre esta funcionalidad actualmente", fr: "SYSDE ne couvre pas cette fonctionnalité actuellement", en: "SYSDE does not currently cover this functionality" },
+    label: { es: "A DESARROLLAR", fr: "À DÉVELOPPER", en: "TO DEVELOP" },
+    description: { es: "Requiere desarrollo adicional", fr: "Nécessite un développement additionnel", en: "Requires additional development" },
     className: "bg-red-500/15 text-red-700 dark:text-red-400 border-red-500/30",
     icon: XCircle,
   },

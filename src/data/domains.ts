@@ -7,6 +7,7 @@ export interface DomainItem {
   scope: { es: string; fr: string; en: string };
   status?: CoverageStatus;
   group?: string;
+  included?: boolean; // true = included in proposal (default true)
 }
 
 export interface DomainGroup {

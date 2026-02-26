@@ -1,7 +1,7 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translations } from "@/data/translations";
 import { domains } from "@/data/domains";
-import { CheckCircle2, ArrowRight } from "lucide-react";
+import { CheckCircle2, ArrowRight, PackageCheck, PackageX } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { useEffect, useRef, useState } from "react";
 
@@ -15,6 +15,8 @@ const SynthesisTable = () => {
   const totalItems = domains.reduce((acc, d) => acc + d.items.length, 0);
   const totalCovered = domains.reduce((acc, d) => acc + d.items.filter(i => !i.status || i.status === "cubierto").length, 0);
   const globalPercent = Math.round((totalCovered / totalItems) * 100);
+  const totalQuoted = domains.reduce((acc, d) => acc + d.items.filter(i => i.included !== false).length, 0);
+  const totalToQuote = totalItems - totalQuoted;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -36,11 +38,19 @@ const SynthesisTable = () => {
     return Math.round((covered / d.items.length) * 100);
   };
 
+  const getDomainQuoted = (d: typeof domains[0]) => {
+    const quoted = d.items.filter(i => i.included !== false).length;
+    const toQuote = d.items.length - quoted;
+    return { quoted, toQuote };
+  };
+
   const getCoverageColor = (pct: number) => {
     if (pct >= 80) return "text-emerald-400";
     if (pct >= 50) return "text-amber-400";
     return "text-red-400";
   };
+
+  const isInfoDomain = (d: typeof domains[0]) => d.id === "presentacion";
 
   return (
     <section id="sintesis" ref={ref} className="py-12 md:py-16 px-4 bg-foreground">
@@ -73,12 +83,31 @@ const SynthesisTable = () => {
                   {getDomainCoverage(d)}%
                 </span>
               </div>
-              <h3 className="text-background/90 font-bold text-sm leading-snug mb-1.5 group-hover:text-primary transition-colors">
+              <h3 className="text-background/90 font-bold text-sm leading-snug mb-2 group-hover:text-primary transition-colors">
                 {d.title[language]}
               </h3>
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between gap-2">
                 <span className="text-background/30 text-xs font-mono">{d.items.length} items</span>
-                <ArrowRight className="w-3.5 h-3.5 text-background/20 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                <div className="flex items-center gap-1.5">
+                  {!isInfoDomain(d) && (() => {
+                    const q = getDomainQuoted(d);
+                    return (
+                      <>
+                        {q.quoted > 0 && (
+                          <span className="inline-flex items-center gap-0.5 text-[9px] font-bold text-blue-400">
+                            <PackageCheck className="w-2.5 h-2.5" />{q.quoted}
+                          </span>
+                        )}
+                        {q.toQuote > 0 && (
+                          <span className="inline-flex items-center gap-0.5 text-[9px] font-bold text-orange-400">
+                            <PackageX className="w-2.5 h-2.5" />{q.toQuote}
+                          </span>
+                        )}
+                      </>
+                    );
+                  })()}
+                  <ArrowRight className="w-3.5 h-3.5 text-background/20 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                </div>
               </div>
             </a>
           ))}
@@ -91,7 +120,23 @@ const SynthesisTable = () => {
               <span className="text-background font-bold text-sm">{t.synthesis.total}</span>
               <span className="text-background/40 text-xs ml-2 font-mono">{totalItems} items</span>
             </div>
-            <span className={`font-black text-lg ${getCoverageColor(progress)}`}>{progress}%</span>
+            <div className="flex items-center gap-3">
+              <span className="inline-flex items-center gap-1 text-xs font-bold text-blue-400">
+                <PackageCheck className="w-3.5 h-3.5" />
+                {totalQuoted}
+                <span className="text-background/30 font-normal ml-0.5">
+                  {language === "es" ? "cotizados" : language === "fr" ? "chiffrés" : "quoted"}
+                </span>
+              </span>
+              <span className="inline-flex items-center gap-1 text-xs font-bold text-orange-400">
+                <PackageX className="w-3.5 h-3.5" />
+                {totalToQuote}
+                <span className="text-background/30 font-normal ml-0.5">
+                  {language === "es" ? "por cotizar" : language === "fr" ? "à chiffrer" : "to quote"}
+                </span>
+              </span>
+              <span className={`font-black text-lg ${getCoverageColor(progress)}`}>{progress}%</span>
+            </div>
           </div>
           <Progress value={progress} className="h-2.5 bg-background/10 [&>div]:bg-primary [&>div]:transition-all [&>div]:duration-[2s]" />
         </div>

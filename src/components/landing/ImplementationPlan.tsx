@@ -81,6 +81,7 @@ const phases = [
     subtitle: { es: "Analítica e Interoperabilidad", fr: "Analytique et Interopérabilité", en: "Analytics & Interoperability" },
     timing: { es: "+30 meses", fr: "+30 mois", en: "+30 months" },
     coverage: "100%",
+    investment: "$15,000 USD",
     modules: [
       { es: "Grupo I — DataWarehouse + Dashboards + Contabilidad Analítica + Presupuesto", fr: "Groupe I — DataWarehouse + Tableaux de Bord + Comptabilité Analytique + Budget", en: "Group I — DataWarehouse + Dashboards + Analytical Accounting + Budget" },
       { es: "Grupo J — Workflow/BPM + GED + APIs REST (Orange Money, Wave, BCEAO)", fr: "Groupe J — Workflow/BPM + GED + APIs REST (Orange Money, Wave, BCEAO)", en: "Group J — Workflow/BPM + DMS + REST APIs (Orange Money, Wave, BCEAO)" },

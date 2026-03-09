@@ -1,165 +1,336 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle2, Clock, Layers, ArrowRight, Target, Calendar, DollarSign } from "lucide-react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { CheckCircle2, Layers, DollarSign, TrendingDown, ChevronRight, Shield, Settings, AlertTriangle, Scale, Globe, Users, Building, UserCheck, BarChart3, Workflow } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-const phases = [
+type Lang = "es" | "fr" | "en";
+
+interface Module {
+  name: Record<Lang, string>;
+  status: string;
+  monthly: string;
+  quarterly: string;
+  annual: string;
+}
+
+interface ModuleGroup {
+  id: string;
+  label: string;
+  icon: React.ElementType;
+  subtotalName: Record<Lang, string>;
+  modules: Module[];
+  subtotalMonthly: string;
+  subtotalQuarterly: string;
+  subtotalAnnual: string;
+}
+
+const moduleGroups: ModuleGroup[] = [
   {
-    id: 0,
-    name: { es: "FASE 0 — Base Vigente", fr: "PHASE 0 — Base Active", en: "PHASE 0 — Current Base" },
-    subtitle: { es: "Propuesta Base SAF UPV 7.0", fr: "Proposition de Base SAF UPV 7.0", en: "Base Proposal SAF UPV 7.0" },
-    timing: { es: "Activa desde la firma", fr: "Active depuis la signature", en: "Active since signing" },
-    coverage: "~61%",
-    monthlyFee: "$7,500",
-    setupFee: "$35,000",
+    id: "G",
+    label: "G",
+    icon: Shield,
+    subtotalName: {
+      es: "Seguridad & Control",
+      fr: "Sécurité & Contrôle",
+      en: "Security & Control",
+    },
     modules: [
-      { es: "Migración SAF 2000 V5.2.2 → SAF UPV 7.0 · 94 agencias", fr: "Migration SAF 2000 V5.2.2 → SAF UPV 7.0 · 94 agences", en: "Migration SAF 2000 V5.2.2 → SAF UPV 7.0 · 94 agencies" },
-      { es: "Consolidación 87 BD independientes → 1 BD centralizada", fr: "Consolidation 87 BD indépendantes → 1 BD centralisée", en: "Consolidation of 87 independent DBs → 1 centralized DB" },
-      { es: "Licencias ilimitadas — usuarios, agencias, módulos base", fr: "Licences illimitées — utilisateurs, agences, modules de base", en: "Unlimited licenses — users, agencies, base modules" },
-      { es: "Soporte técnico + funcional ilimitado (remoto)", fr: "Support technique + fonctionnel illimité (à distance)", en: "Unlimited technical + functional support (remote)" },
-      { es: "Actualizaciones regulatorias BCEAO sin costo", fr: "Mises à jour réglementaires BCEAO sans frais", en: "BCEAO regulatory updates at no cost" },
+      { name: { es: "Habilitations — Autorizaciones y Permisos", fr: "Habilitations — Autorisations et Permissions", en: "Authorizations & Permissions" }, status: "EXCL. Art.6", monthly: "$1,400", quarterly: "$4,200", annual: "$16,800" },
+      { name: { es: "Delegaciones", fr: "Délégations", en: "Delegations" }, status: "EXCL. Art.6", monthly: "$700", quarterly: "$2,100", annual: "$8,400" },
+      { name: { es: "Inspección", fr: "Inspection", en: "Inspection" }, status: "NO CUBIERTO", monthly: "$300", quarterly: "$900", annual: "$3,600" },
+      { name: { es: "Control y Trazabilidad", fr: "Contrôle et Traçabilité", en: "Control & Traceability" }, status: "EXCL. Art.6", monthly: "$1,000", quarterly: "$3,000", annual: "$12,000" },
     ],
-    active: true,
+    subtotalMonthly: "$3,400",
+    subtotalQuarterly: "$10,200",
+    subtotalAnnual: "$40,800",
   },
   {
-    id: 1,
-    name: { es: "FASE 1 — Seguridad & Parametrización", fr: "PHASE 1 — Sécurité & Paramétrage", en: "PHASE 1 — Security & Parameterization" },
-    subtitle: { es: "Cumplimiento BCEAO Art.6", fr: "Conformité BCEAO Art.6", en: "BCEAO Art.6 Compliance" },
-    timing: { es: "+12 meses", fr: "+12 mois", en: "+12 months" },
-    coverage: "~50%",
-    monthlyFee: "$4,500",
-    setupFee: "$12,000",
+    id: "H",
+    label: "H",
+    icon: Settings,
+    subtotalName: {
+      es: "Parametrización de Productos",
+      fr: "Paramétrage des Produits",
+      en: "Product Parameterization",
+    },
     modules: [
-      { es: "Grupo G — Habilitations + Delegaciones + Inspección + Trazabilidad", fr: "Groupe G — Habilitations + Délégations + Inspection + Traçabilité", en: "Group G — Authorizations + Delegations + Inspection + Traceability" },
-      { es: "Grupo H — Config. Productos + Creación de Nuevos Productos", fr: "Groupe H — Config. Produits + Création de Nouveaux Produits", en: "Group H — Product Config + New Product Creation" },
+      { name: { es: "Parametrización de Productos", fr: "Paramétrage des Produits", en: "Product Parameterization" }, status: "EXCL. Art.6", monthly: "$700", quarterly: "$2,100", annual: "$8,400" },
+      { name: { es: "Creación de Nuevos Productos", fr: "Création de Nouveaux Produits", en: "New Product Creation" }, status: "EXCL. Art.6", monthly: "$500", quarterly: "$1,500", annual: "$6,000" },
     ],
-    note: { es: "Obligatorio BCEAO para instituciones Nivel 3", fr: "Obligatoire BCEAO pour institutions Niveau 3", en: "BCEAO mandatory for Level 3 institutions" },
+    subtotalMonthly: "$1,200",
+    subtotalQuarterly: "$3,600",
+    subtotalAnnual: "$14,400",
   },
   {
-    id: 2,
-    name: { es: "FASE 2 — Riesgos, Jurídico y SMS", fr: "PHASE 2 — Risques, Juridique et SMS", en: "PHASE 2 — Risks, Legal & SMS" },
-    subtitle: { es: "Gestión Operativa", fr: "Gestion Opérationnelle", en: "Operational Management" },
-    timing: { es: "+18 meses", fr: "+18 mois", en: "+18 months" },
-    coverage: "~63%",
-    monthlyFee: "$5,000",
-    setupFee: "$10,000",
+    id: "C",
+    label: "C",
+    icon: AlertTriangle,
+    subtotalName: {
+      es: "Riesgos & Scoring",
+      fr: "Risques & Scoring",
+      en: "Risks & Scoring",
+    },
     modules: [
-      { es: "Grupo C — Garantías + Credit Scoring + Compromisos", fr: "Groupe C — Garanties + Credit Scoring + Engagements", en: "Group C — Guarantees + Credit Scoring + Commitments" },
-      { es: "Grupo D — Contencioso + Sucesiones + Embargos/ATD + Reclamaciones", fr: "Groupe D — Contentieux + Successions + Saisies/ATD + Réclamations", en: "Group D — Litigation + Succession + Seizures/ATD + Claims" },
-      { es: "SMS & Alertas Transaccionales (Orange Mali / Malitel)", fr: "SMS & Alertes Transactionnelles (Orange Mali / Malitel)", en: "SMS & Transactional Alerts (Orange Mali / Malitel)" },
+      { name: { es: "Garantías", fr: "Garanties", en: "Guarantees" }, status: "NO CUBIERTO", monthly: "$800", quarterly: "$2,400", annual: "$9,600" },
+      { name: { es: "Calificación / Scoring", fr: "Qualification / Scoring", en: "Qualification / Scoring" }, status: "NO CUBIERTO", monthly: "$1,050", quarterly: "$3,150", annual: "$12,600" },
+      { name: { es: "Compromisos (upgrade PARCIAL → Completo)", fr: "Engagements (upgrade PARTIEL → Complet)", en: "Commitments (upgrade PARTIAL → Full)" }, status: "UPGRADE", monthly: "$300", quarterly: "$900", annual: "$3,600" },
     ],
-    note: { es: "Scoring protege cartera de 17.9B FCFA", fr: "Scoring protège le portefeuille de 17.9B FCFA", en: "Scoring protects 17.9B FCFA portfolio" },
+    subtotalMonthly: "$2,150",
+    subtotalQuarterly: "$6,450",
+    subtotalAnnual: "$25,800",
   },
   {
-    id: 3,
-    name: { es: "FASE 3 — Canales Digitales y CRM", fr: "PHASE 3 — Canaux Digitaux et CRM", en: "PHASE 3 — Digital Channels & CRM" },
-    subtitle: { es: "Experiencia del Socio", fr: "Expérience du Membre", en: "Member Experience" },
-    timing: { es: "+24 meses", fr: "+24 mois", en: "+24 months" },
-    coverage: "~78%",
-    monthlyFee: "$6,500",
-    setupFee: "$15,000",
+    id: "D",
+    label: "D",
+    icon: Scale,
+    subtotalName: {
+      es: "Jurídico & Contencioso",
+      fr: "Juridique & Contentieux",
+      en: "Legal & Litigation",
+    },
     modules: [
-      { es: "Internet Banking — Portal web, consultas, transferencias", fr: "Internet Banking — Portail web, consultations, transferts", en: "Internet Banking — Web portal, queries, transfers" },
-      { es: "Mobile Banking — App iOS/Android + PWA, biometría", fr: "Mobile Banking — App iOS/Android + PWA, biométrie", en: "Mobile Banking — iOS/Android App + PWA, biometrics" },
-      { es: "Grupo B — CRM: Prospectos + Carteras + Eventos + Actividad Asesor", fr: "Groupe B — CRM: Prospects + Portefeuilles + Événements + Activité Conseiller", en: "Group B — CRM: Prospects + Portfolios + Events + Advisor Activity" },
+      { name: { es: "Contencioso", fr: "Contentieux", en: "Litigation" }, status: "NO CUBIERTO", monthly: "$500", quarterly: "$1,500", annual: "$6,000" },
+      { name: { es: "Sucesiones", fr: "Successions", en: "Succession" }, status: "NO CUBIERTO", monthly: "$300", quarterly: "$900", annual: "$3,600" },
+      { name: { es: "Embargos / ATD", fr: "Saisies / ATD", en: "Seizures / ATD" }, status: "NO CUBIERTO", monthly: "$400", quarterly: "$1,200", annual: "$4,800" },
+      { name: { es: "Reclamaciones", fr: "Réclamations", en: "Claims" }, status: "NO CUBIERTO", monthly: "$300", quarterly: "$900", annual: "$3,600" },
     ],
-    note: { es: "324K socios sin autoservicio digital", fr: "324K membres sans libre-service numérique", en: "324K members without digital self-service" },
+    subtotalMonthly: "$1,500",
+    subtotalQuarterly: "$4,500",
+    subtotalAnnual: "$18,000",
   },
   {
-    id: 4,
-    name: { es: "FASE 4 — ERP Financiero y RRHH", fr: "PHASE 4 — ERP Financier et RH", en: "PHASE 4 — Financial ERP & HR" },
-    subtitle: { es: "Integración Interna", fr: "Intégration Interne", en: "Internal Integration" },
-    timing: { es: "+24 meses", fr: "+24 mois", en: "+24 months" },
-    coverage: "~88%",
-    monthlyFee: "$3,500",
-    setupFee: "$8,000",
+    id: "A",
+    label: "A",
+    icon: Globe,
+    subtotalName: {
+      es: "Canales Digitales",
+      fr: "Canaux Digitaux",
+      en: "Digital Channels",
+    },
     modules: [
-      { es: "Grupo E — Activos Fijos + Conciliación + Compras + Proveedores + Proyectos", fr: "Groupe E — Immobilisations + Rapprochement + Achats + Fournisseurs + Projets", en: "Group E — Fixed Assets + Reconciliation + Purchasing + Vendors + Projects" },
-      { es: "Grupo F — Nómina (DNSI/INPS) + Gestión Personal + Contratos", fr: "Groupe F — Paie (DNSI/INPS) + Gestion du Personnel + Contrats", en: "Group F — Payroll (DNSI/INPS) + Personnel Mgmt + Contracts" },
+      { name: { es: "Internet Banking", fr: "Internet Banking", en: "Internet Banking" }, status: "NO CUBIERTO", monthly: "$2,000", quarterly: "$6,000", annual: "$24,000" },
+      { name: { es: "Mobile Banking (iOS/Android + PWA)", fr: "Mobile Banking (iOS/Android + PWA)", en: "Mobile Banking (iOS/Android + PWA)" }, status: "NO CUBIERTO", monthly: "$2,000", quarterly: "$6,000", annual: "$24,000" },
+      { name: { es: "SMS & Alertas Transaccionales", fr: "SMS & Alertes Transactionnelles", en: "SMS & Transactional Alerts" }, status: "NO CUBIERTO", monthly: "$900", quarterly: "$2,700", annual: "$10,800" },
     ],
-    note: { es: "Puede reemplazar SAGE PAIE y SYSCOFOP", fr: "Peut remplacer SAGE PAIE et SYSCOFOP", en: "Can replace SAGE PAIE and SYSCOFOP" },
+    subtotalMonthly: "$4,900",
+    subtotalQuarterly: "$14,700",
+    subtotalAnnual: "$58,800",
   },
   {
-    id: 5,
-    name: { es: "FASE 5 — BI, DataWarehouse e Integración", fr: "PHASE 5 — BI, DataWarehouse et Intégration", en: "PHASE 5 — BI, DataWarehouse & Integration" },
-    subtitle: { es: "Analítica e Interoperabilidad", fr: "Analytique et Interopérabilité", en: "Analytics & Interoperability" },
-    timing: { es: "+30 meses", fr: "+30 mois", en: "+30 months" },
-    coverage: "100%",
-    monthlyFee: "$4,000",
-    setupFee: "$10,000",
+    id: "B",
+    label: "B",
+    icon: Users,
+    subtotalName: {
+      es: "CRM & Marketing",
+      fr: "CRM & Marketing",
+      en: "CRM & Marketing",
+    },
     modules: [
-      { es: "Grupo I — DataWarehouse + Dashboards + Contabilidad Analítica + Presupuesto", fr: "Groupe I — DataWarehouse + Tableaux de Bord + Comptabilité Analytique + Budget", en: "Group I — DataWarehouse + Dashboards + Analytical Accounting + Budget" },
-      { es: "Grupo J — Workflow/BPM + GED + APIs REST (Orange Money, Wave, BCEAO)", fr: "Groupe J — Workflow/BPM + GED + APIs REST (Orange Money, Wave, BCEAO)", en: "Group J — Workflow/BPM + DMS + REST APIs (Orange Money, Wave, BCEAO)" },
+      { name: { es: "Archivo de Prospectos", fr: "Archive de Prospects", en: "Prospect Archive" }, status: "NO CUBIERTO", monthly: "$400", quarterly: "$1,200", annual: "$4,800" },
+      { name: { es: "Carteras Comerciales", fr: "Portefeuilles Commerciaux", en: "Commercial Portfolios" }, status: "NO CUBIERTO", monthly: "$700", quarterly: "$2,100", annual: "$8,400" },
+      { name: { es: "Gestión de Eventos", fr: "Gestion des Événements", en: "Event Management" }, status: "NO CUBIERTO", monthly: "$250", quarterly: "$750", annual: "$3,000" },
+      { name: { es: "Seguimiento de Actividad del Asesor", fr: "Suivi d'Activité du Conseiller", en: "Advisor Activity Tracking" }, status: "NO CUBIERTO", monthly: "$250", quarterly: "$750", annual: "$3,000" },
     ],
-    note: { es: "APIs conectan Orange Money y Wave", fr: "APIs connectent Orange Money et Wave", en: "APIs connect Orange Money and Wave" },
+    subtotalMonthly: "$1,600",
+    subtotalQuarterly: "$4,800",
+    subtotalAnnual: "$19,200",
+  },
+  {
+    id: "E",
+    label: "E",
+    icon: Building,
+    subtotalName: {
+      es: "ERP Financiero",
+      fr: "ERP Financier",
+      en: "Financial ERP",
+    },
+    modules: [
+      { name: { es: "Activos Fijos / Immobilisations", fr: "Immobilisations", en: "Fixed Assets" }, status: "NO CUBIERTO", monthly: "$600", quarterly: "$1,800", annual: "$7,200" },
+      { name: { es: "Conciliación / Lettrage", fr: "Rapprochement / Lettrage", en: "Reconciliation / Lettrage" }, status: "NO CUBIERTO", monthly: "$500", quarterly: "$1,500", annual: "$6,000" },
+      { name: { es: "Compras / Inventarios", fr: "Achats / Inventaires", en: "Purchasing / Inventory" }, status: "NO CUBIERTO", monthly: "$800", quarterly: "$2,400", annual: "$9,600" },
+      { name: { es: "Proveedores / Fournisseurs", fr: "Fournisseurs", en: "Vendors" }, status: "NO CUBIERTO", monthly: "$400", quarterly: "$1,200", annual: "$4,800" },
+      { name: { es: "Obras y Proyectos / Chantiers", fr: "Chantiers et Projets", en: "Projects & Construction" }, status: "NO CUBIERTO", monthly: "$300", quarterly: "$900", annual: "$3,600" },
+      { name: { es: "Archivo / Archivage", fr: "Archivage", en: "Archiving" }, status: "NO CUBIERTO", monthly: "$500", quarterly: "$1,500", annual: "$6,000" },
+    ],
+    subtotalMonthly: "$3,100",
+    subtotalQuarterly: "$9,300",
+    subtotalAnnual: "$37,200",
+  },
+  {
+    id: "F",
+    label: "F",
+    icon: UserCheck,
+    subtotalName: {
+      es: "RRHH & Nómina",
+      fr: "RH & Paie",
+      en: "HR & Payroll",
+    },
+    modules: [
+      { name: { es: "Nómina / Paie (DNSI, INPS)", fr: "Paie (DNSI, INPS)", en: "Payroll (DNSI, INPS)" }, status: "NO CUBIERTO", monthly: "$1,500", quarterly: "$4,500", annual: "$18,000" },
+      { name: { es: "Gestión del Personal", fr: "Gestion du Personnel", en: "Personnel Management" }, status: "NO CUBIERTO", monthly: "$700", quarterly: "$2,100", annual: "$8,400" },
+    ],
+    subtotalMonthly: "$2,200",
+    subtotalQuarterly: "$6,600",
+    subtotalAnnual: "$26,400",
+  },
+  {
+    id: "I",
+    label: "I",
+    icon: BarChart3,
+    subtotalName: {
+      es: "BI & DataWarehouse",
+      fr: "BI & DataWarehouse",
+      en: "BI & DataWarehouse",
+    },
+    modules: [
+      { name: { es: "Tableros Avanzados (upgrade PARCIAL → Avanzado)", fr: "Tableaux Avancés (upgrade PARTIEL → Avancé)", en: "Advanced Dashboards (upgrade PARTIAL → Advanced)" }, status: "UPGRADE", monthly: "$400", quarterly: "$1,200", annual: "$4,800" },
+      { name: { es: "Contabilidad Analítica", fr: "Comptabilité Analytique", en: "Analytical Accounting" }, status: "NO CUBIERTO", monthly: "$600", quarterly: "$1,800", annual: "$7,200" },
+      { name: { es: "Presupuesto / Budget", fr: "Budget", en: "Budget" }, status: "NO CUBIERTO", monthly: "$400", quarterly: "$1,200", annual: "$4,800" },
+      { name: { es: "DataWarehouse", fr: "DataWarehouse", en: "DataWarehouse" }, status: "NO CUBIERTO", monthly: "$1,200", quarterly: "$3,600", annual: "$14,400" },
+      { name: { es: "Herramientas BI / Outils d'aide à la décision", fr: "Outils BI / Aide à la décision", en: "BI Tools / Decision Support" }, status: "NO CUBIERTO", monthly: "$1,050", quarterly: "$3,150", annual: "$12,600" },
+    ],
+    subtotalMonthly: "$3,650",
+    subtotalQuarterly: "$10,950",
+    subtotalAnnual: "$43,800",
+  },
+  {
+    id: "J",
+    label: "J",
+    icon: Workflow,
+    subtotalName: {
+      es: "Integración & APIs",
+      fr: "Intégration & APIs",
+      en: "Integration & APIs",
+    },
+    modules: [
+      { name: { es: "Workflow / Gestión de Flujos", fr: "Workflow / Gestion des Flux", en: "Workflow / Flow Management" }, status: "NO CUBIERTO", monthly: "$800", quarterly: "$2,400", annual: "$9,600" },
+      { name: { es: "GED — Gestión Electrónica de Documentos", fr: "GED — Gestion Électronique de Documents", en: "DMS — Electronic Document Management" }, status: "NO CUBIERTO", monthly: "$600", quarterly: "$1,800", annual: "$7,200" },
+      { name: { es: "Web Services (STRATEGO, Orange Money, BCEAO…)", fr: "Web Services (STRATEGO, Orange Money, BCEAO…)", en: "Web Services (STRATEGO, Orange Money, BCEAO…)" }, status: "NO CUBIERTO", monthly: "$700", quarterly: "$2,100", annual: "$8,400" },
+      { name: { es: "APIs REST (bundled con Web Services)", fr: "APIs REST (bundled avec Web Services)", en: "REST APIs (bundled with Web Services)" }, status: "NO CUBIERTO", monthly: "bundled", quarterly: "—", annual: "—" },
+    ],
+    subtotalMonthly: "$2,100",
+    subtotalQuarterly: "$6,300",
+    subtotalAnnual: "$25,200",
   },
 ];
 
-const labels = {
+const labels: Record<Lang, Record<string, string>> = {
   es: {
     title: "Propuesta de Expansión",
-    subtitle: "Plan Escalonado · 6 Fases · ~30 meses",
-    coverage: "Cobertura",
-    timing: "Plazo",
-    modules: "Alcance",
+    subtitle: "FASE 1 — Base · FASE 2 — ALL IN",
+    phase1: "FASE 1 — BASE VIGENTE",
+    phase1desc: "SAF UPV 7.0 · 87 BD · 94 Agencias",
+    phase1note: "Ya activo desde la firma",
+    phase2: "FASE 2 — ALL IN",
+    phase2desc: "36 módulos adicionales sobre FASE 1",
+    phase2note: "Se activa cuando NYESIGISO esté lista",
     active: "ACTIVA",
-    upcoming: "PLANIFICADA",
-    phases: "Fases",
-    horizon: "Horizonte Total",
-    finalCoverage: "Cobertura Final",
-    pricingTitle: "Tabla de Precios por Fase",
-    pricingSubtitle: "Cuota mensual · Facturación trimestral",
-    phase: "Fase",
-    monthlyFee: "Cuota/Mes",
-    setupFee: "Setup Fee",
-    quarterly: "Trimestral",
-    annual: "Anual",
-    total: "Total Acumulado",
-    billing: "Facturación trimestral",
+    planned: "BUNDLE",
+    monthly: "OPEX/Mes",
+    quarterly: "OPEX/Trim",
+    annual: "OPEX/Año",
+    coverage: "Cobertura",
+    modules: "Módulos",
+    savingsTitle: "Ahorro vs. À la Carte",
+    savingsDesc: "eligiendo ALL IN",
+    alaCarte: "À la Carte",
+    allIn: "ALL IN",
+    savings: "Ahorro",
+    detailTitle: "Detalle de Módulos — FASE 2",
+    detailSubtitle: "36 módulos agrupados · precios individuales del Cadre de Réponse",
+    group: "Grupo",
+    module: "Módulo",
+    status: "Estado",
+    subtotal: "Subtotal",
+    totalAlaCarte: "TOTAL À LA CARTE",
+    totalAllIn: "FASE 2 ALL IN (incluye FASE 1)",
+    totalSavings: "AHORRO eligiendo ALL IN",
+    perMonth: "/mes",
+    billing: "Facturación trimestral anticipada · Precios en USD",
+    phase1includes: "Migración SAF UPV 7.0 completa · Consolidación 87 BD → 1 · Licencias ilimitadas · Soporte + BCEAO",
+    phase2includes: "Grupos G+H+C+D+A+B+E+F+I+J — Seguridad, Riesgos, Digital, CRM, ERP, RRHH, BI, APIs",
+    comparisonTitle: "Comparación de Escenarios",
   },
   fr: {
     title: "Proposition d'Expansion",
-    subtitle: "Plan Échelonné · 6 Phases · ~30 mois",
-    coverage: "Couverture",
-    timing: "Délai",
-    modules: "Portée",
+    subtitle: "PHASE 1 — Base · PHASE 2 — ALL IN",
+    phase1: "PHASE 1 — BASE ACTIVE",
+    phase1desc: "SAF UPV 7.0 · 87 BD · 94 Agences",
+    phase1note: "Active depuis la signature",
+    phase2: "PHASE 2 — ALL IN",
+    phase2desc: "36 modules supplémentaires sur PHASE 1",
+    phase2note: "S'active quand NYESIGISO est prête",
     active: "ACTIVE",
-    upcoming: "PLANIFIÉE",
-    phases: "Phases",
-    horizon: "Horizon Total",
-    finalCoverage: "Couverture Finale",
-    pricingTitle: "Tableau des Prix par Phase",
-    pricingSubtitle: "Frais mensuels · Facturation trimestrielle",
-    phase: "Phase",
-    monthlyFee: "Frais/Mois",
-    setupFee: "Setup Fee",
-    quarterly: "Trimestriel",
-    annual: "Annuel",
-    total: "Total Cumulé",
-    billing: "Facturation trimestrielle",
+    planned: "BUNDLE",
+    monthly: "OPEX/Mois",
+    quarterly: "OPEX/Trim",
+    annual: "OPEX/An",
+    coverage: "Couverture",
+    modules: "Modules",
+    savingsTitle: "Économie vs. À la Carte",
+    savingsDesc: "en choisissant ALL IN",
+    alaCarte: "À la Carte",
+    allIn: "ALL IN",
+    savings: "Économie",
+    detailTitle: "Détail des Modules — PHASE 2",
+    detailSubtitle: "36 modules groupés · prix individuels du Cadre de Réponse",
+    group: "Groupe",
+    module: "Module",
+    status: "Statut",
+    subtotal: "Sous-total",
+    totalAlaCarte: "TOTAL À LA CARTE",
+    totalAllIn: "PHASE 2 ALL IN (inclut PHASE 1)",
+    totalSavings: "ÉCONOMIE en choisissant ALL IN",
+    perMonth: "/mois",
+    billing: "Facturation trimestrielle anticipée · Prix en USD",
+    phase1includes: "Migration SAF UPV 7.0 complète · Consolidation 87 BD → 1 · Licences illimitées · Support + BCEAO",
+    phase2includes: "Groupes G+H+C+D+A+B+E+F+I+J — Sécurité, Risques, Digital, CRM, ERP, RH, BI, APIs",
+    comparisonTitle: "Comparaison des Scénarios",
   },
   en: {
     title: "Expansion Proposal",
-    subtitle: "Phased Plan · 6 Phases · ~30 months",
-    coverage: "Coverage",
-    timing: "Timeline",
-    modules: "Scope",
+    subtitle: "PHASE 1 — Base · PHASE 2 — ALL IN",
+    phase1: "PHASE 1 — CURRENT BASE",
+    phase1desc: "SAF UPV 7.0 · 87 DBs · 94 Agencies",
+    phase1note: "Active since signing",
+    phase2: "PHASE 2 — ALL IN",
+    phase2desc: "36 additional modules on top of PHASE 1",
+    phase2note: "Activates when NYESIGISO is ready",
     active: "ACTIVE",
-    upcoming: "PLANNED",
-    phases: "Phases",
-    horizon: "Total Horizon",
-    finalCoverage: "Final Coverage",
-    pricingTitle: "Pricing Table by Phase",
-    pricingSubtitle: "Monthly fee · Quarterly billing",
-    phase: "Phase",
-    monthlyFee: "Fee/Month",
-    setupFee: "Setup Fee",
-    quarterly: "Quarterly",
-    annual: "Annual",
-    total: "Cumulative Total",
-    billing: "Quarterly billing",
+    planned: "BUNDLE",
+    monthly: "OPEX/Mo",
+    quarterly: "OPEX/Qtr",
+    annual: "OPEX/Yr",
+    coverage: "Coverage",
+    modules: "Modules",
+    savingsTitle: "Savings vs. À la Carte",
+    savingsDesc: "by choosing ALL IN",
+    alaCarte: "À la Carte",
+    allIn: "ALL IN",
+    savings: "Savings",
+    detailTitle: "Module Detail — PHASE 2",
+    detailSubtitle: "36 grouped modules · individual pricing from Cadre de Réponse",
+    group: "Group",
+    module: "Module",
+    status: "Status",
+    subtotal: "Subtotal",
+    totalAlaCarte: "TOTAL À LA CARTE",
+    totalAllIn: "PHASE 2 ALL IN (includes PHASE 1)",
+    totalSavings: "SAVINGS by choosing ALL IN",
+    perMonth: "/mo",
+    billing: "Quarterly prepaid billing · Prices in USD",
+    phase1includes: "Full SAF UPV 7.0 migration · 87 DB consolidation → 1 · Unlimited licenses · Support + BCEAO",
+    phase2includes: "Groups G+H+C+D+A+B+E+F+I+J — Security, Risks, Digital, CRM, ERP, HR, BI, APIs",
+    comparisonTitle: "Scenario Comparison",
   },
+};
+
+const statusColor = (status: string) => {
+  if (status.includes("EXCL")) return "bg-amber-500/15 text-amber-700 dark:text-amber-400 border-amber-500/30";
+  if (status === "UPGRADE") return "bg-blue-500/15 text-blue-700 dark:text-blue-400 border-blue-500/30";
+  return "bg-muted text-muted-foreground border-border";
 };
 
 const ImplementationPlan = () => {
@@ -195,185 +366,260 @@ const ImplementationPlan = () => {
           </h2>
         </div>
 
-        {/* Summary Stats */}
-        <div className={`grid grid-cols-3 gap-4 mb-10 transition-all duration-700 delay-100 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-          <Card className="bg-card border-primary/20">
-            <CardContent className="p-5 text-center">
-              <Layers className="w-7 h-7 text-primary mx-auto mb-2" />
-              <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">{t.phases}</p>
-              <p className="text-2xl font-bold text-foreground">6</p>
-            </CardContent>
-          </Card>
-          <Card className="bg-card border-primary/20">
-            <CardContent className="p-5 text-center">
-              <Calendar className="w-7 h-7 text-primary mx-auto mb-2" />
-              <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">{t.horizon}</p>
-              <p className="text-2xl font-bold text-foreground">~30 {language === "es" ? "meses" : language === "fr" ? "mois" : "months"}</p>
-            </CardContent>
-          </Card>
-          <Card className="bg-card border-primary/20">
-            <CardContent className="p-5 text-center">
-              <Target className="w-7 h-7 text-primary mx-auto mb-2" />
-              <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">{t.finalCoverage}</p>
-              <p className="text-2xl font-bold text-foreground">100%</p>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Timeline */}
-        <div className="relative">
-          {/* Vertical line */}
-          <div className="absolute left-5 md:left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-primary/50 to-primary/20 hidden sm:block" />
-
-          <div className="space-y-5">
-            {phases.map((phase, idx) => (
-              <div
-                key={phase.id}
-                className={`relative transition-all duration-500 ${visible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"}`}
-                style={{ transitionDelay: `${200 + idx * 80}ms` }}
-              >
-                {/* Timeline dot */}
-                <div className={`absolute left-3 md:left-4 w-4 h-4 rounded-full border-2 hidden sm:flex items-center justify-center z-10 ${
-                  phase.active 
-                    ? "bg-emerald-500 border-emerald-500" 
-                    : "bg-background border-primary"
-                }`}>
-                  {phase.active && <CheckCircle2 className="w-3 h-3 text-white" />}
-                </div>
-
-                {/* Card */}
-                <Card className={`sm:ml-12 md:ml-14 overflow-hidden ${
-                  phase.active 
-                    ? "border-emerald-500/30 bg-emerald-500/5" 
-                    : "border-border hover:border-primary/30"
-                } transition-colors`}>
-                  <CardHeader className="pb-2 pt-4 px-5">
-                    <div className="flex flex-wrap items-start justify-between gap-2">
-                      <div>
-                        <div className="flex items-center gap-2 mb-1">
-                          <Badge variant={phase.active ? "default" : "secondary"} className={phase.active ? "bg-emerald-500 text-xs" : "text-xs"}>
-                            {phase.active ? t.active : t.upcoming}
-                          </Badge>
-                          <span className="text-xs text-muted-foreground flex items-center gap-1">
-                            <Clock className="w-3 h-3" />
-                            {phase.timing[language]}
-                          </span>
-                        </div>
-                        <CardTitle className="text-base font-bold text-foreground">
-                          {phase.name[language]}
-                        </CardTitle>
-                        <p className="text-sm text-muted-foreground">{phase.subtitle[language]}</p>
-                      </div>
-                      <div className="text-right space-y-1">
-                        <div className="inline-flex items-center gap-1.5 bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-bold">
-                          {phase.coverage}
-                        </div>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="pt-0 px-5 pb-4">
-                    {/* Modules */}
-                    <div className="bg-muted/30 rounded-lg p-3 mt-2">
-                      <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">{t.modules}</p>
-                      <ul className="space-y-1">
-                        {phase.modules.map((mod, i) => (
-                          <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-                            <ArrowRight className="w-3 h-3 text-primary mt-1 flex-shrink-0" />
-                            <span>{mod[language]}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      {phase.note && (
-                        <p className="mt-2 text-xs text-amber-600 dark:text-amber-400 bg-amber-500/10 rounded px-2 py-1 border border-amber-500/20">
-                          💡 {phase.note[language]}
-                        </p>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
+        {/* Two Phases Side by Side */}
+        <div className={`grid md:grid-cols-2 gap-5 mb-10 transition-all duration-700 delay-100 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+          {/* FASE 1 */}
+          <Card className="border-emerald-500/30 bg-emerald-500/5 relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1 bg-emerald-500" />
+            <CardHeader className="pb-3">
+              <div className="flex items-center gap-2 mb-2">
+                <Badge className="bg-emerald-500 text-white text-xs">{t.active}</Badge>
+                <Badge variant="secondary" className="text-xs">~61% {t.coverage}</Badge>
               </div>
-            ))}
-          </div>
+              <CardTitle className="text-lg font-bold text-foreground">{t.phase1}</CardTitle>
+              <p className="text-sm text-muted-foreground">{t.phase1desc}</p>
+            </CardHeader>
+            <CardContent className="pt-0 space-y-3">
+              <div className="flex items-baseline gap-1">
+                <span className="text-3xl font-bold text-foreground">$7,500</span>
+                <span className="text-muted-foreground text-sm">{t.perMonth}</span>
+              </div>
+              <div className="flex gap-4 text-xs text-muted-foreground">
+                <span>$22,500 {t.quarterly.split("/")[1]}</span>
+                <span>$90,000 {t.annual.split("/")[1]}</span>
+              </div>
+              <div className="bg-muted/40 rounded-lg p-3 mt-2">
+                <p className="text-xs text-muted-foreground leading-relaxed">{t.phase1includes}</p>
+              </div>
+              <p className="text-xs text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                <CheckCircle2 className="w-3.5 h-3.5" />
+                {t.phase1note}
+              </p>
+            </CardContent>
+          </Card>
+
+          {/* FASE 2 */}
+          <Card className="border-primary/30 bg-primary/5 relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1 bg-primary" />
+            <CardHeader className="pb-3">
+              <div className="flex items-center gap-2 mb-2">
+                <Badge className="bg-primary text-primary-foreground text-xs">{t.planned}</Badge>
+                <Badge variant="secondary" className="text-xs">100% {t.coverage}</Badge>
+              </div>
+              <CardTitle className="text-lg font-bold text-foreground">{t.phase2}</CardTitle>
+              <p className="text-sm text-muted-foreground">{t.phase2desc}</p>
+            </CardHeader>
+            <CardContent className="pt-0 space-y-3">
+              <div className="flex items-baseline gap-1">
+                <span className="text-lg text-muted-foreground line-through mr-1">$7,500</span>
+                <span className="text-sm text-muted-foreground">+</span>
+                <span className="text-lg text-muted-foreground line-through ml-1">$7,499</span>
+                <span className="text-sm text-muted-foreground">=</span>
+              </div>
+              <div className="flex items-baseline gap-1">
+                <span className="text-3xl font-bold text-primary">$14,999</span>
+                <span className="text-muted-foreground text-sm">{t.perMonth}</span>
+              </div>
+              <div className="flex gap-4 text-xs text-muted-foreground">
+                <span>$44,997 {t.quarterly.split("/")[1]}</span>
+                <span>$179,988 {t.annual.split("/")[1]}</span>
+              </div>
+              <div className="bg-muted/40 rounded-lg p-3 mt-2">
+                <p className="text-xs text-muted-foreground leading-relaxed">{t.phase2includes}</p>
+              </div>
+              <p className="text-xs text-primary flex items-center gap-1">
+                <ChevronRight className="w-3.5 h-3.5" />
+                {t.phase2note}
+              </p>
+            </CardContent>
+          </Card>
         </div>
 
-        {/* Pricing Table */}
-        <div className={`mt-14 transition-all duration-700 delay-500 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-          <div className="text-center mb-6">
-            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-medium mb-3">
-              <DollarSign className="w-4 h-4" />
-              {t.pricingSubtitle}
-            </div>
-            <h3 className="text-2xl font-bold text-foreground">{t.pricingTitle}</h3>
-          </div>
+        {/* Savings Banner */}
+        <div className={`mb-10 transition-all duration-700 delay-200 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+          <Card className="border-emerald-500/30 bg-gradient-to-r from-emerald-500/10 to-emerald-500/5">
+            <CardContent className="p-5">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                    <TrendingDown className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                  </div>
+                  <div>
+                    <p className="font-bold text-foreground">{t.savingsTitle}</p>
+                    <p className="text-sm text-muted-foreground">{t.savingsDesc}</p>
+                  </div>
+                </div>
+                <div className="flex gap-6 text-center">
+                  <div>
+                    <p className="text-xs text-muted-foreground uppercase">{t.monthly}</p>
+                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−$18,301</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground uppercase">{t.quarterly}</p>
+                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−$54,903</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground uppercase">{t.annual}</p>
+                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−$219,612</p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Comparison Table */}
+        <div className={`mb-10 transition-all duration-700 delay-300 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+          <h3 className="text-xl font-bold text-foreground mb-4 text-center">{t.comparisonTitle}</h3>
           <Card className="overflow-hidden border-primary/20">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="bg-primary/5 border-b border-border">
-                    <th className="text-left px-4 py-3 font-semibold text-foreground">{t.phase}</th>
-                    <th className="text-center px-4 py-3 font-semibold text-foreground">{t.coverage}</th>
-                    <th className="text-center px-4 py-3 font-semibold text-foreground">{t.timing}</th>
-                    <th className="text-right px-4 py-3 font-semibold text-foreground">{t.setupFee}</th>
-                    <th className="text-right px-4 py-3 font-semibold text-foreground">{t.monthlyFee}</th>
-                    <th className="text-right px-4 py-3 font-semibold text-foreground">{t.quarterly}</th>
-                    <th className="text-right px-4 py-3 font-semibold text-foreground">{t.annual}</th>
+                    <th className="text-left px-4 py-3 font-semibold text-foreground"></th>
+                    <th className="text-center px-4 py-3 font-semibold text-foreground">{t.phase1.split("—")[0]?.trim()}</th>
+                    <th className="text-center px-4 py-3 font-semibold text-muted-foreground">{t.alaCarte}</th>
+                    <th className="text-center px-4 py-3 font-semibold text-primary">{t.allIn}</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {phases.map((phase) => {
-                    const monthly = parseInt(phase.monthlyFee.replace(/[^0-9]/g, ""));
-                    return (
-                      <tr
-                        key={phase.id}
-                        className={`border-b border-border/50 ${phase.active ? "bg-primary/5" : "hover:bg-muted/30"} transition-colors`}
-                      >
-                        <td className="px-4 py-3">
-                          <span className="font-semibold text-foreground">{phase.name[language]}</span>
-                        </td>
-                        <td className="px-4 py-3 text-center">
-                          <Badge variant={phase.coverage === "100%" ? "default" : "secondary"} className="text-xs">
-                            {phase.coverage}
-                          </Badge>
-                        </td>
-                        <td className="px-4 py-3 text-center text-muted-foreground">
-                          {phase.timing[language]}
-                        </td>
-                        <td className="px-4 py-3 text-right font-medium text-foreground">
-                          {phase.setupFee}
-                        </td>
-                        <td className="px-4 py-3 text-right font-bold text-primary">
-                          {phase.monthlyFee}
-                        </td>
-                        <td className="px-4 py-3 text-right text-muted-foreground">
-                          ${(monthly * 3).toLocaleString()}
-                        </td>
-                        <td className="px-4 py-3 text-right text-muted-foreground">
-                          ${(monthly * 12).toLocaleString()}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-                <tfoot>
-                  <tr className="bg-primary/10 font-bold">
-                    <td className="px-4 py-3 text-foreground" colSpan={3}>{t.total}</td>
-                    <td className="px-4 py-3 text-right text-foreground">
-                      ${phases.reduce((s, p) => s + parseInt(p.setupFee.replace(/[^0-9]/g, "")), 0).toLocaleString()}
-                    </td>
-                    <td className="px-4 py-3 text-right text-primary">
-                      ${phases.reduce((s, p) => s + parseInt(p.monthlyFee.replace(/[^0-9]/g, "")), 0).toLocaleString()}
-                    </td>
-                    <td className="px-4 py-3 text-right text-foreground">
-                      ${(phases.reduce((s, p) => s + parseInt(p.monthlyFee.replace(/[^0-9]/g, "")), 0) * 3).toLocaleString()}
-                    </td>
-                    <td className="px-4 py-3 text-right text-foreground">
-                      ${(phases.reduce((s, p) => s + parseInt(p.monthlyFee.replace(/[^0-9]/g, "")), 0) * 12).toLocaleString()}
-                    </td>
+                  <tr className="border-b border-border/50">
+                    <td className="px-4 py-3 font-medium text-foreground">{t.monthly}</td>
+                    <td className="px-4 py-3 text-center text-foreground">$7,500</td>
+                    <td className="px-4 py-3 text-center text-muted-foreground line-through">$33,300</td>
+                    <td className="px-4 py-3 text-center font-bold text-primary">$14,999</td>
                   </tr>
-                </tfoot>
+                  <tr className="border-b border-border/50">
+                    <td className="px-4 py-3 font-medium text-foreground">{t.quarterly}</td>
+                    <td className="px-4 py-3 text-center text-foreground">$22,500</td>
+                    <td className="px-4 py-3 text-center text-muted-foreground line-through">$99,900</td>
+                    <td className="px-4 py-3 text-center font-bold text-primary">$44,997</td>
+                  </tr>
+                  <tr className="border-b border-border/50">
+                    <td className="px-4 py-3 font-medium text-foreground">{t.annual}</td>
+                    <td className="px-4 py-3 text-center text-foreground">$90,000</td>
+                    <td className="px-4 py-3 text-center text-muted-foreground line-through">$399,600</td>
+                    <td className="px-4 py-3 text-center font-bold text-primary">$179,988</td>
+                  </tr>
+                  <tr className="border-b border-border/50">
+                    <td className="px-4 py-3 font-medium text-foreground">{t.coverage}</td>
+                    <td className="px-4 py-3 text-center"><Badge variant="secondary">~61%</Badge></td>
+                    <td className="px-4 py-3 text-center"><Badge>100%</Badge></td>
+                    <td className="px-4 py-3 text-center"><Badge>100%</Badge></td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-3 font-medium text-foreground">{t.modules}</td>
+                    <td className="px-4 py-3 text-center text-foreground">—</td>
+                    <td className="px-4 py-3 text-center text-muted-foreground">36</td>
+                    <td className="px-4 py-3 text-center font-bold text-primary">36</td>
+                  </tr>
+                </tbody>
               </table>
             </div>
           </Card>
+        </div>
+
+        {/* Module Detail with Accordions */}
+        <div className={`transition-all duration-700 delay-400 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+          <div className="text-center mb-6">
+            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-medium mb-3">
+              <DollarSign className="w-4 h-4" />
+              {t.detailSubtitle}
+            </div>
+            <h3 className="text-2xl font-bold text-foreground">{t.detailTitle}</h3>
+          </div>
+
+          <Accordion type="multiple" className="space-y-2">
+            {moduleGroups.map((group) => {
+              const Icon = group.icon;
+              return (
+                <AccordionItem key={group.id} value={group.id} className="border rounded-lg overflow-hidden bg-card">
+                  <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-muted/30">
+                    <div className="flex items-center gap-3 flex-1 mr-4">
+                      <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <Icon className="w-4 h-4 text-primary" />
+                      </div>
+                      <div className="flex items-center gap-2 flex-1 min-w-0">
+                        <Badge variant="outline" className="text-xs font-mono flex-shrink-0">{t.group} {group.label}</Badge>
+                        <span className="font-semibold text-foreground text-sm truncate">{group.subtotalName[language]}</span>
+                      </div>
+                      <div className="flex items-center gap-1 text-sm font-bold text-primary flex-shrink-0">
+                        <DollarSign className="w-3.5 h-3.5" />
+                        {group.subtotalMonthly.replace("$", "")}{t.perMonth}
+                      </div>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="px-0 pb-0">
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-sm">
+                        <thead>
+                          <tr className="bg-muted/30 border-y border-border">
+                            <th className="text-left px-4 py-2 text-xs font-medium text-muted-foreground">{t.module}</th>
+                            <th className="text-center px-3 py-2 text-xs font-medium text-muted-foreground">{t.status}</th>
+                            <th className="text-right px-3 py-2 text-xs font-medium text-muted-foreground">{t.monthly}</th>
+                            <th className="text-right px-3 py-2 text-xs font-medium text-muted-foreground">{t.quarterly}</th>
+                            <th className="text-right px-4 py-2 text-xs font-medium text-muted-foreground">{t.annual}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {group.modules.map((mod, i) => (
+                            <tr key={i} className="border-b border-border/30 hover:bg-muted/20 transition-colors">
+                              <td className="px-4 py-2.5 text-foreground">{mod.name[language]}</td>
+                              <td className="px-3 py-2.5 text-center">
+                                <span className={`inline-block text-[10px] font-medium px-2 py-0.5 rounded-full border ${statusColor(mod.status)}`}>
+                                  {mod.status}
+                                </span>
+                              </td>
+                              <td className="px-3 py-2.5 text-right font-medium text-foreground">{mod.monthly}</td>
+                              <td className="px-3 py-2.5 text-right text-muted-foreground">{mod.quarterly}</td>
+                              <td className="px-4 py-2.5 text-right text-muted-foreground">{mod.annual}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                        <tfoot>
+                          <tr className="bg-primary/5 font-bold">
+                            <td className="px-4 py-2.5 text-foreground" colSpan={2}>{t.subtotal} — {group.subtotalName[language]}</td>
+                            <td className="px-3 py-2.5 text-right text-primary">{group.subtotalMonthly}</td>
+                            <td className="px-3 py-2.5 text-right text-foreground">{group.subtotalQuarterly}</td>
+                            <td className="px-4 py-2.5 text-right text-foreground">{group.subtotalAnnual}</td>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              );
+            })}
+          </Accordion>
+
+          {/* Totals */}
+          <Card className="mt-4 overflow-hidden border-primary/20">
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <tbody>
+                  <tr className="border-b border-border bg-muted/30">
+                    <td className="px-4 py-3 font-semibold text-foreground">{t.totalAlaCarte}</td>
+                    <td className="px-3 py-3 text-right font-bold text-foreground">$25,800</td>
+                    <td className="px-3 py-3 text-right text-muted-foreground">$77,400</td>
+                    <td className="px-4 py-3 text-right text-muted-foreground">$309,600</td>
+                  </tr>
+                  <tr className="border-b border-border bg-primary/5">
+                    <td className="px-4 py-3 font-bold text-primary">{t.totalAllIn}</td>
+                    <td className="px-3 py-3 text-right font-bold text-primary">$14,999</td>
+                    <td className="px-3 py-3 text-right text-primary">$44,997</td>
+                    <td className="px-4 py-3 text-right text-primary">$179,988</td>
+                  </tr>
+                  <tr className="bg-emerald-500/10">
+                    <td className="px-4 py-3 font-bold text-emerald-600 dark:text-emerald-400">{t.totalSavings}</td>
+                    <td className="px-3 py-3 text-right font-bold text-emerald-600 dark:text-emerald-400">−$18,301</td>
+                    <td className="px-3 py-3 text-right text-emerald-600 dark:text-emerald-400">−$54,903</td>
+                    <td className="px-4 py-3 text-right text-emerald-600 dark:text-emerald-400">−$219,612</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </Card>
+
           <p className="text-xs text-muted-foreground text-center mt-3">
             💡 {t.billing}
           </p>

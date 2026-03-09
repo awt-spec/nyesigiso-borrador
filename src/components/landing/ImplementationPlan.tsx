@@ -438,8 +438,13 @@ const ImplementationPlan = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
             {t.title}
           </h2>
+          <Button variant="outline" size="sm" className="mt-2" onClick={() => setShowAll(!showAll)}>
+            {showAll ? <ChevronUp className="w-4 h-4 mr-1.5" /> : <ChevronDown className="w-4 h-4 mr-1.5" />}
+            {showAll ? t.collapseAll : t.expandAll}
+          </Button>
         </div>
 
+        <div className={`overflow-hidden transition-all duration-500 ${showAll ? "max-h-none opacity-100" : "max-h-0 opacity-0"}`}>
         {/* FASE 1 Active Banner */}
         <div className={`mb-8 transition-all duration-700 delay-100 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <Card className="border-emerald-500/30 bg-emerald-500/5 relative overflow-hidden">

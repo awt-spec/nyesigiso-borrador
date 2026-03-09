@@ -147,7 +147,7 @@ const labels: Record<Lang, Record<string, string>> = {
     billing: "Suscripción mensual · Facturación trimestral anticipada · Precios en USD",
     // Phase cards
     chooseTitle: "Escoja su Modalidad",
-    chooseSubtitle: "Dos opciones para activar los 36 módulos adicionales",
+    chooseSubtitle: "Dos opciones para activar los 34 módulos adicionales",
     option1Title: "Opción A — À la Carte",
     option1Subtitle: "Active módulos individuales cuando quiera",
     option1Desc: "Elija y active solo los módulos que necesita, uno por uno, al precio individual del Cadre de Réponse. Sin compromiso de paquete.",

@@ -287,6 +287,12 @@ const statusColor = (status: string) => {
   return "bg-muted text-muted-foreground border-border";
 };
 
+/** Prefix any $amount with USD */
+const usd = (v: string) => {
+  if (!v || v === "bundled" || v === "—") return v;
+  return v.startsWith("$") ? `USD ${v}` : v.startsWith("−$") ? `−USD ${v.slice(1)}` : v;
+};
+
 const ImplementationPlan = () => {
   const { language } = useLanguage();
   const [visible, setVisible] = useState(false);

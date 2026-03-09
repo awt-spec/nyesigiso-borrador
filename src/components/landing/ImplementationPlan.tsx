@@ -960,6 +960,7 @@ const ImplementationPlan = () => {
             </AccordionItem>
           </Accordion>
         </div>
+        </div>
       </div>
     </section>
   );

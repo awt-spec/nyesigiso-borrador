@@ -540,6 +540,12 @@ const ImplementationPlan = () => {
                 </thead>
                 <tbody>
                   <tr className="border-b border-border/50">
+                    <td className="px-4 py-3 font-medium text-foreground">{t.setupFee}</td>
+                    <td className="px-4 py-3 text-center text-foreground">USD $35,000</td>
+                    <td className="px-4 py-3 text-center text-muted-foreground">USD $35,000</td>
+                    <td className="px-4 py-3 text-center font-bold text-primary">USD $35,000</td>
+                  </tr>
+                  <tr className="border-b border-border/50">
                     <td className="px-4 py-3 font-medium text-foreground">{t.perMonthLabel}</td>
                     <td className="px-4 py-3 text-center text-foreground">USD $7,500</td>
                     <td className="px-4 py-3 text-center text-muted-foreground line-through">USD $29,100</td>

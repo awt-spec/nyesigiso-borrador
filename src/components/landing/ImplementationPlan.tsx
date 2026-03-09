@@ -511,7 +511,7 @@ const ImplementationPlan = () => {
                   </div>
                   <div>
                     <p className="text-xs text-muted-foreground uppercase">{t.perYearLabel}</p>
-                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−USD $219,612</p>
+                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−USD $205,212</p>
                   </div>
                 </div>
               </div>

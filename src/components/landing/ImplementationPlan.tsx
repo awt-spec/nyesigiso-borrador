@@ -206,8 +206,9 @@ const ImplementationPlan = () => {
           <Card className="bg-card border-primary/20">
             <CardContent className="p-5 text-center">
               <DollarSign className="w-7 h-7 text-primary mx-auto mb-2" />
-              <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">{t.totalInvestment}</p>
-              <p className="text-2xl font-bold text-foreground">$170,000</p>
+              <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">{t.totalMonthly}</p>
+              <p className="text-2xl font-bold text-foreground">$31,000</p>
+              <p className="text-xs text-muted-foreground mt-1">{t.billing}</p>
             </CardContent>
           </Card>
         </div>

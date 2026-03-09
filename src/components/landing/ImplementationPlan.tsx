@@ -210,6 +210,7 @@ const labels: Record<Lang, Record<string, string>> = {
     phase1desc: "SAF UPV 7.0 · 87 BD · 94 Agences",
     phase1note: "Active depuis la signature",
     phase1includes: "Migration SAF UPV 7.0 complète · Consolidation 87 BD → 1 · Licences illimitées · Support + BCEAO",
+    setupFee: "Setup Fee (unique)",
     active: "ACTIVE",
     recommended: "RECOMMANDÉ",
     savingsTitle: "Économie vs. À la Carte",

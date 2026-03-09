@@ -40,6 +40,7 @@ const phases = [
     subtitle: { es: "Gestión Operativa", fr: "Gestion Opérationnelle", en: "Operational Management" },
     timing: { es: "+18 meses", fr: "+18 mois", en: "+18 months" },
     coverage: "~63%",
+    investment: "$30,000 USD",
     modules: [
       { es: "Grupo C — Garantías + Credit Scoring + Compromisos", fr: "Groupe C — Garanties + Credit Scoring + Engagements", en: "Group C — Guarantees + Credit Scoring + Commitments" },
       { es: "Grupo D — Contencioso + Sucesiones + Embargos/ATD + Reclamaciones", fr: "Groupe D — Contentieux + Successions + Saisies/ATD + Réclamations", en: "Group D — Litigation + Succession + Seizures/ATD + Claims" },

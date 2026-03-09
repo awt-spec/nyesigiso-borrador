@@ -863,17 +863,6 @@ const ImplementationPlan = () => {
                             </li>
                           ))}
                         </ul>
-                        {step.progress && (
-                          <div className="mt-3">
-                            <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
-                              <span>80 BD</span>
-                              <span>87 BD</span>
-                            </div>
-                            <div className="h-2 bg-muted rounded-full overflow-hidden">
-                              <div className="h-full bg-primary/60 rounded-full" style={{ width: "92%" }} />
-                            </div>
-                          </div>
-                        )}
                       </div>
                     </div>
                   ));

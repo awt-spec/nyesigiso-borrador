@@ -169,7 +169,7 @@ const ImplementationPlan = () => {
         </div>
 
         {/* Summary Stats */}
-        <div className={`grid grid-cols-3 gap-4 mb-10 transition-all duration-700 delay-100 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+        <div className={`grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 transition-all duration-700 delay-100 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <Card className="bg-card border-primary/20">
             <CardContent className="p-5 text-center">
               <Layers className="w-7 h-7 text-primary mx-auto mb-2" />
@@ -179,16 +179,23 @@ const ImplementationPlan = () => {
           </Card>
           <Card className="bg-card border-primary/20">
             <CardContent className="p-5 text-center">
-              <Calendar className="w-7 h-7 text-amber-500 mx-auto mb-2" />
+              <Calendar className="w-7 h-7 text-primary mx-auto mb-2" />
               <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">{t.horizon}</p>
               <p className="text-2xl font-bold text-foreground">~30 {language === "es" ? "meses" : language === "fr" ? "mois" : "months"}</p>
             </CardContent>
           </Card>
           <Card className="bg-card border-primary/20">
             <CardContent className="p-5 text-center">
-              <Target className="w-7 h-7 text-emerald-500 mx-auto mb-2" />
+              <Target className="w-7 h-7 text-primary mx-auto mb-2" />
               <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">{t.finalCoverage}</p>
               <p className="text-2xl font-bold text-foreground">100%</p>
+            </CardContent>
+          </Card>
+          <Card className="bg-card border-primary/20">
+            <CardContent className="p-5 text-center">
+              <DollarSign className="w-7 h-7 text-primary mx-auto mb-2" />
+              <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">{t.totalInvestment}</p>
+              <p className="text-2xl font-bold text-foreground">$170,000</p>
             </CardContent>
           </Card>
         </div>

@@ -148,7 +148,7 @@ const labels: Record<Lang, Record<string, string>> = {
     // Phase cards
     chooseTitle: "Escoja su Modalidad",
     chooseSubtitle: "Dos opciones para activar los 34 módulos adicionales",
-    option1Title: "Opción A — À la Carte",
+    option1Title: "Opción A — A la Carta",
     option1Subtitle: "Active módulos individuales cuando quiera",
     option1Desc: "Elija y active solo los módulos que necesita, uno por uno, al precio individual del Cadre de Réponse. Sin compromiso de paquete.",
     option1Price: "USD $21,600",

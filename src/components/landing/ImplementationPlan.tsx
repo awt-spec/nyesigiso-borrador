@@ -559,8 +559,8 @@ const ImplementationPlan = () => {
                   <tr>
                     <td className="px-4 py-3 font-medium text-foreground">{t.modules}</td>
                     <td className="px-4 py-3 text-center text-foreground">—</td>
-                    <td className="px-4 py-3 text-center text-muted-foreground">36</td>
-                    <td className="px-4 py-3 text-center font-bold text-primary">36</td>
+                    <td className="px-4 py-3 text-center text-muted-foreground">34</td>
+                    <td className="px-4 py-3 text-center font-bold text-primary">34</td>
                   </tr>
                 </tbody>
               </table>

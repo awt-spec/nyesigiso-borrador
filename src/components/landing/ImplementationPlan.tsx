@@ -341,7 +341,7 @@ const ImplementationPlan = () => {
                 </div>
                 <div className="flex items-center gap-4">
                   <div className="text-right">
-                    <span className="text-2xl font-bold text-foreground">$7,500</span>
+                    <span className="text-2xl font-bold text-foreground">USD $7,500</span>
                     <span className="text-muted-foreground text-sm">{t.perMonth}</span>
                   </div>
                   <Badge variant="secondary" className="text-xs">~61% {t.coverage}</Badge>

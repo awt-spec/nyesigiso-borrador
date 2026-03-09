@@ -108,10 +108,15 @@ const labels = {
     phases: "Fases",
     horizon: "Horizonte Total",
     finalCoverage: "Cobertura Final",
-    monthlyFee: "Cuota Mensual",
+    pricingTitle: "Tabla de Precios por Fase",
+    pricingSubtitle: "Cuota mensual · Facturación trimestral",
+    phase: "Fase",
+    monthlyFee: "Cuota/Mes",
     setupFee: "Setup Fee",
+    quarterly: "Trimestral",
+    annual: "Anual",
+    total: "Total Acumulado",
     billing: "Facturación trimestral",
-    totalMonthly: "Cuota Mensual Total",
   },
   fr: {
     title: "Proposition d'Expansion",
@@ -124,10 +129,15 @@ const labels = {
     phases: "Phases",
     horizon: "Horizon Total",
     finalCoverage: "Couverture Finale",
-    monthlyFee: "Frais Mensuels",
+    pricingTitle: "Tableau des Prix par Phase",
+    pricingSubtitle: "Frais mensuels · Facturation trimestrielle",
+    phase: "Phase",
+    monthlyFee: "Frais/Mois",
     setupFee: "Setup Fee",
+    quarterly: "Trimestriel",
+    annual: "Annuel",
+    total: "Total Cumulé",
     billing: "Facturation trimestrielle",
-    totalMonthly: "Frais Mensuels Totaux",
   },
   en: {
     title: "Expansion Proposal",
@@ -140,10 +150,15 @@ const labels = {
     phases: "Phases",
     horizon: "Total Horizon",
     finalCoverage: "Final Coverage",
-    monthlyFee: "Monthly Fee",
+    pricingTitle: "Pricing Table by Phase",
+    pricingSubtitle: "Monthly fee · Quarterly billing",
+    phase: "Phase",
+    monthlyFee: "Fee/Month",
     setupFee: "Setup Fee",
+    quarterly: "Quarterly",
+    annual: "Annual",
+    total: "Cumulative Total",
     billing: "Quarterly billing",
-    totalMonthly: "Total Monthly Fee",
   },
 };
 
@@ -181,7 +196,7 @@ const ImplementationPlan = () => {
         </div>
 
         {/* Summary Stats */}
-        <div className={`grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 transition-all duration-700 delay-100 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+        <div className={`grid grid-cols-3 gap-4 mb-10 transition-all duration-700 delay-100 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <Card className="bg-card border-primary/20">
             <CardContent className="p-5 text-center">
               <Layers className="w-7 h-7 text-primary mx-auto mb-2" />
@@ -201,14 +216,6 @@ const ImplementationPlan = () => {
               <Target className="w-7 h-7 text-primary mx-auto mb-2" />
               <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">{t.finalCoverage}</p>
               <p className="text-2xl font-bold text-foreground">100%</p>
-            </CardContent>
-          </Card>
-          <Card className="bg-card border-primary/20">
-            <CardContent className="p-5 text-center">
-              <DollarSign className="w-7 h-7 text-primary mx-auto mb-2" />
-              <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">{t.totalMonthly}</p>
-              <p className="text-2xl font-bold text-foreground">$31,000</p>
-              <p className="text-xs text-muted-foreground mt-1">{t.billing}</p>
             </CardContent>
           </Card>
         </div>
@@ -261,15 +268,6 @@ const ImplementationPlan = () => {
                         <div className="inline-flex items-center gap-1.5 bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-bold">
                           {phase.coverage}
                         </div>
-                        <div className="flex items-center gap-1 justify-end text-sm font-bold text-foreground">
-                          <DollarSign className="w-3.5 h-3.5 text-primary" />
-                          {phase.monthlyFee}/{language === "es" ? "mes" : language === "fr" ? "mois" : "mo"}
-                        </div>
-                        {phase.setupFee && (
-                          <p className="text-xs text-muted-foreground text-right">
-                            Setup: {phase.setupFee}
-                          </p>
-                        )}
                       </div>
                     </div>
                   </CardHeader>
@@ -296,6 +294,89 @@ const ImplementationPlan = () => {
               </div>
             ))}
           </div>
+        </div>
+
+        {/* Pricing Table */}
+        <div className={`mt-14 transition-all duration-700 delay-500 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+          <div className="text-center mb-6">
+            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-medium mb-3">
+              <DollarSign className="w-4 h-4" />
+              {t.pricingSubtitle}
+            </div>
+            <h3 className="text-2xl font-bold text-foreground">{t.pricingTitle}</h3>
+          </div>
+          <Card className="overflow-hidden border-primary/20">
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="bg-primary/5 border-b border-border">
+                    <th className="text-left px-4 py-3 font-semibold text-foreground">{t.phase}</th>
+                    <th className="text-center px-4 py-3 font-semibold text-foreground">{t.coverage}</th>
+                    <th className="text-center px-4 py-3 font-semibold text-foreground">{t.timing}</th>
+                    <th className="text-right px-4 py-3 font-semibold text-foreground">{t.setupFee}</th>
+                    <th className="text-right px-4 py-3 font-semibold text-foreground">{t.monthlyFee}</th>
+                    <th className="text-right px-4 py-3 font-semibold text-foreground">{t.quarterly}</th>
+                    <th className="text-right px-4 py-3 font-semibold text-foreground">{t.annual}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {phases.map((phase) => {
+                    const monthly = parseInt(phase.monthlyFee.replace(/[^0-9]/g, ""));
+                    return (
+                      <tr
+                        key={phase.id}
+                        className={`border-b border-border/50 ${phase.active ? "bg-primary/5" : "hover:bg-muted/30"} transition-colors`}
+                      >
+                        <td className="px-4 py-3">
+                          <span className="font-semibold text-foreground">{phase.name[language]}</span>
+                        </td>
+                        <td className="px-4 py-3 text-center">
+                          <Badge variant={phase.coverage === "100%" ? "default" : "secondary"} className="text-xs">
+                            {phase.coverage}
+                          </Badge>
+                        </td>
+                        <td className="px-4 py-3 text-center text-muted-foreground">
+                          {phase.timing[language]}
+                        </td>
+                        <td className="px-4 py-3 text-right font-medium text-foreground">
+                          {phase.setupFee}
+                        </td>
+                        <td className="px-4 py-3 text-right font-bold text-primary">
+                          {phase.monthlyFee}
+                        </td>
+                        <td className="px-4 py-3 text-right text-muted-foreground">
+                          ${(monthly * 3).toLocaleString()}
+                        </td>
+                        <td className="px-4 py-3 text-right text-muted-foreground">
+                          ${(monthly * 12).toLocaleString()}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+                <tfoot>
+                  <tr className="bg-primary/10 font-bold">
+                    <td className="px-4 py-3 text-foreground" colSpan={3}>{t.total}</td>
+                    <td className="px-4 py-3 text-right text-foreground">
+                      ${phases.reduce((s, p) => s + parseInt(p.setupFee.replace(/[^0-9]/g, "")), 0).toLocaleString()}
+                    </td>
+                    <td className="px-4 py-3 text-right text-primary">
+                      ${phases.reduce((s, p) => s + parseInt(p.monthlyFee.replace(/[^0-9]/g, "")), 0).toLocaleString()}
+                    </td>
+                    <td className="px-4 py-3 text-right text-foreground">
+                      ${(phases.reduce((s, p) => s + parseInt(p.monthlyFee.replace(/[^0-9]/g, "")), 0) * 3).toLocaleString()}
+                    </td>
+                    <td className="px-4 py-3 text-right text-foreground">
+                      ${(phases.reduce((s, p) => s + parseInt(p.monthlyFee.replace(/[^0-9]/g, "")), 0) * 12).toLocaleString()}
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </Card>
+          <p className="text-xs text-muted-foreground text-center mt-3">
+            💡 {t.billing}
+          </p>
         </div>
       </div>
     </section>

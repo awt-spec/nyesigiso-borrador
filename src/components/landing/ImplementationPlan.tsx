@@ -761,7 +761,7 @@ const ImplementationPlan = () => {
                     const phase1Steps = [
                       { 
                         period: t.cronogramaAcceptance, 
-                        items: [t.cronogramaInstallation, t.cronogramaLicenses, t.cronogramaReporting],
+                        items: [t.cronogramaInstallation, t.cronogramaReporting],
                         icon: "🚀",
                         color: "bg-primary/10 border-primary/30"
                       },

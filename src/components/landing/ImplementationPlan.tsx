@@ -408,9 +408,9 @@ const ImplementationPlan = () => {
                                   {mod.status}
                                 </span>
                               </td>
-                              <td className="px-3 py-2.5 text-right font-medium text-foreground">{mod.monthly}</td>
-                              <td className="px-3 py-2.5 text-right text-muted-foreground">{mod.quarterly}</td>
-                              <td className="px-4 py-2.5 text-right text-muted-foreground">{mod.annual}</td>
+                              <td className="px-3 py-2.5 text-right font-medium text-foreground">{usd(mod.monthly)}</td>
+                              <td className="px-3 py-2.5 text-right text-muted-foreground">{usd(mod.quarterly)}</td>
+                              <td className="px-4 py-2.5 text-right text-muted-foreground">{usd(mod.annual)}</td>
                             </tr>
                           ))}
                         </tbody>

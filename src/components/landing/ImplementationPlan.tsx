@@ -169,7 +169,7 @@ const labels: Record<Lang, Record<string, string>> = {
     savingsDesc: "eligiendo ALL IN",
     comparisonTitle: "Comparación de Escenarios",
     phase1Label: "FASE 1",
-    alaCarte: "À la Carte",
+    alaCarte: "A la Carta",
     allIn: "ALL IN",
     coverage: "Cobertura",
     modules: "Módulos",

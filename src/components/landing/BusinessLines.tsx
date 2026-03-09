@@ -74,11 +74,11 @@ const lines: BusinessLine[] = [
   {
     icon: <PiggyBank className="w-5 h-5" />,
     name: "Fondos de Pensión",
-    subtitle: { es: "Fondos de Pensión", fr: "Fonds de Pension", en: "Pension Funds" },
+    subtitle: { es: "", fr: "", en: "" },
     description: {
-      es: "Plataforma líder para gestión de fondos de pensión con enfoque integral.",
-      fr: "Plateforme leader pour la gestion des fonds de pension avec une approche intégrale.",
-      en: "Leading platform for pension fund management with a comprehensive approach.",
+      es: "",
+      fr: "",
+      en: "",
     },
     features: {
       es: ["Administración de fondos de pensión", "Control y trazabilidad operativa", "Reportería regulatoria configurable", "Continuidad operativa garantizada"],

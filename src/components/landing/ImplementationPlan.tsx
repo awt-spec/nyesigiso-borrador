@@ -120,10 +120,8 @@ const moduleGroups: ModuleGroup[] = [
     modules: [
       { name: { es: "Workflow / Gestión de Flujos", fr: "Workflow / Gestion des Flux", en: "Workflow / Flow Management" }, status: "NO CUBIERTO", monthly: "$800", quarterly: "$2,400", annual: "$9,600" },
       { name: { es: "GED — Gestión Electrónica de Documentos", fr: "GED — Gestion Électronique de Documents", en: "DMS — Electronic Document Management" }, status: "NO CUBIERTO", monthly: "$600", quarterly: "$1,800", annual: "$7,200" },
-      { name: { es: "Web Services (STRATEGO, Orange Money, BCEAO…)", fr: "Web Services (STRATEGO, Orange Money, BCEAO…)", en: "Web Services (STRATEGO, Orange Money, BCEAO…)" }, status: "NO CUBIERTO", monthly: "$700", quarterly: "$2,100", annual: "$8,400" },
-      { name: { es: "APIs REST (bundled con Web Services)", fr: "APIs REST (bundled avec Web Services)", en: "REST APIs (bundled with Web Services)" }, status: "NO CUBIERTO", monthly: "bundled", quarterly: "—", annual: "—" },
     ],
-    subtotalMonthly: "$2,100", subtotalQuarterly: "$6,300", subtotalAnnual: "$25,200",
+    subtotalMonthly: "$1,400", subtotalQuarterly: "$4,200", subtotalAnnual: "$16,800",
   },
 ];
 
@@ -191,6 +189,7 @@ const labels: Record<Lang, Record<string, string>> = {
     cronograma12later: "12 meses después",
     cronogramaInstallation: "Costos de instalación",
     cronogramaLicenses: "Licencias de utilización — Licencia ilimitada Nyèsigiso",
+    cronogramaReporting: "Reporting operacional y reglamentario. Informes BCEAO y operaciones de Nyèsigiso",
     cronogramaMigration: "Migración de la base de datos centralizadora hacia SAF UPV 7.0",
     cronogramaConsol2: "Consolidación de 2 primeras bases de datos",
     cronogramaConsol5: "Consolidación de 5 bases de datos",
@@ -361,8 +360,8 @@ const labels: Record<Lang, Record<string, string>> = {
     cronogramaSupportContract: "First-year support contract",
     cronograma12later: "12 months later",
     cronogramaInstallation: "Installation fees",
-    cronogramaLicenses: "Usage licenses — Preferential rate 1,300 USD per license — Pack of 121 licenses",
-    cronogramaReporting: "OperatUnlimited licenserations",
+    cronogramaLicenses: "Usage licenses — Unlimited license",
+    cronogramaReporting: "Operational and regulatory reporting. BCEAO reports and Nyèsigiso operations",
     cronogramaMigration: "Migration of the centralizing database to SAF UPV 7.0",
     cronogramaConsol2: "Consolidation of first 2 databases",
     cronogramaConsol5: "Consolidation of 5 databases",
@@ -763,7 +762,7 @@ const ImplementationPlan = () => {
                     const phase1Steps = [
                       { 
                         period: t.cronogramaAcceptance, 
-                        items: [t.cronogramaInstallation, t.cronogramaLicenses, t.cronogramaReporting],
+                        items: [t.cronogramaInstallation, t.cronogramaReporting],
                         icon: "🚀",
                         color: "bg-primary/10 border-primary/30"
                       },

@@ -196,7 +196,7 @@ const ImplementationPlan = () => {
         </div>
 
         {/* Summary Stats */}
-        <div className={`grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 transition-all duration-700 delay-100 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+        <div className={`grid grid-cols-3 gap-4 mb-10 transition-all duration-700 delay-100 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <Card className="bg-card border-primary/20">
             <CardContent className="p-5 text-center">
               <Layers className="w-7 h-7 text-primary mx-auto mb-2" />
@@ -216,14 +216,6 @@ const ImplementationPlan = () => {
               <Target className="w-7 h-7 text-primary mx-auto mb-2" />
               <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">{t.finalCoverage}</p>
               <p className="text-2xl font-bold text-foreground">100%</p>
-            </CardContent>
-          </Card>
-          <Card className="bg-card border-primary/20">
-            <CardContent className="p-5 text-center">
-              <DollarSign className="w-7 h-7 text-primary mx-auto mb-2" />
-              <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">{t.totalMonthly}</p>
-              <p className="text-2xl font-bold text-foreground">$31,000</p>
-              <p className="text-xs text-muted-foreground mt-1">{t.billing}</p>
             </CardContent>
           </Card>
         </div>

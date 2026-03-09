@@ -201,7 +201,7 @@ const labels: Record<Lang, Record<string, string>> = {
     option1Price: "USD $24,600",
     option1Note: "Somme de tous les modules séparément",
     option2Title: "Option B — ALL IN",
-    option2Subtitle: "Les 36 modules dans un seul bundle",
+    option2Subtitle: "Les 34 modules dans un seul bundle",
     option2Desc: "Activez tous les modules d'un coup avec une remise massive. Inclut PHASE 1 + PHASE 2 pour un prix unique et imbattable.",
     option2Price: "USD $14,999",
     option2Note: "PHASE 1 (USD $7,500) + PHASE 2 (USD $7,499)",

@@ -102,6 +102,8 @@ const labels = {
     phases: "Fases",
     horizon: "Horizonte Total",
     finalCoverage: "Cobertura Final",
+    investment: "Inversión",
+    totalInvestment: "Inversión Total",
   },
   fr: {
     title: "Proposition d'Expansion",

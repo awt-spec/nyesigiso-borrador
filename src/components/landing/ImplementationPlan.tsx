@@ -850,6 +850,7 @@ const ImplementationPlan = () => {
               </div>
             </CardContent>
           </Card>
+        </div>
       </div>
     </section>
   );

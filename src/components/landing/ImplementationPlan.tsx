@@ -268,15 +268,6 @@ const ImplementationPlan = () => {
                         <div className="inline-flex items-center gap-1.5 bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-bold">
                           {phase.coverage}
                         </div>
-                        <div className="flex items-center gap-1 justify-end text-sm font-bold text-foreground">
-                          <DollarSign className="w-3.5 h-3.5 text-primary" />
-                          {phase.monthlyFee}/{language === "es" ? "mes" : language === "fr" ? "mois" : "mo"}
-                        </div>
-                        {phase.setupFee && (
-                          <p className="text-xs text-muted-foreground text-right">
-                            Setup: {phase.setupFee}
-                          </p>
-                        )}
                       </div>
                     </div>
                   </CardHeader>

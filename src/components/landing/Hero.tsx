@@ -95,15 +95,6 @@ const Hero = () => {
             ))}
           </div>
 
-          <Button
-            size="lg"
-            className="bg-primary text-primary-foreground hover:bg-primary/90 font-bold text-sm px-6 py-5 rounded-lg mt-2 hover:scale-105 transition-transform duration-200 animate-fade-in"
-            style={{ animationDelay: "1400ms", animationFillMode: "both" }}
-            onClick={() => document.getElementById("propuesta")?.scrollIntoView({ behavior: "smooth" })}
-          >
-            {t.hero.cta}
-            <ArrowDown className="w-4 h-4 ml-2" />
-          </Button>
         </div>
       </div>
     </section>

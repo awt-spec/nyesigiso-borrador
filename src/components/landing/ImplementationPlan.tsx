@@ -376,6 +376,15 @@ const labels: Record<Lang, Record<string, string>> = {
     cronogramaP2GoLive: "Progressive production rollout per module",
     cronogramaP2Optimize: "Post-production optimization and adjustments",
     cronogramaP2Ongoing: "Ongoing support and continuous improvement",
+    cronogramaP2Flexible: "Timeline defined by client priorities",
+    cronogramaP2Priority: "Client Prioritization",
+    cronogramaP2PriorityDesc: "Nyèsigiso defines the activation order of the 34 modules based on their operational and strategic priorities.",
+    cronogramaP2Scope: "9 Functional Groups",
+    cronogramaP2ScopeDesc: "Security, Risks, Legal, Digital Channels, CRM, ERP, HR, BI and APIs — activation by blocks or individually.",
+    cronogramaP2Support: "SYSDE Accompaniment",
+    cronogramaP2SupportDesc: "Training, parallel operation, validation, and progressive rollout for each activated module.",
+    cronogramaP2NoteTitle: "Open & Flexible Calendar",
+    cronogramaP2NoteDesc: "Phase 2 has no rigid timeline. Modules are activated based on needs and priorities determined by Nyèsigiso, with full SYSDE accompaniment at every stage.",
   },
 };
 

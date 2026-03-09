@@ -512,15 +512,15 @@ const ImplementationPlan = () => {
                 <div className="flex gap-6 text-center">
                   <div>
                     <p className="text-xs text-muted-foreground uppercase">{t.perMonthLabel}</p>
-                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−$18,301</p>
+                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−USD $18,301</p>
                   </div>
                   <div>
                     <p className="text-xs text-muted-foreground uppercase">{t.perQuarterLabel}</p>
-                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−$54,903</p>
+                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−USD $54,903</p>
                   </div>
                   <div>
                     <p className="text-xs text-muted-foreground uppercase">{t.perYearLabel}</p>
-                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−$219,612</p>
+                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−USD $219,612</p>
                   </div>
                 </div>
               </div>

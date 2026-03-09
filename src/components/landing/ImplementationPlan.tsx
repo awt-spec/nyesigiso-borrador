@@ -116,6 +116,8 @@ const labels = {
     phases: "Phases",
     horizon: "Horizon Total",
     finalCoverage: "Couverture Finale",
+    investment: "Investissement",
+    totalInvestment: "Investissement Total",
   },
   en: {
     title: "Expansion Proposal",

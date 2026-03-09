@@ -383,8 +383,7 @@ const ImplementationPlan = () => {
                         <span className="font-semibold text-foreground text-sm truncate">{group.subtotalName[language]}</span>
                       </div>
                       <div className="flex items-center gap-1 text-sm font-bold text-primary flex-shrink-0">
-                        <DollarSign className="w-3.5 h-3.5" />
-                        {group.subtotalMonthly.replace("$", "")}{t.perMonth}
+                        USD {group.subtotalMonthly}{t.perMonth}
                       </div>
                     </div>
                   </AccordionTrigger>

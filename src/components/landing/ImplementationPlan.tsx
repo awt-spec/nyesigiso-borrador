@@ -68,6 +68,7 @@ const phases = [
     subtitle: { es: "Integración Interna", fr: "Intégration Interne", en: "Internal Integration" },
     timing: { es: "+24 meses", fr: "+24 mois", en: "+24 months" },
     coverage: "~88%",
+    investment: "$20,000 USD",
     modules: [
       { es: "Grupo E — Activos Fijos + Conciliación + Compras + Proveedores + Proyectos", fr: "Groupe E — Immobilisations + Rapprochement + Achats + Fournisseurs + Projets", en: "Group E — Fixed Assets + Reconciliation + Purchasing + Vendors + Projects" },
       { es: "Grupo F — Nómina (DNSI/INPS) + Gestión Personal + Contratos", fr: "Groupe F — Paie (DNSI/INPS) + Gestion du Personnel + Contrats", en: "Group F — Payroll (DNSI/INPS) + Personnel Mgmt + Contracts" },

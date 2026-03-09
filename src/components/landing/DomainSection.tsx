@@ -87,8 +87,8 @@ const inclusionConfig = {
     icon: PackageCheck,
   },
   notIncluded: {
-    label: { es: "POR COTIZAR", fr: "À CHIFFRER", en: "TO QUOTE" },
-    description: { es: "No cotizado — requiere presupuesto adicional", fr: "Non chiffré — nécessite un devis additionnel", en: "Not quoted — requires additional budget" },
+    label: { es: "FUERA DEL ALCANCE INICIAL", fr: "HORS PÉRIMÈTRE INITIAL", en: "OUTSIDE INITIAL SCOPE" },
+    description: { es: "No incluido en la propuesta base — disponible como módulo adicional", fr: "Non inclus dans la proposition de base — disponible comme module additionnel", en: "Not included in base proposal — available as additional module" },
     className: "bg-orange-500/15 text-orange-700 dark:text-orange-400 border-orange-500/30",
     icon: PackageX,
   },

@@ -17,7 +17,7 @@ const Header = () => {
   const t = translations[language];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-md border-b border-border shadow-sm">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-md border-b border-border shadow-sm animate-[slide-down_0.4s_ease-out]" style={{ animation: "fade-in 0.4s ease-out" }}>
       <div className="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded bg-primary flex items-center justify-center font-bold text-primary-foreground text-xs tracking-tight">

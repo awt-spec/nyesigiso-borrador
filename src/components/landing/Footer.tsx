@@ -1,5 +1,6 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translations } from "@/data/translations";
+import { useEffect, useRef, useState } from "react";
 
 const Footer = () => {
   const { language } = useLanguage();

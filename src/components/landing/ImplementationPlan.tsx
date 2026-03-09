@@ -204,6 +204,15 @@ const labels: Record<Lang, Record<string, string>> = {
     cronogramaP2GoLive: "Puesta en producción progresiva por módulo",
     cronogramaP2Optimize: "Optimización y ajustes post-producción",
     cronogramaP2Ongoing: "Soporte continuo y mejora continua",
+    cronogramaP2Flexible: "Cronograma definido según las prioridades del cliente",
+    cronogramaP2Priority: "Priorización por el Cliente",
+    cronogramaP2PriorityDesc: "Nyèsigiso define el orden de activación de los 34 módulos según sus prioridades operativas y estratégicas.",
+    cronogramaP2Scope: "9 Grupos Funcionales",
+    cronogramaP2ScopeDesc: "Seguridad, Riesgos, Jurídico, Canales Digitales, CRM, ERP, RRHH, BI y APIs — activación por bloques o individual.",
+    cronogramaP2Support: "Acompañamiento SYSDE",
+    cronogramaP2SupportDesc: "Capacitación, operación en paralelo, validación y puesta en producción progresiva para cada módulo activado.",
+    cronogramaP2NoteTitle: "Calendario abierto y flexible",
+    cronogramaP2NoteDesc: "La Fase 2 no tiene un cronograma rígido. Los módulos se activan según las necesidades y prioridades que Nyèsigiso determine, con acompañamiento completo de SYSDE en cada etapa.",
   },
   fr: {
     title: "Proposition d'Expansion",
@@ -281,6 +290,15 @@ const labels: Record<Lang, Record<string, string>> = {
     cronogramaP2GoLive: "Mise en production progressive par module",
     cronogramaP2Optimize: "Optimisation et ajustements post-production",
     cronogramaP2Ongoing: "Support continu et amélioration continue",
+    cronogramaP2Flexible: "Chronogramme défini selon les priorités du client",
+    cronogramaP2Priority: "Priorisation par le Client",
+    cronogramaP2PriorityDesc: "Nyèsigiso définit l'ordre d'activation des 34 modules selon ses priorités opérationnelles et stratégiques.",
+    cronogramaP2Scope: "9 Groupes Fonctionnels",
+    cronogramaP2ScopeDesc: "Sécurité, Risques, Juridique, Canaux Digitaux, CRM, ERP, RH, BI et APIs — activation par blocs ou individuelle.",
+    cronogramaP2Support: "Accompagnement SYSDE",
+    cronogramaP2SupportDesc: "Formation, fonctionnement en parallèle, validation et mise en production progressive pour chaque module activé.",
+    cronogramaP2NoteTitle: "Calendrier ouvert et flexible",
+    cronogramaP2NoteDesc: "La Phase 2 n'a pas de chronogramme rigide. Les modules sont activés selon les besoins et priorités que Nyèsigiso détermine, avec accompagnement complet de SYSDE à chaque étape.",
   },
   en: {
     title: "Expansion Proposal",
@@ -358,6 +376,15 @@ const labels: Record<Lang, Record<string, string>> = {
     cronogramaP2GoLive: "Progressive production rollout per module",
     cronogramaP2Optimize: "Post-production optimization and adjustments",
     cronogramaP2Ongoing: "Ongoing support and continuous improvement",
+    cronogramaP2Flexible: "Timeline defined by client priorities",
+    cronogramaP2Priority: "Client Prioritization",
+    cronogramaP2PriorityDesc: "Nyèsigiso defines the activation order of the 34 modules based on their operational and strategic priorities.",
+    cronogramaP2Scope: "9 Functional Groups",
+    cronogramaP2ScopeDesc: "Security, Risks, Legal, Digital Channels, CRM, ERP, HR, BI and APIs — activation by blocks or individually.",
+    cronogramaP2Support: "SYSDE Accompaniment",
+    cronogramaP2SupportDesc: "Training, parallel operation, validation, and progressive rollout for each activated module.",
+    cronogramaP2NoteTitle: "Open & Flexible Calendar",
+    cronogramaP2NoteDesc: "Phase 2 has no rigid timeline. Modules are activated based on needs and priorities determined by Nyèsigiso, with full SYSDE accompaniment at every stage.",
   },
 };
 
@@ -715,87 +742,138 @@ const ImplementationPlan = () => {
             <h3 className="text-2xl font-bold text-foreground">{t.cronogramaTitle}</h3>
           </div>
 
-          {/* Phase 1 Timeline */}
+          {/* Phase 1 Timeline - Visual */}
           <Card className="mb-6 overflow-hidden border-primary/20">
-            <CardHeader className="pb-2 bg-primary/5">
+            <CardHeader className="pb-3 bg-primary/5 border-b border-border">
               <CardTitle className="text-lg flex items-center gap-2">
                 <Badge className="bg-primary text-primary-foreground">1</Badge>
                 {t.cronogramaPhase1}
               </CardTitle>
+              <p className="text-xs text-muted-foreground mt-1">12 {t.cronogramaMonths} · 87 BD · Setup Fee USD $35,000</p>
             </CardHeader>
-            <CardContent className="p-0">
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="bg-muted/30 border-b border-border">
-                      <th className="text-left px-4 py-2.5 text-xs font-semibold text-muted-foreground w-1/3">{t.cronogramaDate}</th>
-                      <th className="text-left px-4 py-2.5 text-xs font-semibold text-muted-foreground">{t.cronogramaActivity}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {[
-                      { date: t.cronogramaAcceptance, activity: t.cronogramaInstallation },
-                      { date: t.cronogramaAcceptance, activity: t.cronogramaLicenses },
-                      { date: t.cronogramaAcceptance, activity: t.cronogramaReporting },
-                      { date: t.cronograma30days, activity: t.cronogramaMigration },
-                      { date: `2 ${t.cronogramaMonths}`, activity: t.cronogramaConsol2 },
-                      { date: `3 ${t.cronogramaMonths}`, activity: t.cronogramaConsol5 },
-                      { date: `4 ${t.cronogramaMonths}`, activity: t.cronogramaConsol10 },
-                      { date: `5 ${t.cronogramaMonths}`, activity: t.cronogramaConsol10 },
-                      { date: `6 ${t.cronogramaMonths}`, activity: t.cronogramaConsol10 },
-                      { date: `7 ${t.cronogramaMonths}`, activity: t.cronogramaConsol10 },
-                      { date: `8 ${t.cronogramaMonths}`, activity: t.cronogramaConsol10 },
-                      { date: `9 ${t.cronogramaMonths}`, activity: t.cronogramaConsol10 },
-                      { date: `10 ${t.cronogramaMonths}`, activity: t.cronogramaConsol10 },
-                      { date: `11 ${t.cronogramaMonths}`, activity: t.cronogramaConsol10 },
-                      { date: `12 ${t.cronogramaMonths}`, activity: t.cronogramaCertification },
-                      { date: t.cronogramaSupportContract, activity: t.cronogramaSupport },
-                      { date: t.cronograma12later, activity: t.cronogramaSupport },
-                    ].map((row, i) => (
-                      <tr key={i} className="border-b border-border/30 hover:bg-muted/20 transition-colors">
-                        <td className="px-4 py-2.5 font-medium text-foreground">{row.date}</td>
-                        <td className="px-4 py-2.5 text-muted-foreground">{row.activity}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+            <CardContent className="p-6">
+              {/* Visual timeline */}
+              <div className="relative">
+                {/* Vertical line */}
+                <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-border" />
+
+                {(() => {
+                  const phase1Steps = [
+                    { 
+                      period: t.cronogramaAcceptance, 
+                      items: [t.cronogramaInstallation, t.cronogramaLicenses, t.cronogramaReporting],
+                      icon: "🚀",
+                      color: "bg-primary/10 border-primary/30"
+                    },
+                    { 
+                      period: t.cronograma30days, 
+                      items: [t.cronogramaMigration],
+                      icon: "🔄",
+                      color: "bg-primary/10 border-primary/30"
+                    },
+                    { 
+                      period: `2-3 ${t.cronogramaMonths}`, 
+                      items: [t.cronogramaConsol2, t.cronogramaConsol5],
+                      icon: "📦",
+                      color: "bg-accent/50 border-accent"
+                    },
+                    { 
+                      period: `4-11 ${t.cronogramaMonths}`, 
+                      items: [`${t.cronogramaConsol10} (×8)`],
+                      icon: "⚡",
+                      color: "bg-accent/50 border-accent",
+                      progress: true
+                    },
+                    { 
+                      period: `12 ${t.cronogramaMonths}`, 
+                      items: [t.cronogramaCertification],
+                      icon: "✅",
+                      color: "bg-primary/10 border-primary/30"
+                    },
+                    { 
+                      period: t.cronogramaSupportContract, 
+                      items: [t.cronogramaSupport],
+                      icon: "🛟",
+                      color: "bg-muted border-border"
+                    },
+                    { 
+                      period: t.cronograma12later, 
+                      items: [t.cronogramaSupport],
+                      icon: "🔁",
+                      color: "bg-muted border-border"
+                    },
+                  ];
+
+                  return phase1Steps.map((step, i) => (
+                    <div key={i} className="relative pl-12 pb-6 last:pb-0 group">
+                      {/* Dot on line */}
+                      <div className="absolute left-2.5 top-1.5 w-3.5 h-3.5 rounded-full bg-primary border-2 border-background ring-2 ring-primary/20 group-hover:ring-primary/40 transition-all" />
+                      
+                      <div className={`rounded-lg border p-4 ${step.color} hover:shadow-md transition-all duration-200`}>
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-base">{step.icon}</span>
+                          <span className="text-sm font-bold text-foreground">{step.period}</span>
+                        </div>
+                        <ul className="space-y-1">
+                          {step.items.map((item, j) => (
+                            <li key={j} className="flex items-start gap-2 text-sm text-muted-foreground">
+                              <ChevronRight className="w-3.5 h-3.5 mt-0.5 text-primary flex-shrink-0" />
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                        {step.progress && (
+                          <div className="mt-3">
+                            <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
+                              <span>80 BD</span>
+                              <span>87 BD</span>
+                            </div>
+                            <div className="h-2 bg-muted rounded-full overflow-hidden">
+                              <div className="h-full bg-primary/60 rounded-full" style={{ width: "92%" }} />
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ));
+                })()}
               </div>
             </CardContent>
           </Card>
 
-          {/* Phase 2 Timeline */}
+          {/* Phase 2 - Flexible */}
           <Card className="overflow-hidden border-primary/20">
-            <CardHeader className="pb-2 bg-primary/5">
+            <CardHeader className="pb-3 bg-primary/5 border-b border-border">
               <CardTitle className="text-lg flex items-center gap-2">
                 <Badge className="bg-primary text-primary-foreground">2</Badge>
                 {t.cronogramaPhase2}
               </CardTitle>
+              <p className="text-xs text-muted-foreground mt-1">34 {t.modules} · {t.cronogramaP2Flexible}</p>
             </CardHeader>
-            <CardContent className="p-0">
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="bg-muted/30 border-b border-border">
-                      <th className="text-left px-4 py-2.5 text-xs font-semibold text-muted-foreground w-1/3">{t.cronogramaDate}</th>
-                      <th className="text-left px-4 py-2.5 text-xs font-semibold text-muted-foreground">{t.cronogramaActivity}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {[
-                      { date: `1-2 ${t.cronogramaMonths}`, activity: t.cronogramaP2Setup },
-                      { date: `3-4 ${t.cronogramaMonths}`, activity: t.cronogramaP2Training },
-                      { date: `5-6 ${t.cronogramaMonths}`, activity: t.cronogramaP2Parallel },
-                      { date: `7-9 ${t.cronogramaMonths}`, activity: t.cronogramaP2GoLive },
-                      { date: `10-12 ${t.cronogramaMonths}`, activity: t.cronogramaP2Optimize },
-                      { date: `12+ ${t.cronogramaMonths}`, activity: t.cronogramaP2Ongoing },
-                    ].map((row, i) => (
-                      <tr key={i} className="border-b border-border/30 hover:bg-muted/20 transition-colors">
-                        <td className="px-4 py-2.5 font-medium text-foreground">{row.date}</td>
-                        <td className="px-4 py-2.5 text-muted-foreground">{row.activity}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+            <CardContent className="p-6">
+              <div className="grid md:grid-cols-3 gap-4">
+                {[
+                  { icon: "🎯", title: t.cronogramaP2Priority, desc: t.cronogramaP2PriorityDesc },
+                  { icon: "📋", title: t.cronogramaP2Scope, desc: t.cronogramaP2ScopeDesc },
+                  { icon: "🤝", title: t.cronogramaP2Support, desc: t.cronogramaP2SupportDesc },
+                ].map((card, i) => (
+                  <div key={i} className="rounded-lg border border-border bg-card p-5 hover:border-primary/30 hover:shadow-md transition-all duration-200 text-center">
+                    <span className="text-2xl">{card.icon}</span>
+                    <p className="font-bold text-foreground mt-2 mb-1 text-sm">{card.title}</p>
+                    <p className="text-xs text-muted-foreground leading-relaxed">{card.desc}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-5 rounded-lg bg-muted/40 border border-border p-4">
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <Users className="w-4 h-4 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-foreground mb-1">{t.cronogramaP2NoteTitle}</p>
+                    <p className="text-xs text-muted-foreground leading-relaxed">{t.cronogramaP2NoteDesc}</p>
+                  </div>
+                </div>
               </div>
             </CardContent>
           </Card>

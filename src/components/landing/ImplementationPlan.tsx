@@ -543,21 +543,21 @@ const ImplementationPlan = () => {
                 <tbody>
                   <tr className="border-b border-border/50">
                     <td className="px-4 py-3 font-medium text-foreground">{t.perMonthLabel}</td>
-                    <td className="px-4 py-3 text-center text-foreground">$7,500</td>
-                    <td className="px-4 py-3 text-center text-muted-foreground line-through">$33,300</td>
-                    <td className="px-4 py-3 text-center font-bold text-primary">$14,999</td>
+                    <td className="px-4 py-3 text-center text-foreground">USD $7,500</td>
+                    <td className="px-4 py-3 text-center text-muted-foreground line-through">USD $33,300</td>
+                    <td className="px-4 py-3 text-center font-bold text-primary">USD $14,999</td>
                   </tr>
                   <tr className="border-b border-border/50">
                     <td className="px-4 py-3 font-medium text-foreground">{t.perQuarterLabel}</td>
-                    <td className="px-4 py-3 text-center text-foreground">$22,500</td>
-                    <td className="px-4 py-3 text-center text-muted-foreground line-through">$99,900</td>
-                    <td className="px-4 py-3 text-center font-bold text-primary">$44,997</td>
+                    <td className="px-4 py-3 text-center text-foreground">USD $22,500</td>
+                    <td className="px-4 py-3 text-center text-muted-foreground line-through">USD $99,900</td>
+                    <td className="px-4 py-3 text-center font-bold text-primary">USD $44,997</td>
                   </tr>
                   <tr className="border-b border-border/50">
                     <td className="px-4 py-3 font-medium text-foreground">{t.perYearLabel}</td>
-                    <td className="px-4 py-3 text-center text-foreground">$90,000</td>
-                    <td className="px-4 py-3 text-center text-muted-foreground line-through">$399,600</td>
-                    <td className="px-4 py-3 text-center font-bold text-primary">$179,988</td>
+                    <td className="px-4 py-3 text-center text-foreground">USD $90,000</td>
+                    <td className="px-4 py-3 text-center text-muted-foreground line-through">USD $399,600</td>
+                    <td className="px-4 py-3 text-center font-bold text-primary">USD $179,988</td>
                   </tr>
                   <tr className="border-b border-border/50">
                     <td className="px-4 py-3 font-medium text-foreground">{t.coverage}</td>

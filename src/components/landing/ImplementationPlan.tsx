@@ -658,10 +658,43 @@ const ImplementationPlan = () => {
                   </tr>
                   <tr>
                     <td className="px-4 py-3 font-medium text-foreground">{t.modules}</td>
-                    <td className="px-4 py-3 text-center text-foreground">—</td>
+                    <td className="px-4 py-3 text-center text-foreground font-semibold">63</td>
                     <td className="px-4 py-3 text-center text-muted-foreground">34</td>
-                    <td className="px-4 py-3 text-center font-bold text-primary">34</td>
+                    <td className="px-4 py-3 text-center">
+                      <button
+                        onClick={() => setShowAllInDetail(!showAllInDetail)}
+                        className="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:text-primary/80 transition-colors"
+                      >
+                        <Eye className="w-3.5 h-3.5" />
+                        {showAllInDetail ? t.hideDetail : t.viewDetail}
+                      </button>
+                    </td>
                   </tr>
+                  {showAllInDetail && (
+                    <tr>
+                      <td colSpan={4} className="px-4 py-4">
+                        <div className="bg-primary/5 rounded-lg p-4 border border-primary/10">
+                          <p className="text-xs font-bold text-primary mb-3">63 + 34 = 97 {t.modules}</p>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div>
+                              <p className="text-xs font-semibold text-foreground mb-1">{t.phase1Label} — 63 {t.modules}</p>
+                              <p className="text-xs text-muted-foreground">{t.phase1includes}</p>
+                            </div>
+                            <div>
+                              <p className="text-xs font-semibold text-foreground mb-1">FASE 2 — 34 {t.modules}</p>
+                              <div className="space-y-0.5">
+                                {moduleGroups.map(g => (
+                                  <p key={g.id} className="text-xs text-muted-foreground">
+                                    <span className="font-medium">{g.label}.</span> {g.subtotalName[language]} ({g.modules.length})
+                                  </p>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>

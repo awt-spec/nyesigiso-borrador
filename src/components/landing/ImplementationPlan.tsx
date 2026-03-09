@@ -129,6 +129,8 @@ const labels: Record<Lang, Record<string, string>> = {
   es: {
     title: "Propuesta de Expansión",
     subtitle: "FASE 1 — Base · FASE 2 — ALL IN",
+    expandAll: "Expandir todo",
+    collapseAll: "Colapsar todo",
     detailTitle: "Detalle de Módulos Adicionales",
     detailSubtitle: "34 módulos agrupados · precios individuales del Cadre de Réponse",
     group: "Grupo",

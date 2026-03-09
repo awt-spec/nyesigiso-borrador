@@ -778,11 +778,52 @@ const ImplementationPlan = () => {
                       color: "bg-accent/50 border-accent"
                     },
                     { 
-                      period: `4-11 ${t.cronogramaMonths}`, 
-                      items: [`${t.cronogramaConsol10} (×8)`],
+                      period: `4 ${t.cronogramaMonths}`, 
+                      items: [t.cronogramaConsol10],
                       icon: "⚡",
-                      color: "bg-accent/50 border-accent",
-                      progress: true
+                      color: "bg-accent/50 border-accent"
+                    },
+                    { 
+                      period: `5 ${t.cronogramaMonths}`, 
+                      items: [t.cronogramaConsol10],
+                      icon: "⚡",
+                      color: "bg-accent/50 border-accent"
+                    },
+                    { 
+                      period: `6 ${t.cronogramaMonths}`, 
+                      items: [t.cronogramaConsol10],
+                      icon: "⚡",
+                      color: "bg-accent/50 border-accent"
+                    },
+                    { 
+                      period: `7 ${t.cronogramaMonths}`, 
+                      items: [t.cronogramaConsol10],
+                      icon: "⚡",
+                      color: "bg-accent/50 border-accent"
+                    },
+                    { 
+                      period: `8 ${t.cronogramaMonths}`, 
+                      items: [t.cronogramaConsol10],
+                      icon: "⚡",
+                      color: "bg-accent/50 border-accent"
+                    },
+                    { 
+                      period: `9 ${t.cronogramaMonths}`, 
+                      items: [t.cronogramaConsol10],
+                      icon: "⚡",
+                      color: "bg-accent/50 border-accent"
+                    },
+                    { 
+                      period: `10 ${t.cronogramaMonths}`, 
+                      items: [t.cronogramaConsol10],
+                      icon: "⚡",
+                      color: "bg-accent/50 border-accent"
+                    },
+                    { 
+                      period: `11 ${t.cronogramaMonths}`, 
+                      items: [t.cronogramaConsol10],
+                      icon: "⚡",
+                      color: "bg-accent/50 border-accent"
                     },
                     { 
                       period: `12 ${t.cronogramaMonths}`, 

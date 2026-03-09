@@ -73,7 +73,7 @@ const lines: BusinessLine[] = [
   },
   {
     icon: <PiggyBank className="w-5 h-5" />,
-    name: "SAF+ Pension",
+    name: "Fondos de Pensión",
     subtitle: { es: "Fondos de Pensión", fr: "Fonds de Pension", en: "Pension Funds" },
     description: {
       es: "Plataforma líder para gestión de fondos de pensión con enfoque integral.",

@@ -1,6 +1,7 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { CheckCircle2, Layers, DollarSign, TrendingDown, ChevronRight, Shield, AlertTriangle, Scale, Globe, Users, Building, UserCheck, BarChart3, Workflow, Zap, Calendar, ChevronDown, ChevronUp, Eye } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -129,6 +130,8 @@ const labels: Record<Lang, Record<string, string>> = {
   es: {
     title: "Propuesta de Expansión",
     subtitle: "FASE 1 — Base · FASE 2 — ALL IN",
+    expandAll: "Expandir todo",
+    collapseAll: "Colapsar todo",
     detailTitle: "Detalle de Módulos Adicionales",
     detailSubtitle: "34 módulos agrupados · precios individuales del Cadre de Réponse",
     group: "Grupo",
@@ -215,6 +218,8 @@ const labels: Record<Lang, Record<string, string>> = {
   fr: {
     title: "Proposition d'Expansion",
     subtitle: "PHASE 1 — Base · PHASE 2 — ALL IN",
+    expandAll: "Tout développer",
+    collapseAll: "Tout réduire",
     detailTitle: "Détail des Modules Additionnels",
     detailSubtitle: "34 modules groupés · prix individuels du Cadre de Réponse",
     group: "Groupe",
@@ -301,6 +306,8 @@ const labels: Record<Lang, Record<string, string>> = {
   en: {
     title: "Expansion Proposal",
     subtitle: "PHASE 1 — Base · PHASE 2 — ALL IN",
+    expandAll: "Expand all",
+    collapseAll: "Collapse all",
     detailTitle: "Additional Module Detail",
     detailSubtitle: "34 grouped modules · individual pricing from Cadre de Réponse",
     group: "Group",
@@ -401,6 +408,7 @@ const usd = (v: string) => {
 const ImplementationPlan = () => {
   const { language } = useLanguage();
   const [visible, setVisible] = useState(false);
+  const [showAll, setShowAll] = useState(false);
   const [showAllInDetail, setShowAllInDetail] = useState(false);
   const ref = useRef<HTMLElement>(null);
   const t = labels[language];
@@ -430,8 +438,13 @@ const ImplementationPlan = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
             {t.title}
           </h2>
+          <Button variant="outline" size="sm" className="mt-2" onClick={() => setShowAll(!showAll)}>
+            {showAll ? <ChevronUp className="w-4 h-4 mr-1.5" /> : <ChevronDown className="w-4 h-4 mr-1.5" />}
+            {showAll ? t.collapseAll : t.expandAll}
+          </Button>
         </div>
 
+        <div className={`overflow-hidden transition-all duration-500 ${showAll ? "max-h-none opacity-100" : "max-h-0 opacity-0"}`}>
         {/* FASE 1 Active Banner */}
         <div className={`mb-8 transition-all duration-700 delay-100 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <Card className="border-emerald-500/30 bg-emerald-500/5 relative overflow-hidden">
@@ -951,6 +964,7 @@ const ImplementationPlan = () => {
               </AccordionContent>
             </AccordionItem>
           </Accordion>
+        </div>
         </div>
       </div>
     </section>

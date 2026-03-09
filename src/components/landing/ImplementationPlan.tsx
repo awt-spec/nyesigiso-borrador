@@ -1,7 +1,7 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle2, Clock, Layers, ArrowRight, Target, Calendar } from "lucide-react";
+import { CheckCircle2, Clock, Layers, ArrowRight, Target, Calendar, DollarSign } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 const phases = [

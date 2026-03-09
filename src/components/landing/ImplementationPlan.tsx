@@ -54,6 +54,7 @@ const phases = [
     subtitle: { es: "Experiencia del Socio", fr: "Expérience du Membre", en: "Member Experience" },
     timing: { es: "+24 meses", fr: "+24 mois", en: "+24 months" },
     coverage: "~78%",
+    investment: "$45,000 USD",
     modules: [
       { es: "Internet Banking — Portal web, consultas, transferencias", fr: "Internet Banking — Portail web, consultations, transferts", en: "Internet Banking — Web portal, queries, transfers" },
       { es: "Mobile Banking — App iOS/Android + PWA, biometría", fr: "Mobile Banking — App iOS/Android + PWA, biométrie", en: "Mobile Banking — iOS/Android App + PWA, biometrics" },

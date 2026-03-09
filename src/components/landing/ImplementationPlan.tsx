@@ -160,13 +160,13 @@ const labels: Record<Lang, Record<string, string>> = {
     option1Title: "Opción A — À la Carte",
     option1Subtitle: "Active módulos individuales cuando quiera",
     option1Desc: "Elija y active solo los módulos que necesita, uno por uno, al precio individual del Cadre de Réponse. Sin compromiso de paquete.",
-    option1Price: "$25,800",
+    option1Price: "USD $25,800",
     option1Note: "Suma de todos los módulos por separado",
     option2Title: "Opción B — ALL IN",
     option2Subtitle: "Todos los 36 módulos en un solo bundle",
     option2Desc: "Active todos los módulos de una vez con un descuento masivo. Incluye FASE 1 + FASE 2 por un precio único e imbatible.",
-    option2Price: "$14,999",
-    option2Note: "FASE 1 ($7,500) + FASE 2 ($7,499)",
+    option2Price: "USD $14,999",
+    option2Note: "FASE 1 (USD $7,500) + FASE 2 (USD $7,499)",
     phase1: "FASE 1 — BASE VIGENTE",
     phase1desc: "SAF UPV 7.0 · 87 BD · 94 Agencias",
     phase1note: "Ya activo desde la firma",
@@ -207,13 +207,13 @@ const labels: Record<Lang, Record<string, string>> = {
     option1Title: "Option A — À la Carte",
     option1Subtitle: "Activez les modules individuels quand vous voulez",
     option1Desc: "Choisissez et activez uniquement les modules dont vous avez besoin, un par un, au prix individuel du Cadre de Réponse. Sans engagement de package.",
-    option1Price: "$25,800",
+    option1Price: "USD $25,800",
     option1Note: "Somme de tous les modules séparément",
     option2Title: "Option B — ALL IN",
     option2Subtitle: "Les 36 modules dans un seul bundle",
     option2Desc: "Activez tous les modules d'un coup avec une remise massive. Inclut PHASE 1 + PHASE 2 pour un prix unique et imbattable.",
-    option2Price: "$14,999",
-    option2Note: "PHASE 1 ($7,500) + PHASE 2 ($7,499)",
+    option2Price: "USD $14,999",
+    option2Note: "PHASE 1 (USD $7,500) + PHASE 2 (USD $7,499)",
     phase1: "PHASE 1 — BASE ACTIVE",
     phase1desc: "SAF UPV 7.0 · 87 BD · 94 Agences",
     phase1note: "Active depuis la signature",
@@ -254,13 +254,13 @@ const labels: Record<Lang, Record<string, string>> = {
     option1Title: "Option A — À la Carte",
     option1Subtitle: "Activate individual modules when you want",
     option1Desc: "Choose and activate only the modules you need, one by one, at individual Cadre de Réponse pricing. No package commitment.",
-    option1Price: "$25,800",
+    option1Price: "USD $25,800",
     option1Note: "Sum of all modules separately",
     option2Title: "Option B — ALL IN",
     option2Subtitle: "All 36 modules in a single bundle",
     option2Desc: "Activate all modules at once with a massive discount. Includes PHASE 1 + PHASE 2 for a single unbeatable price.",
-    option2Price: "$14,999",
-    option2Note: "PHASE 1 ($7,500) + PHASE 2 ($7,499)",
+    option2Price: "USD $14,999",
+    option2Note: "PHASE 1 (USD $7,500) + PHASE 2 (USD $7,499)",
     phase1: "PHASE 1 — CURRENT BASE",
     phase1desc: "SAF UPV 7.0 · 87 DBs · 94 Agencies",
     phase1note: "Active since signing",
@@ -285,6 +285,12 @@ const statusColor = (status: string) => {
   if (status.includes("EXCL")) return "bg-amber-500/15 text-amber-700 dark:text-amber-400 border-amber-500/30";
   if (status === "UPGRADE") return "bg-blue-500/15 text-blue-700 dark:text-blue-400 border-blue-500/30";
   return "bg-muted text-muted-foreground border-border";
+};
+
+/** Prefix any $amount with USD */
+const usd = (v: string) => {
+  if (!v || v === "bundled" || v === "—") return v;
+  return v.startsWith("$") ? `USD ${v}` : v.startsWith("−$") ? `−USD ${v.slice(1)}` : v;
 };
 
 const ImplementationPlan = () => {
@@ -335,7 +341,7 @@ const ImplementationPlan = () => {
                 </div>
                 <div className="flex items-center gap-4">
                   <div className="text-right">
-                    <span className="text-2xl font-bold text-foreground">$7,500</span>
+                    <span className="text-2xl font-bold text-foreground">USD $7,500</span>
                     <span className="text-muted-foreground text-sm">{t.perMonth}</span>
                   </div>
                   <Badge variant="secondary" className="text-xs">~61% {t.coverage}</Badge>
@@ -377,8 +383,7 @@ const ImplementationPlan = () => {
                         <span className="font-semibold text-foreground text-sm truncate">{group.subtotalName[language]}</span>
                       </div>
                       <div className="flex items-center gap-1 text-sm font-bold text-primary flex-shrink-0">
-                        <DollarSign className="w-3.5 h-3.5" />
-                        {group.subtotalMonthly.replace("$", "")}{t.perMonth}
+                        USD {group.subtotalMonthly}{t.perMonth}
                       </div>
                     </div>
                   </AccordionTrigger>
@@ -403,18 +408,18 @@ const ImplementationPlan = () => {
                                   {mod.status}
                                 </span>
                               </td>
-                              <td className="px-3 py-2.5 text-right font-medium text-foreground">{mod.monthly}</td>
-                              <td className="px-3 py-2.5 text-right text-muted-foreground">{mod.quarterly}</td>
-                              <td className="px-4 py-2.5 text-right text-muted-foreground">{mod.annual}</td>
+                              <td className="px-3 py-2.5 text-right font-medium text-foreground">{usd(mod.monthly)}</td>
+                              <td className="px-3 py-2.5 text-right text-muted-foreground">{usd(mod.quarterly)}</td>
+                              <td className="px-4 py-2.5 text-right text-muted-foreground">{usd(mod.annual)}</td>
                             </tr>
                           ))}
                         </tbody>
                         <tfoot>
                           <tr className="bg-primary/5 font-bold">
                             <td className="px-4 py-2.5 text-foreground" colSpan={2}>{t.subtotal} — {group.subtotalName[language]}</td>
-                            <td className="px-3 py-2.5 text-right text-primary">{group.subtotalMonthly}</td>
-                            <td className="px-3 py-2.5 text-right text-foreground">{group.subtotalQuarterly}</td>
-                            <td className="px-4 py-2.5 text-right text-foreground">{group.subtotalAnnual}</td>
+                            <td className="px-3 py-2.5 text-right text-primary">{usd(group.subtotalMonthly)}</td>
+                            <td className="px-3 py-2.5 text-right text-foreground">{usd(group.subtotalQuarterly)}</td>
+                            <td className="px-4 py-2.5 text-right text-foreground">{usd(group.subtotalAnnual)}</td>
                           </tr>
                         </tfoot>
                       </table>
@@ -432,9 +437,9 @@ const ImplementationPlan = () => {
                 <tbody>
                   <tr className="bg-muted/30">
                     <td className="px-4 py-3 font-semibold text-foreground">{t.totalAlaCarte}</td>
-                    <td className="px-3 py-3 text-right font-bold text-foreground">$25,800</td>
-                    <td className="px-3 py-3 text-right text-muted-foreground">$77,400</td>
-                    <td className="px-4 py-3 text-right text-muted-foreground">$309,600</td>
+                    <td className="px-3 py-3 text-right font-bold text-foreground">USD $25,800</td>
+                    <td className="px-3 py-3 text-right text-muted-foreground">USD $77,400</td>
+                    <td className="px-4 py-3 text-right text-muted-foreground">USD $309,600</td>
                   </tr>
                 </tbody>
               </table>
@@ -507,15 +512,15 @@ const ImplementationPlan = () => {
                 <div className="flex gap-6 text-center">
                   <div>
                     <p className="text-xs text-muted-foreground uppercase">{t.perMonthLabel}</p>
-                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−$18,301</p>
+                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−USD $18,301</p>
                   </div>
                   <div>
                     <p className="text-xs text-muted-foreground uppercase">{t.perQuarterLabel}</p>
-                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−$54,903</p>
+                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−USD $54,903</p>
                   </div>
                   <div>
                     <p className="text-xs text-muted-foreground uppercase">{t.perYearLabel}</p>
-                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−$219,612</p>
+                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−USD $219,612</p>
                   </div>
                 </div>
               </div>
@@ -538,21 +543,21 @@ const ImplementationPlan = () => {
                 <tbody>
                   <tr className="border-b border-border/50">
                     <td className="px-4 py-3 font-medium text-foreground">{t.perMonthLabel}</td>
-                    <td className="px-4 py-3 text-center text-foreground">$7,500</td>
-                    <td className="px-4 py-3 text-center text-muted-foreground line-through">$33,300</td>
-                    <td className="px-4 py-3 text-center font-bold text-primary">$14,999</td>
+                    <td className="px-4 py-3 text-center text-foreground">USD $7,500</td>
+                    <td className="px-4 py-3 text-center text-muted-foreground line-through">USD $33,300</td>
+                    <td className="px-4 py-3 text-center font-bold text-primary">USD $14,999</td>
                   </tr>
                   <tr className="border-b border-border/50">
                     <td className="px-4 py-3 font-medium text-foreground">{t.perQuarterLabel}</td>
-                    <td className="px-4 py-3 text-center text-foreground">$22,500</td>
-                    <td className="px-4 py-3 text-center text-muted-foreground line-through">$99,900</td>
-                    <td className="px-4 py-3 text-center font-bold text-primary">$44,997</td>
+                    <td className="px-4 py-3 text-center text-foreground">USD $22,500</td>
+                    <td className="px-4 py-3 text-center text-muted-foreground line-through">USD $99,900</td>
+                    <td className="px-4 py-3 text-center font-bold text-primary">USD $44,997</td>
                   </tr>
                   <tr className="border-b border-border/50">
                     <td className="px-4 py-3 font-medium text-foreground">{t.perYearLabel}</td>
-                    <td className="px-4 py-3 text-center text-foreground">$90,000</td>
-                    <td className="px-4 py-3 text-center text-muted-foreground line-through">$399,600</td>
-                    <td className="px-4 py-3 text-center font-bold text-primary">$179,988</td>
+                    <td className="px-4 py-3 text-center text-foreground">USD $90,000</td>
+                    <td className="px-4 py-3 text-center text-muted-foreground line-through">USD $399,600</td>
+                    <td className="px-4 py-3 text-center font-bold text-primary">USD $179,988</td>
                   </tr>
                   <tr className="border-b border-border/50">
                     <td className="px-4 py-3 font-medium text-foreground">{t.coverage}</td>

@@ -547,7 +547,7 @@ const ImplementationPlan = () => {
                   <tr className="border-b border-border/50">
                     <td className="px-4 py-3 font-medium text-foreground">{t.perYearLabel}</td>
                     <td className="px-4 py-3 text-center text-foreground">USD $90,000</td>
-                    <td className="px-4 py-3 text-center text-muted-foreground line-through">USD $385,200</td>
+                    <td className="px-4 py-3 text-center text-muted-foreground line-through">USD $349,200</td>
                     <td className="px-4 py-3 text-center font-bold text-primary">USD $179,988</td>
                   </tr>
                   <tr className="border-b border-border/50">

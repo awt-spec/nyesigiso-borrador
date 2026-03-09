@@ -536,7 +536,7 @@ const ImplementationPlan = () => {
                     <td className="px-4 py-3 font-medium text-foreground">{t.perMonthLabel}</td>
                     <td className="px-4 py-3 text-center text-foreground">USD $7,500</td>
                     <td className="px-4 py-3 text-center text-muted-foreground line-through">USD $29,100</td>
-                    <td className="px-4 py-3 text-center font-bold text-primary">USD $14,999</td>
+                    <td className="px-4 py-3 text-center font-bold text-primary">USD $16,999</td>
                   </tr>
                   <tr className="border-b border-border/50">
                     <td className="px-4 py-3 font-medium text-foreground">{t.perQuarterLabel}</td>

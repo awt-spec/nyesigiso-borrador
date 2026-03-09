@@ -99,6 +99,7 @@ const DomainSection = ({ domain, index }: DomainSectionProps) => {
   const [visible, setVisible] = useState(false);
   const [expandedItems, setExpandedItems] = useState<Set<number>>(new Set());
   const [allExpanded, setAllExpanded] = useState(false);
+  const [sectionOpen, setSectionOpen] = useState(false);
   const ref = useRef<HTMLElement>(null);
   const isEven = index % 2 === 0;
   const hasStatuses = domain.items.some(item => item.status);
@@ -285,20 +286,23 @@ const DomainSection = ({ domain, index }: DomainSectionProps) => {
           visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
         }`}
       >
-        {/* Domain header */}
-        <div className="flex items-start gap-4 mb-6 pb-5 border-b border-border">
+        {/* Domain header — clickable toggle */}
+        <button
+          onClick={() => setSectionOpen(!sectionOpen)}
+          className="w-full flex items-start gap-4 mb-0 pb-5 border-b border-border text-left group"
+        >
           <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 text-primary font-black text-lg flex-shrink-0">
             {domain.number}
           </div>
           <div className="flex-1 min-w-0">
-            <h2 className="text-lg md:text-xl font-bold text-foreground leading-tight">
+            <h2 className="text-lg md:text-xl font-bold text-foreground leading-tight group-hover:text-primary transition-colors">
               {domain.title[language]}
             </h2>
             <p className="text-muted-foreground text-sm mt-1 leading-relaxed">
               {domain.description[language]}
             </p>
           </div>
-          <div className="flex items-center gap-2 flex-shrink-0">
+          <div className="flex items-center gap-2 flex-shrink-0 mt-1">
             {hasStatuses ? (
               <span className="hidden md:inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-full whitespace-nowrap">
                 <CheckCircle2 className="w-3.5 h-3.5" />
@@ -310,6 +314,16 @@ const DomainSection = ({ domain, index }: DomainSectionProps) => {
                 {totalCount}/{totalCount}
               </span>
             )}
+            <span className={`text-muted-foreground transition-transform duration-200 ${sectionOpen ? "rotate-180" : ""}`}>
+              <ChevronDown className="w-5 h-5" />
+            </span>
+          </div>
+        </button>
+
+        {/* Collapsible content */}
+        <div className={`overflow-hidden transition-all duration-500 ease-in-out ${sectionOpen ? "max-h-[50000px] opacity-100 mt-6" : "max-h-0 opacity-0"}`}>
+          {/* Expand/Collapse all button */}
+          <div className="flex justify-end mb-3">
             <button
               onClick={toggleAll}
               className="text-xs text-muted-foreground hover:text-primary font-medium px-2.5 py-1.5 rounded-md hover:bg-muted transition-colors border border-border"
@@ -317,19 +331,19 @@ const DomainSection = ({ domain, index }: DomainSectionProps) => {
               {allExpanded ? sectionLabels[language].collapse : sectionLabels[language].expand}
             </button>
           </div>
-        </div>
 
-        {/* Items list */}
-        <div className="space-y-1.5">
-          {renderItems()}
-        </div>
-
-        {/* Architecture diagram at the bottom of tecnicas domain */}
-        {showArchitecture && (
-          <div className="mt-10 pt-8 border-t border-border">
-            <ArchitectureDiagram />
+          {/* Items list */}
+          <div className="space-y-1.5">
+            {renderItems()}
           </div>
-        )}
+
+          {/* Architecture diagram at the bottom of tecnicas domain */}
+          {showArchitecture && (
+            <div className="mt-10 pt-8 border-t border-border">
+              <ArchitectureDiagram />
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );

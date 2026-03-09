@@ -39,15 +39,6 @@ const moduleGroups: ModuleGroup[] = [
     subtotalMonthly: "$3,400", subtotalQuarterly: "$10,200", subtotalAnnual: "$40,800",
   },
   {
-    id: "H", label: "H", icon: Settings,
-    subtotalName: { es: "Parametrización de Productos", fr: "Paramétrage des Produits", en: "Product Parameterization" },
-    modules: [
-      { name: { es: "Parametrización de Productos", fr: "Paramétrage des Produits", en: "Product Parameterization" }, status: "EXCL. Art.6", monthly: "$700", quarterly: "$2,100", annual: "$8,400" },
-      { name: { es: "Creación de Nuevos Productos", fr: "Création de Nouveaux Produits", en: "New Product Creation" }, status: "EXCL. Art.6", monthly: "$500", quarterly: "$1,500", annual: "$6,000" },
-    ],
-    subtotalMonthly: "$1,200", subtotalQuarterly: "$3,600", subtotalAnnual: "$14,400",
-  },
-  {
     id: "C", label: "C", icon: AlertTriangle,
     subtotalName: { es: "Riesgos & Scoring", fr: "Risques & Scoring", en: "Risks & Scoring" },
     modules: [

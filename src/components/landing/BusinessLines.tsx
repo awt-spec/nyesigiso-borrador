@@ -73,7 +73,7 @@ const lines: BusinessLine[] = [
   },
   {
     icon: <PiggyBank className="w-5 h-5" />,
-    name: "SAF+ Pension",
+    name: "Fondos de Pensióensión",
     subtitle: { es: "Fondos de Pensión", fr: "Fonds de Pension", en: "Pension Funds" },
     description: {
       es: "Plataforma líder para gestión de fondos de pensión con enfoque integral.",
@@ -88,7 +88,7 @@ const lines: BusinessLine[] = [
   },
   {
     icon: <Landmark className="w-5 h-5" />,
-    name: "SYSDE Banco",
+    name: "SYSDa Banco",
     subtitle: { es: "Core Bancario Completo", fr: "Core Bancaire Complet", en: "Full Banking Core" },
     description: {
       es: "Core bancario completo para instituciones financieras modernas.",

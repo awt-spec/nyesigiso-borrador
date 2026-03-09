@@ -140,7 +140,7 @@ const labels: Record<Lang, Record<string, string>> = {
     quarterly: "Susc./Trim",
     annual: "Susc./Año",
     subtotal: "Subtotal",
-    totalAlaCarte: "TOTAL À LA CARTE",
+    totalAlaCarte: "TOTAL A LA CARTA",
     totalAllIn: "FASE 2 ALL IN (incluye FASE 1)",
     totalSavings: "AHORRO eligiendo ALL IN",
     perMonth: "/mes",

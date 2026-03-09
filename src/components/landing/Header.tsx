@@ -29,20 +29,6 @@ const Header = () => {
           </div>
         </div>
 
-        <nav className="hidden lg:flex items-center gap-0.5">
-          {domains.map((d) => (
-            <a
-              key={d.id}
-              href={`#${d.id}`}
-              className="text-muted-foreground hover:text-primary text-xs px-2 py-1.5 rounded-md hover:bg-muted transition-colors font-medium"
-            >
-              {d.number}
-            </a>
-          ))}
-          <a href="#sintesis" className="text-muted-foreground hover:text-primary text-xs px-2 py-1.5 rounded-md hover:bg-muted transition-colors font-medium">
-            Σ
-          </a>
-        </nav>
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

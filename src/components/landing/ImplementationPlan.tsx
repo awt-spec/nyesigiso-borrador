@@ -165,7 +165,7 @@ const labels: Record<Lang, Record<string, string>> = {
     setupFee: "Setup Fee (único)",
     active: "ACTIVA",
     recommended: "RECOMENDADO",
-    savingsTitle: "Ahorro vs. À la Carte",
+    savingsTitle: "Ahorro vs. A la Carta",
     savingsDesc: "eligiendo ALL IN",
     comparisonTitle: "Comparación de Escenarios",
     phase1Label: "FASE 1",

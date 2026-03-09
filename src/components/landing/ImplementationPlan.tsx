@@ -189,7 +189,7 @@ const labels: Record<Lang, Record<string, string>> = {
     cronogramaMonths: "meses",
     cronogramaSupportContract: "Contrato de asistencia primer año",
     cronograma12later: "12 meses después",
-    cronogramaInstallation: "Frais de instalación",
+    cronogramaInstallation: "Costos de instalación",
     cronogramaLicenses: "Licencias de utilización — Tarifa preferencial 1,300 USD por licencia — Pack de 121 licencias",
     cronogramaReporting: "Reporting operacional y reglamentario. Informes BCEAO y operaciones de Nyèsigiso",
     cronogramaMigration: "Migración de la base de datos centralizadora hacia SAF UPV 7.0",

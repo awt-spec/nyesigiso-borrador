@@ -151,7 +151,7 @@ const labels: Record<Lang, Record<string, string>> = {
     option1Title: "Opción A — À la Carte",
     option1Subtitle: "Active módulos individuales cuando quiera",
     option1Desc: "Elija y active solo los módulos que necesita, uno por uno, al precio individual del Cadre de Réponse. Sin compromiso de paquete.",
-    option1Price: "USD $24,600",
+    option1Price: "USD $21,600",
     option1Note: "Suma de todos los módulos por separado",
     option2Title: "Opción B — ALL IN",
     option2Subtitle: "Todos los 34 módulos en un solo bundle",
@@ -198,7 +198,7 @@ const labels: Record<Lang, Record<string, string>> = {
     option1Title: "Option A — À la Carte",
     option1Subtitle: "Activez les modules individuels quand vous voulez",
     option1Desc: "Choisissez et activez uniquement les modules dont vous avez besoin, un par un, au prix individuel du Cadre de Réponse. Sans engagement de package.",
-    option1Price: "USD $24,600",
+    option1Price: "USD $21,600",
     option1Note: "Somme de tous les modules séparément",
     option2Title: "Option B — ALL IN",
     option2Subtitle: "Les 34 modules dans un seul bundle",
@@ -245,7 +245,7 @@ const labels: Record<Lang, Record<string, string>> = {
     option1Title: "Option A — À la Carte",
     option1Subtitle: "Activate individual modules when you want",
     option1Desc: "Choose and activate only the modules you need, one by one, at individual Cadre de Réponse pricing. No package commitment.",
-    option1Price: "USD $24,600",
+    option1Price: "USD $21,600",
     option1Note: "Sum of all modules separately",
     option2Title: "Option B — ALL IN",
     option2Subtitle: "All 34 modules in a single bundle",
@@ -428,9 +428,9 @@ const ImplementationPlan = () => {
                 <tbody>
                   <tr className="bg-muted/30">
                     <td className="px-4 py-3 font-semibold text-foreground">{t.totalAlaCarte}</td>
-                    <td className="px-3 py-3 text-right font-bold text-foreground">USD $24,600</td>
-                    <td className="px-3 py-3 text-right text-muted-foreground">USD $73,800</td>
-                    <td className="px-4 py-3 text-right text-muted-foreground">USD $295,200</td>
+                    <td className="px-3 py-3 text-right font-bold text-foreground">USD $21,600</td>
+                    <td className="px-3 py-3 text-right text-muted-foreground">USD $64,800</td>
+                    <td className="px-4 py-3 text-right text-muted-foreground">USD $259,200</td>
                   </tr>
                 </tbody>
               </table>
@@ -503,15 +503,15 @@ const ImplementationPlan = () => {
                 <div className="flex gap-6 text-center">
                   <div>
                     <p className="text-xs text-muted-foreground uppercase">{t.perMonthLabel}</p>
-                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−USD $17,101</p>
+                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−USD $14,101</p>
                   </div>
                   <div>
                     <p className="text-xs text-muted-foreground uppercase">{t.perQuarterLabel}</p>
-                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−USD $51,303</p>
+                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−USD $42,303</p>
                   </div>
                   <div>
                     <p className="text-xs text-muted-foreground uppercase">{t.perYearLabel}</p>
-                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−USD $205,212</p>
+                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−USD $169,212</p>
                   </div>
                 </div>
               </div>
@@ -535,19 +535,19 @@ const ImplementationPlan = () => {
                   <tr className="border-b border-border/50">
                     <td className="px-4 py-3 font-medium text-foreground">{t.perMonthLabel}</td>
                     <td className="px-4 py-3 text-center text-foreground">USD $7,500</td>
-                    <td className="px-4 py-3 text-center text-muted-foreground line-through">USD $32,100</td>
+                    <td className="px-4 py-3 text-center text-muted-foreground line-through">USD $29,100</td>
                     <td className="px-4 py-3 text-center font-bold text-primary">USD $14,999</td>
                   </tr>
                   <tr className="border-b border-border/50">
                     <td className="px-4 py-3 font-medium text-foreground">{t.perQuarterLabel}</td>
                     <td className="px-4 py-3 text-center text-foreground">USD $22,500</td>
-                    <td className="px-4 py-3 text-center text-muted-foreground line-through">USD $96,300</td>
+                    <td className="px-4 py-3 text-center text-muted-foreground line-through">USD $87,300</td>
                     <td className="px-4 py-3 text-center font-bold text-primary">USD $44,997</td>
                   </tr>
                   <tr className="border-b border-border/50">
                     <td className="px-4 py-3 font-medium text-foreground">{t.perYearLabel}</td>
                     <td className="px-4 py-3 text-center text-foreground">USD $90,000</td>
-                    <td className="px-4 py-3 text-center text-muted-foreground line-through">USD $385,200</td>
+                    <td className="px-4 py-3 text-center text-muted-foreground line-through">USD $349,200</td>
                     <td className="px-4 py-3 text-center font-bold text-primary">USD $179,988</td>
                   </tr>
                   <tr className="border-b border-border/50">

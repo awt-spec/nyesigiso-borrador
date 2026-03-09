@@ -1,6 +1,7 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { CheckCircle2, Layers, DollarSign, TrendingDown, ChevronRight, Shield, AlertTriangle, Scale, Globe, Users, Building, UserCheck, BarChart3, Workflow, Zap, Calendar, ChevronDown, ChevronUp, Eye } from "lucide-react";
 import { useEffect, useRef, useState } from "react";

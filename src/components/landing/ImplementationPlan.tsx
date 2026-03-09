@@ -874,82 +874,85 @@ const ImplementationPlan = () => {
               </AccordionContent>
             </AccordionItem>
 
-          {/* Phase 2 - Flexible */}
-          <Card className="overflow-hidden border-primary/20">
-            <CardHeader className="pb-3 bg-primary/5 border-b border-border">
-              <CardTitle className="text-lg flex items-center gap-2">
-                <Badge className="bg-primary text-primary-foreground">2</Badge>
-                {t.cronogramaPhase2}
-              </CardTitle>
-              <p className="text-xs text-muted-foreground mt-1">34 {t.modules} · {t.cronogramaP2Flexible}</p>
-            </CardHeader>
-            <CardContent className="p-6">
-              {/* Priority banner */}
-              <div className="flex items-center gap-3 mb-6 p-4 rounded-lg bg-primary/5 border border-primary/10">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <Zap className="w-5 h-5 text-primary" />
+            {/* Phase 2 - Collapsible */}
+            <AccordionItem value="phase2" className="border rounded-lg overflow-hidden border-primary/20">
+              <AccordionTrigger className="px-5 py-4 hover:no-underline bg-primary/5 border-b border-border">
+                <div className="flex items-center gap-3 flex-1 mr-4">
+                  <Badge className="bg-primary text-primary-foreground">2</Badge>
+                  <div className="text-left">
+                    <p className="text-lg font-bold text-foreground">{t.cronogramaPhase2}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">34 {t.modules} · {t.cronogramaP2Flexible}</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-sm font-bold text-foreground">{t.cronogramaP2Priority}</p>
-                  <p className="text-xs text-muted-foreground">{t.cronogramaP2PriorityDesc}</p>
+              </AccordionTrigger>
+              <AccordionContent className="px-6 pt-6 pb-6">
+                {/* Priority banner */}
+                <div className="flex items-center gap-3 mb-6 p-4 rounded-lg bg-primary/5 border border-primary/10">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <Zap className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-foreground">{t.cronogramaP2Priority}</p>
+                    <p className="text-xs text-muted-foreground">{t.cronogramaP2PriorityDesc}</p>
+                  </div>
                 </div>
-              </div>
 
-              {/* 9 Module groups as interactive cards */}
-              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">{t.cronogramaP2Scope}</p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
-                {moduleGroups.map((group) => {
-                  const Icon = group.icon;
-                  return (
-                    <div
-                      key={group.id}
-                      className="group relative rounded-xl border border-border bg-card p-4 hover:border-primary/40 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 cursor-default"
-                    >
-                      <div className="flex items-center gap-3 mb-2">
-                        <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                          <Icon className="w-4.5 h-4.5 text-primary" />
+                {/* 9 Module groups as interactive cards */}
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">{t.cronogramaP2Scope}</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
+                  {moduleGroups.map((group) => {
+                    const Icon = group.icon;
+                    return (
+                      <div
+                        key={group.id}
+                        className="group relative rounded-xl border border-border bg-card p-4 hover:border-primary/40 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 cursor-default"
+                      >
+                        <div className="flex items-center gap-3 mb-2">
+                          <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                            <Icon className="w-4.5 h-4.5 text-primary" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-bold text-foreground truncate">{group.subtotalName[language]}</p>
+                            <p className="text-[11px] text-muted-foreground">{group.modules.length} {t.modules}</p>
+                          </div>
+                          <Badge variant="outline" className="text-[10px] font-mono flex-shrink-0">{group.label}</Badge>
                         </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-bold text-foreground truncate">{group.subtotalName[language]}</p>
-                          <p className="text-[11px] text-muted-foreground">{group.modules.length} {t.modules}</p>
+                        <div className="space-y-0.5">
+                          {group.modules.slice(0, 3).map((mod, j) => (
+                            <p key={j} className="text-[11px] text-muted-foreground truncate flex items-center gap-1">
+                              <span className="w-1 h-1 rounded-full bg-primary/40 flex-shrink-0" />
+                              {mod.name[language]}
+                            </p>
+                          ))}
+                          {group.modules.length > 3 && (
+                            <p className="text-[11px] text-primary/60 font-medium">+{group.modules.length - 3} más</p>
+                          )}
                         </div>
-                        <Badge variant="outline" className="text-[10px] font-mono flex-shrink-0">{group.label}</Badge>
                       </div>
-                      <div className="space-y-0.5">
-                        {group.modules.slice(0, 3).map((mod, j) => (
-                          <p key={j} className="text-[11px] text-muted-foreground truncate flex items-center gap-1">
-                            <span className="w-1 h-1 rounded-full bg-primary/40 flex-shrink-0" />
-                            {mod.name[language]}
-                          </p>
-                        ))}
-                        {group.modules.length > 3 && (
-                          <p className="text-[11px] text-primary/60 font-medium">+{group.modules.length - 3} más</p>
-                        )}
-                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Accompaniment + flexible note */}
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="rounded-lg border border-border bg-card p-4 hover:border-primary/30 transition-colors">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Users className="w-4 h-4 text-primary" />
+                      <p className="text-sm font-bold text-foreground">{t.cronogramaP2Support}</p>
                     </div>
-                  );
-                })}
-              </div>
-
-              {/* Accompaniment + flexible note */}
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="rounded-lg border border-border bg-card p-4 hover:border-primary/30 transition-colors">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Users className="w-4 h-4 text-primary" />
-                    <p className="text-sm font-bold text-foreground">{t.cronogramaP2Support}</p>
+                    <p className="text-xs text-muted-foreground leading-relaxed">{t.cronogramaP2SupportDesc}</p>
                   </div>
-                  <p className="text-xs text-muted-foreground leading-relaxed">{t.cronogramaP2SupportDesc}</p>
-                </div>
-                <div className="rounded-lg border border-primary/20 bg-primary/5 p-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Calendar className="w-4 h-4 text-primary" />
-                    <p className="text-sm font-bold text-foreground">{t.cronogramaP2NoteTitle}</p>
+                  <div className="rounded-lg border border-primary/20 bg-primary/5 p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Calendar className="w-4 h-4 text-primary" />
+                      <p className="text-sm font-bold text-foreground">{t.cronogramaP2NoteTitle}</p>
+                    </div>
+                    <p className="text-xs text-muted-foreground leading-relaxed">{t.cronogramaP2NoteDesc}</p>
                   </div>
-                  <p className="text-xs text-muted-foreground leading-relaxed">{t.cronogramaP2NoteDesc}</p>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
       </div>
     </section>

@@ -11,7 +11,8 @@ const phases = [
     subtitle: { es: "Propuesta Base SAF UPV 7.0", fr: "Proposition de Base SAF UPV 7.0", en: "Base Proposal SAF UPV 7.0" },
     timing: { es: "Activa desde la firma", fr: "Active depuis la signature", en: "Active since signing" },
     coverage: "~61%",
-    investment: "$35,000 USD",
+    monthlyFee: "$7,500",
+    setupFee: "$35,000",
     modules: [
       { es: "Migración SAF 2000 V5.2.2 → SAF UPV 7.0 · 94 agencias", fr: "Migration SAF 2000 V5.2.2 → SAF UPV 7.0 · 94 agences", en: "Migration SAF 2000 V5.2.2 → SAF UPV 7.0 · 94 agencies" },
       { es: "Consolidación 87 BD independientes → 1 BD centralizada", fr: "Consolidation 87 BD indépendantes → 1 BD centralisée", en: "Consolidation of 87 independent DBs → 1 centralized DB" },

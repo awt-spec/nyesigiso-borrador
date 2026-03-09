@@ -108,8 +108,10 @@ const labels = {
     phases: "Fases",
     horizon: "Horizonte Total",
     finalCoverage: "Cobertura Final",
-    investment: "Inversión",
-    totalInvestment: "Inversión Total",
+    monthlyFee: "Cuota Mensual",
+    setupFee: "Setup Fee",
+    billing: "Facturación trimestral",
+    totalMonthly: "Cuota Mensual Total",
   },
   fr: {
     title: "Proposition d'Expansion",

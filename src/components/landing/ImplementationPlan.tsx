@@ -237,9 +237,13 @@ const ImplementationPlan = () => {
                         </CardTitle>
                         <p className="text-sm text-muted-foreground">{phase.subtitle[language]}</p>
                       </div>
-                      <div className="text-right">
+                      <div className="text-right space-y-1">
                         <div className="inline-flex items-center gap-1.5 bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-bold">
                           {phase.coverage}
+                        </div>
+                        <div className="flex items-center gap-1 justify-end text-sm font-bold text-foreground">
+                          <DollarSign className="w-3.5 h-3.5 text-primary" />
+                          {phase.investment}
                         </div>
                       </div>
                     </div>

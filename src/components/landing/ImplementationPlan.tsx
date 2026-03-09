@@ -742,134 +742,137 @@ const ImplementationPlan = () => {
             <h3 className="text-2xl font-bold text-foreground">{t.cronogramaTitle}</h3>
           </div>
 
-          {/* Phase 1 Timeline - Visual */}
-          <Card className="mb-6 overflow-hidden border-primary/20">
-            <CardHeader className="pb-3 bg-primary/5 border-b border-border">
-              <CardTitle className="text-lg flex items-center gap-2">
-                <Badge className="bg-primary text-primary-foreground">1</Badge>
-                {t.cronogramaPhase1}
-              </CardTitle>
-              <p className="text-xs text-muted-foreground mt-1">12 {t.cronogramaMonths} · 87 BD · Setup Fee USD $35,000</p>
-            </CardHeader>
-            <CardContent className="p-6">
-              {/* Visual timeline */}
-              <div className="relative">
-                {/* Vertical line */}
-                <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-border" />
+          {/* Phase 1 Timeline - Collapsible */}
+          <Accordion type="multiple" className="space-y-4">
+            <AccordionItem value="phase1" className="border rounded-lg overflow-hidden border-primary/20">
+              <AccordionTrigger className="px-5 py-4 hover:no-underline bg-primary/5 border-b border-border">
+                <div className="flex items-center gap-3 flex-1 mr-4">
+                  <Badge className="bg-primary text-primary-foreground">1</Badge>
+                  <div className="text-left">
+                    <p className="text-lg font-bold text-foreground">{t.cronogramaPhase1}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">12 {t.cronogramaMonths} · 87 BD · Setup Fee USD $35,000</p>
+                  </div>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="px-6 pt-6 pb-6">
+                {/* Visual timeline */}
+                <div className="relative">
+                  {/* Vertical line */}
+                  <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-border" />
 
-                {(() => {
-                  const phase1Steps = [
-                    { 
-                      period: t.cronogramaAcceptance, 
-                      items: [t.cronogramaInstallation, t.cronogramaLicenses, t.cronogramaReporting],
-                      icon: "🚀",
-                      color: "bg-primary/10 border-primary/30"
-                    },
-                    { 
-                      period: t.cronograma30days, 
-                      items: [t.cronogramaMigration],
-                      icon: "🔄",
-                      color: "bg-primary/10 border-primary/30"
-                    },
-                    { 
-                      period: `2-3 ${t.cronogramaMonths}`, 
-                      items: [t.cronogramaConsol2, t.cronogramaConsol5],
-                      icon: "📦",
-                      color: "bg-secondary/50 border-secondary"
-                    },
-                    { 
-                      period: `4 ${t.cronogramaMonths}`, 
-                      items: [t.cronogramaConsol10],
-                      icon: "⚡",
-                      color: "bg-secondary/50 border-secondary"
-                    },
-                    { 
-                      period: `5 ${t.cronogramaMonths}`, 
-                      items: [t.cronogramaConsol10],
-                      icon: "⚡",
-                      color: "bg-secondary/50 border-secondary"
-                    },
-                    { 
-                      period: `6 ${t.cronogramaMonths}`, 
-                      items: [t.cronogramaConsol10],
-                      icon: "⚡",
-                      color: "bg-secondary/50 border-secondary"
-                    },
-                    { 
-                      period: `7 ${t.cronogramaMonths}`, 
-                      items: [t.cronogramaConsol10],
-                      icon: "⚡",
-                      color: "bg-secondary/50 border-secondary"
-                    },
-                    { 
-                      period: `8 ${t.cronogramaMonths}`, 
-                      items: [t.cronogramaConsol10],
-                      icon: "⚡",
-                      color: "bg-secondary/50 border-secondary"
-                    },
-                    { 
-                      period: `9 ${t.cronogramaMonths}`, 
-                      items: [t.cronogramaConsol10],
-                      icon: "⚡",
-                      color: "bg-secondary/50 border-secondary"
-                    },
-                    { 
-                      period: `10 ${t.cronogramaMonths}`, 
-                      items: [t.cronogramaConsol10],
-                      icon: "⚡",
-                      color: "bg-secondary/50 border-secondary"
-                    },
-                    { 
-                      period: `11 ${t.cronogramaMonths}`, 
-                      items: [t.cronogramaConsol10],
-                      icon: "⚡",
-                      color: "bg-secondary/50 border-secondary"
-                    },
-                    { 
-                      period: `12 ${t.cronogramaMonths}`, 
-                      items: [t.cronogramaCertification],
-                      icon: "✅",
-                      color: "bg-primary/10 border-primary/30"
-                    },
-                    { 
-                      period: t.cronogramaSupportContract, 
-                      items: [t.cronogramaSupport],
-                      icon: "🛟",
-                      color: "bg-muted border-border"
-                    },
-                    { 
-                      period: t.cronograma12later, 
-                      items: [t.cronogramaSupport],
-                      icon: "🔁",
-                      color: "bg-muted border-border"
-                    },
-                  ];
+                  {(() => {
+                    const phase1Steps = [
+                      { 
+                        period: t.cronogramaAcceptance, 
+                        items: [t.cronogramaInstallation, t.cronogramaLicenses, t.cronogramaReporting],
+                        icon: "🚀",
+                        color: "bg-primary/10 border-primary/30"
+                      },
+                      { 
+                        period: t.cronograma30days, 
+                        items: [t.cronogramaMigration],
+                        icon: "🔄",
+                        color: "bg-primary/10 border-primary/30"
+                      },
+                      { 
+                        period: `2-3 ${t.cronogramaMonths}`, 
+                        items: [t.cronogramaConsol2, t.cronogramaConsol5],
+                        icon: "📦",
+                        color: "bg-secondary/50 border-secondary"
+                      },
+                      { 
+                        period: `4 ${t.cronogramaMonths}`, 
+                        items: [t.cronogramaConsol10],
+                        icon: "⚡",
+                        color: "bg-secondary/50 border-secondary"
+                      },
+                      { 
+                        period: `5 ${t.cronogramaMonths}`, 
+                        items: [t.cronogramaConsol10],
+                        icon: "⚡",
+                        color: "bg-secondary/50 border-secondary"
+                      },
+                      { 
+                        period: `6 ${t.cronogramaMonths}`, 
+                        items: [t.cronogramaConsol10],
+                        icon: "⚡",
+                        color: "bg-secondary/50 border-secondary"
+                      },
+                      { 
+                        period: `7 ${t.cronogramaMonths}`, 
+                        items: [t.cronogramaConsol10],
+                        icon: "⚡",
+                        color: "bg-secondary/50 border-secondary"
+                      },
+                      { 
+                        period: `8 ${t.cronogramaMonths}`, 
+                        items: [t.cronogramaConsol10],
+                        icon: "⚡",
+                        color: "bg-secondary/50 border-secondary"
+                      },
+                      { 
+                        period: `9 ${t.cronogramaMonths}`, 
+                        items: [t.cronogramaConsol10],
+                        icon: "⚡",
+                        color: "bg-secondary/50 border-secondary"
+                      },
+                      { 
+                        period: `10 ${t.cronogramaMonths}`, 
+                        items: [t.cronogramaConsol10],
+                        icon: "⚡",
+                        color: "bg-secondary/50 border-secondary"
+                      },
+                      { 
+                        period: `11 ${t.cronogramaMonths}`, 
+                        items: [t.cronogramaConsol10],
+                        icon: "⚡",
+                        color: "bg-secondary/50 border-secondary"
+                      },
+                      { 
+                        period: `12 ${t.cronogramaMonths}`, 
+                        items: [t.cronogramaCertification],
+                        icon: "✅",
+                        color: "bg-primary/10 border-primary/30"
+                      },
+                      { 
+                        period: t.cronogramaSupportContract, 
+                        items: [t.cronogramaSupport],
+                        icon: "🛟",
+                        color: "bg-muted border-border"
+                      },
+                      { 
+                        period: t.cronograma12later, 
+                        items: [t.cronogramaSupport],
+                        icon: "🔁",
+                        color: "bg-muted border-border"
+                      },
+                    ];
 
-                  return phase1Steps.map((step, i) => (
-                    <div key={i} className="relative pl-12 pb-6 last:pb-0 group">
-                      {/* Dot on line */}
-                      <div className="absolute left-2.5 top-1.5 w-3.5 h-3.5 rounded-full bg-primary border-2 border-background ring-2 ring-primary/20 group-hover:ring-primary/40 transition-all" />
-                      
-                      <div className={`rounded-lg border p-4 ${step.color} hover:shadow-md transition-all duration-200`}>
-                        <div className="flex items-center gap-2 mb-2">
-                          <span className="text-base">{step.icon}</span>
-                          <span className="text-sm font-bold text-foreground">{step.period}</span>
+                    return phase1Steps.map((step, i) => (
+                      <div key={i} className="relative pl-12 pb-6 last:pb-0 group">
+                        {/* Dot on line */}
+                        <div className="absolute left-2.5 top-1.5 w-3.5 h-3.5 rounded-full bg-primary border-2 border-background ring-2 ring-primary/20 group-hover:ring-primary/40 transition-all" />
+                        
+                        <div className={`rounded-lg border p-4 ${step.color} hover:shadow-md transition-all duration-200`}>
+                          <div className="flex items-center gap-2 mb-2">
+                            <span className="text-base">{step.icon}</span>
+                            <span className="text-sm font-bold text-foreground">{step.period}</span>
+                          </div>
+                          <ul className="space-y-1">
+                            {step.items.map((item, j) => (
+                              <li key={j} className="flex items-start gap-2 text-sm text-muted-foreground">
+                                <ChevronRight className="w-3.5 h-3.5 mt-0.5 text-primary flex-shrink-0" />
+                                {item}
+                              </li>
+                            ))}
+                          </ul>
                         </div>
-                        <ul className="space-y-1">
-                          {step.items.map((item, j) => (
-                            <li key={j} className="flex items-start gap-2 text-sm text-muted-foreground">
-                              <ChevronRight className="w-3.5 h-3.5 mt-0.5 text-primary flex-shrink-0" />
-                              {item}
-                            </li>
-                          ))}
-                        </ul>
                       </div>
-                    </div>
-                  ));
-                })()}
-              </div>
-            </CardContent>
-          </Card>
+                    ));
+                  })()}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
 
           {/* Phase 2 - Flexible */}
           <Card className="overflow-hidden border-primary/20">

@@ -120,10 +120,8 @@ const moduleGroups: ModuleGroup[] = [
     modules: [
       { name: { es: "Workflow / Gestión de Flujos", fr: "Workflow / Gestion des Flux", en: "Workflow / Flow Management" }, status: "NO CUBIERTO", monthly: "$800", quarterly: "$2,400", annual: "$9,600" },
       { name: { es: "GED — Gestión Electrónica de Documentos", fr: "GED — Gestion Électronique de Documents", en: "DMS — Electronic Document Management" }, status: "NO CUBIERTO", monthly: "$600", quarterly: "$1,800", annual: "$7,200" },
-      { name: { es: "Web Services (STRATEGO, Orange Money, BCEAO…)", fr: "Web Services (STRATEGO, Orange Money, BCEAO…)", en: "Web Services (STRATEGO, Orange Money, BCEAO…)" }, status: "NO CUBIERTO", monthly: "$700", quarterly: "$2,100", annual: "$8,400" },
-      { name: { es: "APIs REST (bundled con Web Services)", fr: "APIs REST (bundled avec Web Services)", en: "REST APIs (bundled with Web Services)" }, status: "NO CUBIERTO", monthly: "bundled", quarterly: "—", annual: "—" },
     ],
-    subtotalMonthly: "$2,100", subtotalQuarterly: "$6,300", subtotalAnnual: "$25,200",
+    subtotalMonthly: "$1,400", subtotalQuarterly: "$4,200", subtotalAnnual: "$16,800",
   },
 ];
 

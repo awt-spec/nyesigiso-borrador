@@ -27,6 +27,7 @@ const phases = [
     subtitle: { es: "Cumplimiento BCEAO Art.6", fr: "Conformité BCEAO Art.6", en: "BCEAO Art.6 Compliance" },
     timing: { es: "+12 meses", fr: "+12 mois", en: "+12 months" },
     coverage: "~50%",
+    investment: "$25,000 USD",
     modules: [
       { es: "Grupo G — Habilitations + Delegaciones + Inspección + Trazabilidad", fr: "Groupe G — Habilitations + Délégations + Inspection + Traçabilité", en: "Group G — Authorizations + Delegations + Inspection + Traceability" },
       { es: "Grupo H — Config. Productos + Creación de Nuevos Productos", fr: "Groupe H — Config. Produits + Création de Nouveaux Produits", en: "Group H — Product Config + New Product Creation" },

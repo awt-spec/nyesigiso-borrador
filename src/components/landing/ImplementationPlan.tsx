@@ -132,7 +132,7 @@ const labels: Record<Lang, Record<string, string>> = {
     title: "Propuesta de Expansión",
     subtitle: "FASE 1 — Base · FASE 2 — ALL IN",
     detailTitle: "Detalle de Módulos Adicionales",
-    detailSubtitle: "36 módulos agrupados · precios individuales del Cadre de Réponse",
+    detailSubtitle: "34 módulos agrupados · precios individuales del Cadre de Réponse",
     group: "Grupo",
     module: "Módulo",
     status: "Estado",

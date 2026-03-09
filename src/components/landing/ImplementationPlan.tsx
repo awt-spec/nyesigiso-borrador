@@ -417,9 +417,9 @@ const ImplementationPlan = () => {
                         <tfoot>
                           <tr className="bg-primary/5 font-bold">
                             <td className="px-4 py-2.5 text-foreground" colSpan={2}>{t.subtotal} — {group.subtotalName[language]}</td>
-                            <td className="px-3 py-2.5 text-right text-primary">{group.subtotalMonthly}</td>
-                            <td className="px-3 py-2.5 text-right text-foreground">{group.subtotalQuarterly}</td>
-                            <td className="px-4 py-2.5 text-right text-foreground">{group.subtotalAnnual}</td>
+                            <td className="px-3 py-2.5 text-right text-primary">{usd(group.subtotalMonthly)}</td>
+                            <td className="px-3 py-2.5 text-right text-foreground">{usd(group.subtotalQuarterly)}</td>
+                            <td className="px-4 py-2.5 text-right text-foreground">{usd(group.subtotalAnnual)}</td>
                           </tr>
                         </tfoot>
                       </table>

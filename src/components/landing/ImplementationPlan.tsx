@@ -148,7 +148,7 @@ const labels: Record<Lang, Record<string, string>> = {
     option1Title: "Opción A — A la Carta",
     option1Subtitle: "Implemente módulos individuales cuando quiera",
     option1Desc: "Elija e implemente solo los módulos que necesita, uno por uno, al precio individual del Cadre de Réponse. Sin compromiso de paquete.",
-    option1Price: "USD $21,600",
+    option1Price: "USD $20,900",
     option1Note: "Suma de todos los módulos por separado",
     option2Title: "Opción B — ALL IN",
     option2Subtitle: "Todos los 34 módulos en un solo bundle",
@@ -234,7 +234,7 @@ const labels: Record<Lang, Record<string, string>> = {
     option1Title: "Option A — À la Carte",
     option1Subtitle: "Déployez les modules individuels quand vous voulez",
     option1Desc: "Choisissez et déployez uniquement les modules dont vous avez besoin, un par un, au prix individuel du Cadre de Réponse. Sans engagement de package.",
-    option1Price: "USD $21,600",
+    option1Price: "USD $20,900",
     option1Note: "Somme de tous les modules séparément",
     option2Title: "Option B — ALL IN",
     option2Subtitle: "Les 34 modules dans un seul bundle",
@@ -320,7 +320,7 @@ const labels: Record<Lang, Record<string, string>> = {
     option1Title: "Option A — À la Carte",
     option1Subtitle: "Deploy individual modules when you want",
     option1Desc: "Choose and deploy only the modules you need, one by one, at individual Cadre de Réponse pricing. No package commitment.",
-    option1Price: "USD $21,600",
+    option1Price: "USD $20,900",
     option1Note: "Sum of all modules separately",
     option2Title: "Option B — ALL IN",
     option2Subtitle: "All 34 modules in a single bundle",
@@ -547,9 +547,9 @@ const ImplementationPlan = () => {
                 <tbody>
                   <tr className="bg-muted/30">
                     <td className="px-4 py-3 font-semibold text-foreground">{t.totalAlaCarte}</td>
-                    <td className="px-3 py-3 text-right font-bold text-foreground">USD $21,600</td>
-                    <td className="px-3 py-3 text-right text-muted-foreground">USD $64,800</td>
-                    <td className="px-4 py-3 text-right text-muted-foreground">USD $259,200</td>
+                    <td className="px-3 py-3 text-right font-bold text-foreground">USD $20,900</td>
+                    <td className="px-3 py-3 text-right text-muted-foreground">USD $62,700</td>
+                    <td className="px-4 py-3 text-right text-muted-foreground">USD $250,800</td>
                   </tr>
                 </tbody>
               </table>

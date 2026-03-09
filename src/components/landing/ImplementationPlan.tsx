@@ -704,6 +704,102 @@ const ImplementationPlan = () => {
             💡 {t.billing}
           </p>
         </div>
+
+        {/* Cronograma */}
+        <div className={`mt-16 transition-all duration-700 delay-400 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-medium mb-3">
+              <Calendar className="w-4 h-4" />
+              {t.cronogramaSubtitle}
+            </div>
+            <h3 className="text-2xl font-bold text-foreground">{t.cronogramaTitle}</h3>
+          </div>
+
+          {/* Phase 1 Timeline */}
+          <Card className="mb-6 overflow-hidden border-primary/20">
+            <CardHeader className="pb-2 bg-primary/5">
+              <CardTitle className="text-lg flex items-center gap-2">
+                <Badge className="bg-primary text-primary-foreground">1</Badge>
+                {t.cronogramaPhase1}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-0">
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="bg-muted/30 border-b border-border">
+                      <th className="text-left px-4 py-2.5 text-xs font-semibold text-muted-foreground w-1/3">{t.cronogramaDate}</th>
+                      <th className="text-left px-4 py-2.5 text-xs font-semibold text-muted-foreground">{t.cronogramaActivity}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      { date: t.cronogramaAcceptance, activity: t.cronogramaInstallation },
+                      { date: t.cronogramaAcceptance, activity: t.cronogramaLicenses },
+                      { date: t.cronogramaAcceptance, activity: t.cronogramaReporting },
+                      { date: t.cronograma30days, activity: t.cronogramaMigration },
+                      { date: `2 ${t.cronogramaMonths}`, activity: t.cronogramaConsol2 },
+                      { date: `3 ${t.cronogramaMonths}`, activity: t.cronogramaConsol5 },
+                      { date: `4 ${t.cronogramaMonths}`, activity: t.cronogramaConsol10 },
+                      { date: `5 ${t.cronogramaMonths}`, activity: t.cronogramaConsol10 },
+                      { date: `6 ${t.cronogramaMonths}`, activity: t.cronogramaConsol10 },
+                      { date: `7 ${t.cronogramaMonths}`, activity: t.cronogramaConsol10 },
+                      { date: `8 ${t.cronogramaMonths}`, activity: t.cronogramaConsol10 },
+                      { date: `9 ${t.cronogramaMonths}`, activity: t.cronogramaConsol10 },
+                      { date: `10 ${t.cronogramaMonths}`, activity: t.cronogramaConsol10 },
+                      { date: `11 ${t.cronogramaMonths}`, activity: t.cronogramaConsol10 },
+                      { date: `12 ${t.cronogramaMonths}`, activity: t.cronogramaCertification },
+                      { date: t.cronogramaSupportContract, activity: t.cronogramaSupport },
+                      { date: t.cronograma12later, activity: t.cronogramaSupport },
+                    ].map((row, i) => (
+                      <tr key={i} className="border-b border-border/30 hover:bg-muted/20 transition-colors">
+                        <td className="px-4 py-2.5 font-medium text-foreground">{row.date}</td>
+                        <td className="px-4 py-2.5 text-muted-foreground">{row.activity}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Phase 2 Timeline */}
+          <Card className="overflow-hidden border-primary/20">
+            <CardHeader className="pb-2 bg-primary/5">
+              <CardTitle className="text-lg flex items-center gap-2">
+                <Badge className="bg-primary text-primary-foreground">2</Badge>
+                {t.cronogramaPhase2}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-0">
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="bg-muted/30 border-b border-border">
+                      <th className="text-left px-4 py-2.5 text-xs font-semibold text-muted-foreground w-1/3">{t.cronogramaDate}</th>
+                      <th className="text-left px-4 py-2.5 text-xs font-semibold text-muted-foreground">{t.cronogramaActivity}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      { date: `1-2 ${t.cronogramaMonths}`, activity: t.cronogramaP2Setup },
+                      { date: `3-4 ${t.cronogramaMonths}`, activity: t.cronogramaP2Training },
+                      { date: `5-6 ${t.cronogramaMonths}`, activity: t.cronogramaP2Parallel },
+                      { date: `7-9 ${t.cronogramaMonths}`, activity: t.cronogramaP2GoLive },
+                      { date: `10-12 ${t.cronogramaMonths}`, activity: t.cronogramaP2Optimize },
+                      { date: `12+ ${t.cronogramaMonths}`, activity: t.cronogramaP2Ongoing },
+                    ].map((row, i) => (
+                      <tr key={i} className="border-b border-border/30 hover:bg-muted/20 transition-colors">
+                        <td className="px-4 py-2.5 font-medium text-foreground">{row.date}</td>
+                        <td className="px-4 py-2.5 text-muted-foreground">{row.activity}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </section>
   );

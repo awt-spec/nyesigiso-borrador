@@ -194,7 +194,7 @@ const labels: Record<Lang, Record<string, string>> = {
     perMonth: "/mois",
     billing: "Abonnement mensuel · Facturation trimestrielle anticipée · Prix en USD",
     chooseTitle: "Choisissez votre Modalité",
-    chooseSubtitle: "Deux options pour activer les 36 modules supplémentaires",
+    chooseSubtitle: "Deux options pour activer les 34 modules supplémentaires",
     option1Title: "Option A — À la Carte",
     option1Subtitle: "Activez les modules individuels quand vous voulez",
     option1Desc: "Choisissez et activez uniquement les modules dont vous avez besoin, un par un, au prix individuel du Cadre de Réponse. Sans engagement de package.",

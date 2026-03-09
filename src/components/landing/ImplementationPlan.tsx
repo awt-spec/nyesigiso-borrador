@@ -430,23 +430,11 @@ const ImplementationPlan = () => {
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <tbody>
-                  <tr className="border-b border-border bg-muted/30">
+                  <tr className="bg-muted/30">
                     <td className="px-4 py-3 font-semibold text-foreground">{t.totalAlaCarte}</td>
                     <td className="px-3 py-3 text-right font-bold text-foreground">$25,800</td>
                     <td className="px-3 py-3 text-right text-muted-foreground">$77,400</td>
                     <td className="px-4 py-3 text-right text-muted-foreground">$309,600</td>
-                  </tr>
-                  <tr className="border-b border-border bg-primary/5">
-                    <td className="px-4 py-3 font-bold text-primary">{t.totalAllIn}</td>
-                    <td className="px-3 py-3 text-right font-bold text-primary">$14,999</td>
-                    <td className="px-3 py-3 text-right text-primary">$44,997</td>
-                    <td className="px-4 py-3 text-right text-primary">$179,988</td>
-                  </tr>
-                  <tr className="bg-emerald-500/10">
-                    <td className="px-4 py-3 font-bold text-emerald-600 dark:text-emerald-400">{t.totalSavings}</td>
-                    <td className="px-3 py-3 text-right font-bold text-emerald-600 dark:text-emerald-400">−$18,301</td>
-                    <td className="px-3 py-3 text-right text-emerald-600 dark:text-emerald-400">−$54,903</td>
-                    <td className="px-4 py-3 text-right text-emerald-600 dark:text-emerald-400">−$219,612</td>
                   </tr>
                 </tbody>
               </table>

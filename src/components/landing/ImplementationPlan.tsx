@@ -162,6 +162,7 @@ const labels: Record<Lang, Record<string, string>> = {
     phase1desc: "SAF UPV 7.0 · 87 BD · 94 Agencias",
     phase1note: "Ya activo desde la firma",
     phase1includes: "Migración SAF UPV 7.0 completa · Consolidación 87 BD → 1 · Licencias ilimitadas · Soporte + BCEAO",
+    setupFee: "Setup Fee (único)",
     active: "ACTIVA",
     recommended: "RECOMENDADO",
     savingsTitle: "Ahorro vs. À la Carte",
@@ -209,6 +210,7 @@ const labels: Record<Lang, Record<string, string>> = {
     phase1desc: "SAF UPV 7.0 · 87 BD · 94 Agences",
     phase1note: "Active depuis la signature",
     phase1includes: "Migration SAF UPV 7.0 complète · Consolidation 87 BD → 1 · Licences illimitées · Support + BCEAO",
+    setupFee: "Setup Fee (unique)",
     active: "ACTIVE",
     recommended: "RECOMMANDÉ",
     savingsTitle: "Économie vs. À la Carte",
@@ -256,6 +258,7 @@ const labels: Record<Lang, Record<string, string>> = {
     phase1desc: "SAF UPV 7.0 · 87 DBs · 94 Agencies",
     phase1note: "Active since signing",
     phase1includes: "Full SAF UPV 7.0 migration · 87 DB consolidation → 1 · Unlimited licenses · Support + BCEAO",
+    setupFee: "Setup Fee (one-time)",
     active: "ACTIVE",
     recommended: "RECOMMENDED",
     savingsTitle: "Savings vs. À la Carte",
@@ -330,10 +333,14 @@ const ImplementationPlan = () => {
                     <p className="text-sm text-muted-foreground">{t.phase1desc}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-4 flex-wrap">
                   <div className="text-right">
                     <span className="text-2xl font-bold text-foreground">USD $7,500</span>
                     <span className="text-muted-foreground text-sm">{t.perMonth}</span>
+                  </div>
+                  <div className="text-right border-l border-border pl-4">
+                    <p className="text-xs text-muted-foreground">{t.setupFee}</p>
+                    <span className="text-lg font-bold text-foreground">USD $35,000</span>
                   </div>
                   <Badge variant="secondary" className="text-xs">~61% {t.coverage}</Badge>
                 </div>
@@ -503,15 +510,15 @@ const ImplementationPlan = () => {
                 <div className="flex gap-6 text-center">
                   <div>
                     <p className="text-xs text-muted-foreground uppercase">{t.perMonthLabel}</p>
-                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−USD $12,101</p>
+                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−USD $12,101 <span className="text-sm">(42%)</span></p>
                   </div>
                   <div>
                     <p className="text-xs text-muted-foreground uppercase">{t.perQuarterLabel}</p>
-                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−USD $36,303</p>
+                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−USD $36,303 <span className="text-sm">(42%)</span></p>
                   </div>
                   <div>
                     <p className="text-xs text-muted-foreground uppercase">{t.perYearLabel}</p>
-                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−USD $145,212</p>
+                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−USD $145,212 <span className="text-sm">(42%)</span></p>
                   </div>
                 </div>
               </div>

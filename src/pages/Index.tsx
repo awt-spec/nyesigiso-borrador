@@ -2,8 +2,6 @@ import { LanguageProvider, useLanguage } from "@/contexts/LanguageContext";
 import Header from "@/components/landing/Header";
 import Hero from "@/components/landing/Hero";
 import DomainSection from "@/components/landing/DomainSection";
-import SynthesisTable from "@/components/landing/SynthesisTable";
-import DomainNav from "@/components/landing/DomainNav";
 import ImplementationPlan from "@/components/landing/ImplementationPlan";
 import Footer from "@/components/landing/Footer";
 import { domains } from "@/data/domains";
@@ -25,8 +23,6 @@ const IndexContent = () => {
     <div className="min-h-screen">
       <Header />
       <Hero />
-      <SynthesisTable />
-      <DomainNav />
 
       {/* Expandable domain detail */}
       <div className="py-8 px-4 bg-muted/20">

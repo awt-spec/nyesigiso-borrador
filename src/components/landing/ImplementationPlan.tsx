@@ -84,12 +84,12 @@ const moduleGroups: ModuleGroup[] = [
     id: "E", label: "E", icon: Building,
     subtotalName: { es: "ERP Financiero", fr: "ERP Financier", en: "Financial ERP" },
     modules: [
-      { name: { es: "Activos Fijos / Immobilisations", fr: "Immobilisations", en: "Fixed Assets" }, status: "NO CUBIERTO", monthly: "$600", quarterly: "$1,800", annual: "$7,200" },
-      { name: { es: "Conciliación / Lettrage", fr: "Rapprochement / Lettrage", en: "Reconciliation / Lettrage" }, status: "NO CUBIERTO", monthly: "$500", quarterly: "$1,500", annual: "$6,000" },
+      { name: { es: "Activos Fijos", fr: "Immobilisations", en: "Fixed Assets" }, status: "NO CUBIERTO", monthly: "$600", quarterly: "$1,800", annual: "$7,200" },
+      { name: { es: "Conciliación", fr: "Rapprochement / Lettrage", en: "Reconciliation / Lettrage" }, status: "NO CUBIERTO", monthly: "$500", quarterly: "$1,500", annual: "$6,000" },
       { name: { es: "Compras / Inventarios", fr: "Achats / Inventaires", en: "Purchasing / Inventory" }, status: "NO CUBIERTO", monthly: "$800", quarterly: "$2,400", annual: "$9,600" },
-      { name: { es: "Proveedores / Fournisseurs", fr: "Fournisseurs", en: "Vendors" }, status: "NO CUBIERTO", monthly: "$400", quarterly: "$1,200", annual: "$4,800" },
-      { name: { es: "Obras y Proyectos / Chantiers", fr: "Chantiers et Projets", en: "Projects & Construction" }, status: "NO CUBIERTO", monthly: "$300", quarterly: "$900", annual: "$3,600" },
-      { name: { es: "Archivo / Archivage", fr: "Archivage", en: "Archiving" }, status: "NO CUBIERTO", monthly: "$500", quarterly: "$1,500", annual: "$6,000" },
+      { name: { es: "Proveedores", fr: "Fournisseurs", en: "Vendors" }, status: "NO CUBIERTO", monthly: "$400", quarterly: "$1,200", annual: "$4,800" },
+      { name: { es: "Obras y Proyectos", fr: "Chantiers et Projets", en: "Projects & Construction" }, status: "NO CUBIERTO", monthly: "$300", quarterly: "$900", annual: "$3,600" },
+      { name: { es: "Archivo", fr: "Archivage", en: "Archiving" }, status: "NO CUBIERTO", monthly: "$500", quarterly: "$1,500", annual: "$6,000" },
     ],
     subtotalMonthly: "$3,100", subtotalQuarterly: "$9,300", subtotalAnnual: "$37,200",
   },
@@ -108,9 +108,9 @@ const moduleGroups: ModuleGroup[] = [
     modules: [
       { name: { es: "Tableros Avanzados (upgrade PARCIAL → Avanzado)", fr: "Tableaux Avancés (upgrade PARTIEL → Avancé)", en: "Advanced Dashboards (upgrade PARTIAL → Advanced)" }, status: "UPGRADE", monthly: "$400", quarterly: "$1,200", annual: "$4,800" },
       { name: { es: "Contabilidad Analítica", fr: "Comptabilité Analytique", en: "Analytical Accounting" }, status: "NO CUBIERTO", monthly: "$600", quarterly: "$1,800", annual: "$7,200" },
-      { name: { es: "Presupuesto / Budget", fr: "Budget", en: "Budget" }, status: "NO CUBIERTO", monthly: "$400", quarterly: "$1,200", annual: "$4,800" },
+      { name: { es: "Presupuesto", fr: "Budget", en: "Budget" }, status: "NO CUBIERTO", monthly: "$400", quarterly: "$1,200", annual: "$4,800" },
       { name: { es: "DataWarehouse", fr: "DataWarehouse", en: "DataWarehouse" }, status: "NO CUBIERTO", monthly: "$1,200", quarterly: "$3,600", annual: "$14,400" },
-      { name: { es: "Herramientas BI / Outils d'aide à la décision", fr: "Outils BI / Aide à la décision", en: "BI Tools / Decision Support" }, status: "NO CUBIERTO", monthly: "$1,050", quarterly: "$3,150", annual: "$12,600" },
+      { name: { es: "Herramientas BI / Soporte a la Decisión", fr: "Outils BI / Aide à la décision", en: "BI Tools / Decision Support" }, status: "NO CUBIERTO", monthly: "$1,050", quarterly: "$3,150", annual: "$12,600" },
     ],
     subtotalMonthly: "$3,650", subtotalQuarterly: "$10,950", subtotalAnnual: "$43,800",
   },
@@ -189,7 +189,7 @@ const labels: Record<Lang, Record<string, string>> = {
     cronogramaMonths: "meses",
     cronogramaSupportContract: "Contrato de asistencia primer año",
     cronograma12later: "12 meses después",
-    cronogramaInstallation: "Frais de instalación",
+    cronogramaInstallation: "Costos de instalación",
     cronogramaLicenses: "Licencias de utilización — Tarifa preferencial 1,300 USD por licencia — Pack de 121 licencias",
     cronogramaReporting: "Reporting operacional y reglamentario. Informes BCEAO y operaciones de Nyèsigiso",
     cronogramaMigration: "Migración de la base de datos centralizadora hacia SAF UPV 7.0",
@@ -742,211 +742,217 @@ const ImplementationPlan = () => {
             <h3 className="text-2xl font-bold text-foreground">{t.cronogramaTitle}</h3>
           </div>
 
-          {/* Phase 1 Timeline - Visual */}
-          <Card className="mb-6 overflow-hidden border-primary/20">
-            <CardHeader className="pb-3 bg-primary/5 border-b border-border">
-              <CardTitle className="text-lg flex items-center gap-2">
-                <Badge className="bg-primary text-primary-foreground">1</Badge>
-                {t.cronogramaPhase1}
-              </CardTitle>
-              <p className="text-xs text-muted-foreground mt-1">12 {t.cronogramaMonths} · 87 BD · Setup Fee USD $35,000</p>
-            </CardHeader>
-            <CardContent className="p-6">
-              {/* Visual timeline */}
-              <div className="relative">
-                {/* Vertical line */}
-                <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-border" />
+          {/* Phase 1 Timeline - Collapsible */}
+          <Accordion type="multiple" className="space-y-4">
+            <AccordionItem value="phase1" className="border rounded-lg overflow-hidden border-primary/20">
+              <AccordionTrigger className="px-5 py-4 hover:no-underline bg-primary/5 border-b border-border">
+                <div className="flex items-center gap-3 flex-1 mr-4">
+                  <Badge className="bg-primary text-primary-foreground">1</Badge>
+                  <div className="text-left">
+                    <p className="text-lg font-bold text-foreground">{t.cronogramaPhase1}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">12 {t.cronogramaMonths} · 87 BD · Setup Fee USD $35,000</p>
+                  </div>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="px-6 pt-6 pb-6">
+                {/* Visual timeline */}
+                <div className="relative">
+                  {/* Vertical line */}
+                  <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-border" />
 
-                {(() => {
-                  const phase1Steps = [
-                    { 
-                      period: t.cronogramaAcceptance, 
-                      items: [t.cronogramaInstallation, t.cronogramaLicenses, t.cronogramaReporting],
-                      icon: "🚀",
-                      color: "bg-primary/10 border-primary/30"
-                    },
-                    { 
-                      period: t.cronograma30days, 
-                      items: [t.cronogramaMigration],
-                      icon: "🔄",
-                      color: "bg-primary/10 border-primary/30"
-                    },
-                    { 
-                      period: `2-3 ${t.cronogramaMonths}`, 
-                      items: [t.cronogramaConsol2, t.cronogramaConsol5],
-                      icon: "📦",
-                      color: "bg-secondary/50 border-secondary"
-                    },
-                    { 
-                      period: `4 ${t.cronogramaMonths}`, 
-                      items: [t.cronogramaConsol10],
-                      icon: "⚡",
-                      color: "bg-secondary/50 border-secondary"
-                    },
-                    { 
-                      period: `5 ${t.cronogramaMonths}`, 
-                      items: [t.cronogramaConsol10],
-                      icon: "⚡",
-                      color: "bg-secondary/50 border-secondary"
-                    },
-                    { 
-                      period: `6 ${t.cronogramaMonths}`, 
-                      items: [t.cronogramaConsol10],
-                      icon: "⚡",
-                      color: "bg-secondary/50 border-secondary"
-                    },
-                    { 
-                      period: `7 ${t.cronogramaMonths}`, 
-                      items: [t.cronogramaConsol10],
-                      icon: "⚡",
-                      color: "bg-secondary/50 border-secondary"
-                    },
-                    { 
-                      period: `8 ${t.cronogramaMonths}`, 
-                      items: [t.cronogramaConsol10],
-                      icon: "⚡",
-                      color: "bg-secondary/50 border-secondary"
-                    },
-                    { 
-                      period: `9 ${t.cronogramaMonths}`, 
-                      items: [t.cronogramaConsol10],
-                      icon: "⚡",
-                      color: "bg-secondary/50 border-secondary"
-                    },
-                    { 
-                      period: `10 ${t.cronogramaMonths}`, 
-                      items: [t.cronogramaConsol10],
-                      icon: "⚡",
-                      color: "bg-secondary/50 border-secondary"
-                    },
-                    { 
-                      period: `11 ${t.cronogramaMonths}`, 
-                      items: [t.cronogramaConsol10],
-                      icon: "⚡",
-                      color: "bg-secondary/50 border-secondary"
-                    },
-                    { 
-                      period: `12 ${t.cronogramaMonths}`, 
-                      items: [t.cronogramaCertification],
-                      icon: "✅",
-                      color: "bg-primary/10 border-primary/30"
-                    },
-                    { 
-                      period: t.cronogramaSupportContract, 
-                      items: [t.cronogramaSupport],
-                      icon: "🛟",
-                      color: "bg-muted border-border"
-                    },
-                    { 
-                      period: t.cronograma12later, 
-                      items: [t.cronogramaSupport],
-                      icon: "🔁",
-                      color: "bg-muted border-border"
-                    },
-                  ];
+                  {(() => {
+                    const phase1Steps = [
+                      { 
+                        period: t.cronogramaAcceptance, 
+                        items: [t.cronogramaInstallation, t.cronogramaLicenses, t.cronogramaReporting],
+                        icon: "🚀",
+                        color: "bg-primary/10 border-primary/30"
+                      },
+                      { 
+                        period: t.cronograma30days, 
+                        items: [t.cronogramaMigration],
+                        icon: "🔄",
+                        color: "bg-primary/10 border-primary/30"
+                      },
+                      { 
+                        period: `2-3 ${t.cronogramaMonths}`, 
+                        items: [t.cronogramaConsol2, t.cronogramaConsol5],
+                        icon: "📦",
+                        color: "bg-secondary/50 border-secondary"
+                      },
+                      { 
+                        period: `4 ${t.cronogramaMonths}`, 
+                        items: [t.cronogramaConsol10],
+                        icon: "⚡",
+                        color: "bg-secondary/50 border-secondary"
+                      },
+                      { 
+                        period: `5 ${t.cronogramaMonths}`, 
+                        items: [t.cronogramaConsol10],
+                        icon: "⚡",
+                        color: "bg-secondary/50 border-secondary"
+                      },
+                      { 
+                        period: `6 ${t.cronogramaMonths}`, 
+                        items: [t.cronogramaConsol10],
+                        icon: "⚡",
+                        color: "bg-secondary/50 border-secondary"
+                      },
+                      { 
+                        period: `7 ${t.cronogramaMonths}`, 
+                        items: [t.cronogramaConsol10],
+                        icon: "⚡",
+                        color: "bg-secondary/50 border-secondary"
+                      },
+                      { 
+                        period: `8 ${t.cronogramaMonths}`, 
+                        items: [t.cronogramaConsol10],
+                        icon: "⚡",
+                        color: "bg-secondary/50 border-secondary"
+                      },
+                      { 
+                        period: `9 ${t.cronogramaMonths}`, 
+                        items: [t.cronogramaConsol10],
+                        icon: "⚡",
+                        color: "bg-secondary/50 border-secondary"
+                      },
+                      { 
+                        period: `10 ${t.cronogramaMonths}`, 
+                        items: [t.cronogramaConsol10],
+                        icon: "⚡",
+                        color: "bg-secondary/50 border-secondary"
+                      },
+                      { 
+                        period: `11 ${t.cronogramaMonths}`, 
+                        items: [t.cronogramaConsol10],
+                        icon: "⚡",
+                        color: "bg-secondary/50 border-secondary"
+                      },
+                      { 
+                        period: `12 ${t.cronogramaMonths}`, 
+                        items: [t.cronogramaCertification],
+                        icon: "✅",
+                        color: "bg-primary/10 border-primary/30"
+                      },
+                      { 
+                        period: t.cronogramaSupportContract, 
+                        items: [t.cronogramaSupport],
+                        icon: "🛟",
+                        color: "bg-muted border-border"
+                      },
+                      { 
+                        period: t.cronograma12later, 
+                        items: [t.cronogramaSupport],
+                        icon: "🔁",
+                        color: "bg-muted border-border"
+                      },
+                    ];
 
-                  return phase1Steps.map((step, i) => (
-                    <div key={i} className="relative pl-12 pb-6 last:pb-0 group">
-                      {/* Dot on line */}
-                      <div className="absolute left-2.5 top-1.5 w-3.5 h-3.5 rounded-full bg-primary border-2 border-background ring-2 ring-primary/20 group-hover:ring-primary/40 transition-all" />
-                      
-                      <div className={`rounded-lg border p-4 ${step.color} hover:shadow-md transition-all duration-200`}>
-                        <div className="flex items-center gap-2 mb-2">
-                          <span className="text-base">{step.icon}</span>
-                          <span className="text-sm font-bold text-foreground">{step.period}</span>
+                    return phase1Steps.map((step, i) => (
+                      <div key={i} className="relative pl-12 pb-6 last:pb-0 group">
+                        {/* Dot on line */}
+                        <div className="absolute left-2.5 top-1.5 w-3.5 h-3.5 rounded-full bg-primary border-2 border-background ring-2 ring-primary/20 group-hover:ring-primary/40 transition-all" />
+                        
+                        <div className={`rounded-lg border p-4 ${step.color} hover:shadow-md transition-all duration-200`}>
+                          <div className="flex items-center gap-2 mb-2">
+                            <span className="text-base">{step.icon}</span>
+                            <span className="text-sm font-bold text-foreground">{step.period}</span>
+                          </div>
+                          <ul className="space-y-1">
+                            {step.items.map((item, j) => (
+                              <li key={j} className="flex items-start gap-2 text-sm text-muted-foreground">
+                                <ChevronRight className="w-3.5 h-3.5 mt-0.5 text-primary flex-shrink-0" />
+                                {item}
+                              </li>
+                            ))}
+                          </ul>
                         </div>
-                        <ul className="space-y-1">
-                          {step.items.map((item, j) => (
-                            <li key={j} className="flex items-start gap-2 text-sm text-muted-foreground">
-                              <ChevronRight className="w-3.5 h-3.5 mt-0.5 text-primary flex-shrink-0" />
-                              {item}
-                            </li>
+                      </div>
+                    ));
+                  })()}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+
+            {/* Phase 2 - Collapsible */}
+            <AccordionItem value="phase2" className="border rounded-lg overflow-hidden border-primary/20">
+              <AccordionTrigger className="px-5 py-4 hover:no-underline bg-primary/5 border-b border-border">
+                <div className="flex items-center gap-3 flex-1 mr-4">
+                  <Badge className="bg-primary text-primary-foreground">2</Badge>
+                  <div className="text-left">
+                    <p className="text-lg font-bold text-foreground">{t.cronogramaPhase2}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">34 {t.modules} · {t.cronogramaP2Flexible}</p>
+                  </div>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="px-6 pt-6 pb-6">
+                {/* Priority banner */}
+                <div className="flex items-center gap-3 mb-6 p-4 rounded-lg bg-primary/5 border border-primary/10">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <Zap className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-foreground">{t.cronogramaP2Priority}</p>
+                    <p className="text-xs text-muted-foreground">{t.cronogramaP2PriorityDesc}</p>
+                  </div>
+                </div>
+
+                {/* 9 Module groups as interactive cards */}
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">{t.cronogramaP2Scope}</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
+                  {moduleGroups.map((group) => {
+                    const Icon = group.icon;
+                    return (
+                      <div
+                        key={group.id}
+                        className="group relative rounded-xl border border-border bg-card p-4 hover:border-primary/40 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 cursor-default"
+                      >
+                        <div className="flex items-center gap-3 mb-2">
+                          <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                            <Icon className="w-4.5 h-4.5 text-primary" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-bold text-foreground truncate">{group.subtotalName[language]}</p>
+                            <p className="text-[11px] text-muted-foreground">{group.modules.length} {t.modules}</p>
+                          </div>
+                          <Badge variant="outline" className="text-[10px] font-mono flex-shrink-0">{group.label}</Badge>
+                        </div>
+                        <div className="space-y-0.5">
+                          {group.modules.slice(0, 3).map((mod, j) => (
+                            <p key={j} className="text-[11px] text-muted-foreground truncate flex items-center gap-1">
+                              <span className="w-1 h-1 rounded-full bg-primary/40 flex-shrink-0" />
+                              {mod.name[language]}
+                            </p>
                           ))}
-                        </ul>
-                      </div>
-                    </div>
-                  ));
-                })()}
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Phase 2 - Flexible */}
-          <Card className="overflow-hidden border-primary/20">
-            <CardHeader className="pb-3 bg-primary/5 border-b border-border">
-              <CardTitle className="text-lg flex items-center gap-2">
-                <Badge className="bg-primary text-primary-foreground">2</Badge>
-                {t.cronogramaPhase2}
-              </CardTitle>
-              <p className="text-xs text-muted-foreground mt-1">34 {t.modules} · {t.cronogramaP2Flexible}</p>
-            </CardHeader>
-            <CardContent className="p-6">
-              {/* Priority banner */}
-              <div className="flex items-center gap-3 mb-6 p-4 rounded-lg bg-primary/5 border border-primary/10">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <Zap className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <p className="text-sm font-bold text-foreground">{t.cronogramaP2Priority}</p>
-                  <p className="text-xs text-muted-foreground">{t.cronogramaP2PriorityDesc}</p>
-                </div>
-              </div>
-
-              {/* 9 Module groups as interactive cards */}
-              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">{t.cronogramaP2Scope}</p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
-                {moduleGroups.map((group) => {
-                  const Icon = group.icon;
-                  return (
-                    <div
-                      key={group.id}
-                      className="group relative rounded-xl border border-border bg-card p-4 hover:border-primary/40 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 cursor-default"
-                    >
-                      <div className="flex items-center gap-3 mb-2">
-                        <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                          <Icon className="w-4.5 h-4.5 text-primary" />
+                          {group.modules.length > 3 && (
+                            <p className="text-[11px] text-primary/60 font-medium">+{group.modules.length - 3} más</p>
+                          )}
                         </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-bold text-foreground truncate">{group.subtotalName[language]}</p>
-                          <p className="text-[11px] text-muted-foreground">{group.modules.length} {t.modules}</p>
-                        </div>
-                        <Badge variant="outline" className="text-[10px] font-mono flex-shrink-0">{group.label}</Badge>
                       </div>
-                      <div className="space-y-0.5">
-                        {group.modules.slice(0, 3).map((mod, j) => (
-                          <p key={j} className="text-[11px] text-muted-foreground truncate flex items-center gap-1">
-                            <span className="w-1 h-1 rounded-full bg-primary/40 flex-shrink-0" />
-                            {mod.name[language]}
-                          </p>
-                        ))}
-                        {group.modules.length > 3 && (
-                          <p className="text-[11px] text-primary/60 font-medium">+{group.modules.length - 3} más</p>
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
+                    );
+                  })}
+                </div>
 
-              {/* Accompaniment + flexible note */}
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="rounded-lg border border-border bg-card p-4 hover:border-primary/30 transition-colors">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Users className="w-4 h-4 text-primary" />
-                    <p className="text-sm font-bold text-foreground">{t.cronogramaP2Support}</p>
+                {/* Accompaniment + flexible note */}
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="rounded-lg border border-border bg-card p-4 hover:border-primary/30 transition-colors">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Users className="w-4 h-4 text-primary" />
+                      <p className="text-sm font-bold text-foreground">{t.cronogramaP2Support}</p>
+                    </div>
+                    <p className="text-xs text-muted-foreground leading-relaxed">{t.cronogramaP2SupportDesc}</p>
                   </div>
-                  <p className="text-xs text-muted-foreground leading-relaxed">{t.cronogramaP2SupportDesc}</p>
-                </div>
-                <div className="rounded-lg border border-primary/20 bg-primary/5 p-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Calendar className="w-4 h-4 text-primary" />
-                    <p className="text-sm font-bold text-foreground">{t.cronogramaP2NoteTitle}</p>
+                  <div className="rounded-lg border border-primary/20 bg-primary/5 p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Calendar className="w-4 h-4 text-primary" />
+                      <p className="text-sm font-bold text-foreground">{t.cronogramaP2NoteTitle}</p>
+                    </div>
+                    <p className="text-xs text-muted-foreground leading-relaxed">{t.cronogramaP2NoteDesc}</p>
                   </div>
-                  <p className="text-xs text-muted-foreground leading-relaxed">{t.cronogramaP2NoteDesc}</p>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
       </div>
     </section>

@@ -378,6 +378,9 @@ const ImplementationPlan = () => {
             💡 {t.billing}
           </p>
         </div>
+      </div>
+    </section>
+  );
 };
 
 export default ImplementationPlan;

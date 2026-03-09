@@ -130,6 +130,8 @@ const labels = {
     phases: "Phases",
     horizon: "Total Horizon",
     finalCoverage: "Final Coverage",
+    investment: "Investment",
+    totalInvestment: "Total Investment",
   },
 };
 

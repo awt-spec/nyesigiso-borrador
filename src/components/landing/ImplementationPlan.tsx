@@ -881,28 +881,68 @@ const ImplementationPlan = () => {
               <p className="text-xs text-muted-foreground mt-1">34 {t.modules} · {t.cronogramaP2Flexible}</p>
             </CardHeader>
             <CardContent className="p-6">
-              <div className="grid md:grid-cols-3 gap-4">
-                {[
-                  { icon: "🎯", title: t.cronogramaP2Priority, desc: t.cronogramaP2PriorityDesc },
-                  { icon: "📋", title: t.cronogramaP2Scope, desc: t.cronogramaP2ScopeDesc },
-                  { icon: "🤝", title: t.cronogramaP2Support, desc: t.cronogramaP2SupportDesc },
-                ].map((card, i) => (
-                  <div key={i} className="rounded-lg border border-border bg-card p-5 hover:border-primary/30 hover:shadow-md transition-all duration-200 text-center">
-                    <span className="text-2xl">{card.icon}</span>
-                    <p className="font-bold text-foreground mt-2 mb-1 text-sm">{card.title}</p>
-                    <p className="text-xs text-muted-foreground leading-relaxed">{card.desc}</p>
-                  </div>
-                ))}
+              {/* Priority banner */}
+              <div className="flex items-center gap-3 mb-6 p-4 rounded-lg bg-primary/5 border border-primary/10">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <Zap className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-foreground">{t.cronogramaP2Priority}</p>
+                  <p className="text-xs text-muted-foreground">{t.cronogramaP2PriorityDesc}</p>
+                </div>
               </div>
-              <div className="mt-5 rounded-lg bg-muted/40 border border-border p-4">
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+
+              {/* 9 Module groups as interactive cards */}
+              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">{t.cronogramaP2Scope}</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
+                {moduleGroups.map((group) => {
+                  const Icon = group.icon;
+                  return (
+                    <div
+                      key={group.id}
+                      className="group relative rounded-xl border border-border bg-card p-4 hover:border-primary/40 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 cursor-default"
+                    >
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                          <Icon className="w-4.5 h-4.5 text-primary" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-bold text-foreground truncate">{group.subtotalName[language]}</p>
+                          <p className="text-[11px] text-muted-foreground">{group.modules.length} {t.modules}</p>
+                        </div>
+                        <Badge variant="outline" className="text-[10px] font-mono flex-shrink-0">{group.label}</Badge>
+                      </div>
+                      <div className="space-y-0.5">
+                        {group.modules.slice(0, 3).map((mod, j) => (
+                          <p key={j} className="text-[11px] text-muted-foreground truncate flex items-center gap-1">
+                            <span className="w-1 h-1 rounded-full bg-primary/40 flex-shrink-0" />
+                            {mod.name[language]}
+                          </p>
+                        ))}
+                        {group.modules.length > 3 && (
+                          <p className="text-[11px] text-primary/60 font-medium">+{group.modules.length - 3} más</p>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Accompaniment + flexible note */}
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="rounded-lg border border-border bg-card p-4 hover:border-primary/30 transition-colors">
+                  <div className="flex items-center gap-2 mb-2">
                     <Users className="w-4 h-4 text-primary" />
+                    <p className="text-sm font-bold text-foreground">{t.cronogramaP2Support}</p>
                   </div>
-                  <div>
-                    <p className="text-sm font-semibold text-foreground mb-1">{t.cronogramaP2NoteTitle}</p>
-                    <p className="text-xs text-muted-foreground leading-relaxed">{t.cronogramaP2NoteDesc}</p>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{t.cronogramaP2SupportDesc}</p>
+                </div>
+                <div className="rounded-lg border border-primary/20 bg-primary/5 p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Calendar className="w-4 h-4 text-primary" />
+                    <p className="text-sm font-bold text-foreground">{t.cronogramaP2NoteTitle}</p>
                   </div>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{t.cronogramaP2NoteDesc}</p>
                 </div>
               </div>
             </CardContent>

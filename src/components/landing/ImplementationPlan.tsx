@@ -2,7 +2,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { CheckCircle2, Layers, DollarSign, TrendingDown, ChevronRight, Shield, AlertTriangle, Scale, Globe, Users, Building, UserCheck, BarChart3, Workflow, Zap } from "lucide-react";
+import { CheckCircle2, Layers, DollarSign, TrendingDown, ChevronRight, Shield, AlertTriangle, Scale, Globe, Users, Building, UserCheck, BarChart3, Workflow, Zap, Calendar, ChevronDown, ChevronUp, Eye } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 type Lang = "es" | "fr" | "en";
@@ -145,7 +145,6 @@ const labels: Record<Lang, Record<string, string>> = {
     totalSavings: "AHORRO eligiendo ALL IN",
     perMonth: "/mes",
     billing: "Suscripción mensual · Facturación trimestral anticipada · Precios en USD",
-    // Phase cards
     chooseTitle: "Escoja su Modalidad",
     chooseSubtitle: "Dos opciones para activar los 34 módulos adicionales",
     option1Title: "Opción A — A la Carta",
@@ -176,6 +175,35 @@ const labels: Record<Lang, Record<string, string>> = {
     perMonthLabel: "Susc./Mes",
     perQuarterLabel: "Susc./Trim",
     perYearLabel: "Susc./Año",
+    viewDetail: "Ver Detalle",
+    hideDetail: "Ocultar Detalle",
+    cronogramaTitle: "Cronograma de Implementación",
+    cronogramaSubtitle: "Plan de despliegue por fases",
+    cronogramaPhase1: "FASE 1 — Migración y Consolidación",
+    cronogramaPhase2: "FASE 2 — ALL IN / A la Carta",
+    cronogramaDate: "Fecha",
+    cronogramaActivity: "Actividad",
+    cronogramaAcceptance: "Aceptación del proyecto",
+    cronograma30days: "30 días después del inicio",
+    cronogramaMonth: "mes",
+    cronogramaMonths: "meses",
+    cronogramaSupportContract: "Contrato de asistencia primer año",
+    cronograma12later: "12 meses después",
+    cronogramaInstallation: "Frais de instalación",
+    cronogramaLicenses: "Licencias de utilización — Tarifa preferencial 1,300 USD por licencia — Pack de 121 licencias",
+    cronogramaReporting: "Reporting operacional y reglamentario. Informes BCEAO y operaciones de Nyèsigiso",
+    cronogramaMigration: "Migración de la base de datos centralizadora hacia SAF UPV 7.0",
+    cronogramaConsol2: "Consolidación de 2 primeras bases de datos",
+    cronogramaConsol5: "Consolidación de 5 bases de datos",
+    cronogramaConsol10: "Consolidación de 10 bases de datos",
+    cronogramaCertification: "Proceso final de certificación de la base de datos para su puesta en producción",
+    cronogramaSupport: "Acceso al soporte técnico — Envío de solicitudes, correcciones, soportes diversos",
+    cronogramaP2Setup: "Configuración y despliegue de los 34 módulos adicionales",
+    cronogramaP2Training: "Capacitación de usuarios por grupo funcional",
+    cronogramaP2Parallel: "Operación en paralelo y validación",
+    cronogramaP2GoLive: "Puesta en producción progresiva por módulo",
+    cronogramaP2Optimize: "Optimización y ajustes post-producción",
+    cronogramaP2Ongoing: "Soporte continuo y mejora continua",
   },
   fr: {
     title: "Proposition d'Expansion",
@@ -224,12 +252,41 @@ const labels: Record<Lang, Record<string, string>> = {
     perMonthLabel: "Abon./Mois",
     perQuarterLabel: "Abon./Trim",
     perYearLabel: "Abon./An",
+    viewDetail: "Voir Détail",
+    hideDetail: "Masquer Détail",
+    cronogramaTitle: "Chronogramme d'Implémentation",
+    cronogramaSubtitle: "Plan de déploiement par phases",
+    cronogramaPhase1: "PHASE 1 — Migration et Consolidation",
+    cronogramaPhase2: "PHASE 2 — ALL IN / À la Carte",
+    cronogramaDate: "Date",
+    cronogramaActivity: "Activité",
+    cronogramaAcceptance: "Acceptation du projet",
+    cronograma30days: "30 jours après le début",
+    cronogramaMonth: "mois",
+    cronogramaMonths: "mois",
+    cronogramaSupportContract: "Contrat d'assistance première année",
+    cronograma12later: "12 mois plus tard",
+    cronogramaInstallation: "Frais d'installation",
+    cronogramaLicenses: "Licences d'utilisation — Tarif préférentiel 1 300 USD par licence — Pack de 121 licences",
+    cronogramaReporting: "Reporting opérationnel et réglementaire. Rapports de la BCEAO et opérations de Nyèsigiso",
+    cronogramaMigration: "Migration de la base de données centralisatrice vers SAF UPV 7.0",
+    cronogramaConsol2: "Consolidation de 2 premières bases de données",
+    cronogramaConsol5: "Consolidation de 5 bases de données",
+    cronogramaConsol10: "Consolidation de 10 bases de données",
+    cronogramaCertification: "Processus final de certification de la base de données pour sa mise en production",
+    cronogramaSupport: "Accès au support technique — Envoi de requêtes, corrections, supports divers",
+    cronogramaP2Setup: "Configuration et déploiement des 34 modules supplémentaires",
+    cronogramaP2Training: "Formation des utilisateurs par groupe fonctionnel",
+    cronogramaP2Parallel: "Fonctionnement en parallèle et validation",
+    cronogramaP2GoLive: "Mise en production progressive par module",
+    cronogramaP2Optimize: "Optimisation et ajustements post-production",
+    cronogramaP2Ongoing: "Support continu et amélioration continue",
   },
   en: {
     title: "Expansion Proposal",
     subtitle: "PHASE 1 — Base · PHASE 2 — ALL IN",
     detailTitle: "Additional Module Detail",
-    detailSubtitle: "36 grouped modules · individual pricing from Cadre de Réponse",
+    detailSubtitle: "34 grouped modules · individual pricing from Cadre de Réponse",
     group: "Group",
     module: "Module",
     status: "Status",
@@ -272,6 +329,35 @@ const labels: Record<Lang, Record<string, string>> = {
     perMonthLabel: "Subs./Mo",
     perQuarterLabel: "Subs./Qtr",
     perYearLabel: "Subs./Yr",
+    viewDetail: "View Detail",
+    hideDetail: "Hide Detail",
+    cronogramaTitle: "Implementation Timeline",
+    cronogramaSubtitle: "Phase-based deployment plan",
+    cronogramaPhase1: "PHASE 1 — Migration & Consolidation",
+    cronogramaPhase2: "PHASE 2 — ALL IN / À la Carte",
+    cronogramaDate: "Date",
+    cronogramaActivity: "Activity",
+    cronogramaAcceptance: "Project acceptance",
+    cronograma30days: "30 days after start",
+    cronogramaMonth: "month",
+    cronogramaMonths: "months",
+    cronogramaSupportContract: "First-year support contract",
+    cronograma12later: "12 months later",
+    cronogramaInstallation: "Installation fees",
+    cronogramaLicenses: "Usage licenses — Preferential rate 1,300 USD per license — Pack of 121 licenses",
+    cronogramaReporting: "Operational and regulatory reporting. BCEAO reports and Nyèsigiso operations",
+    cronogramaMigration: "Migration of the centralizing database to SAF UPV 7.0",
+    cronogramaConsol2: "Consolidation of first 2 databases",
+    cronogramaConsol5: "Consolidation of 5 databases",
+    cronogramaConsol10: "Consolidation of 10 databases",
+    cronogramaCertification: "Final database certification process for production deployment",
+    cronogramaSupport: "Access to technical support — Request submission, corrections, various support",
+    cronogramaP2Setup: "Configuration and deployment of all 34 additional modules",
+    cronogramaP2Training: "User training by functional group",
+    cronogramaP2Parallel: "Parallel operation and validation",
+    cronogramaP2GoLive: "Progressive production rollout per module",
+    cronogramaP2Optimize: "Post-production optimization and adjustments",
+    cronogramaP2Ongoing: "Ongoing support and continuous improvement",
   },
 };
 
@@ -290,6 +376,7 @@ const usd = (v: string) => {
 const ImplementationPlan = () => {
   const { language } = useLanguage();
   const [visible, setVisible] = useState(false);
+  const [showAllInDetail, setShowAllInDetail] = useState(false);
   const ref = useRef<HTMLElement>(null);
   const t = labels[language];
 
@@ -571,10 +658,43 @@ const ImplementationPlan = () => {
                   </tr>
                   <tr>
                     <td className="px-4 py-3 font-medium text-foreground">{t.modules}</td>
-                    <td className="px-4 py-3 text-center text-foreground">—</td>
+                    <td className="px-4 py-3 text-center text-foreground font-semibold">63</td>
                     <td className="px-4 py-3 text-center text-muted-foreground">34</td>
-                    <td className="px-4 py-3 text-center font-bold text-primary">34</td>
+                    <td className="px-4 py-3 text-center">
+                      <button
+                        onClick={() => setShowAllInDetail(!showAllInDetail)}
+                        className="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:text-primary/80 transition-colors"
+                      >
+                        <Eye className="w-3.5 h-3.5" />
+                        {showAllInDetail ? t.hideDetail : t.viewDetail}
+                      </button>
+                    </td>
                   </tr>
+                  {showAllInDetail && (
+                    <tr>
+                      <td colSpan={4} className="px-4 py-4">
+                        <div className="bg-primary/5 rounded-lg p-4 border border-primary/10">
+                          <p className="text-xs font-bold text-primary mb-3">63 + 34 = 97 {t.modules}</p>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div>
+                              <p className="text-xs font-semibold text-foreground mb-1">{t.phase1Label} — 63 {t.modules}</p>
+                              <p className="text-xs text-muted-foreground">{t.phase1includes}</p>
+                            </div>
+                            <div>
+                              <p className="text-xs font-semibold text-foreground mb-1">FASE 2 — 34 {t.modules}</p>
+                              <div className="space-y-0.5">
+                                {moduleGroups.map(g => (
+                                  <p key={g.id} className="text-xs text-muted-foreground">
+                                    <span className="font-medium">{g.label}.</span> {g.subtotalName[language]} ({g.modules.length})
+                                  </p>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
@@ -583,6 +703,102 @@ const ImplementationPlan = () => {
           <p className="text-xs text-muted-foreground text-center mt-3">
             💡 {t.billing}
           </p>
+        </div>
+
+        {/* Cronograma */}
+        <div className={`mt-16 transition-all duration-700 delay-400 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-medium mb-3">
+              <Calendar className="w-4 h-4" />
+              {t.cronogramaSubtitle}
+            </div>
+            <h3 className="text-2xl font-bold text-foreground">{t.cronogramaTitle}</h3>
+          </div>
+
+          {/* Phase 1 Timeline */}
+          <Card className="mb-6 overflow-hidden border-primary/20">
+            <CardHeader className="pb-2 bg-primary/5">
+              <CardTitle className="text-lg flex items-center gap-2">
+                <Badge className="bg-primary text-primary-foreground">1</Badge>
+                {t.cronogramaPhase1}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-0">
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="bg-muted/30 border-b border-border">
+                      <th className="text-left px-4 py-2.5 text-xs font-semibold text-muted-foreground w-1/3">{t.cronogramaDate}</th>
+                      <th className="text-left px-4 py-2.5 text-xs font-semibold text-muted-foreground">{t.cronogramaActivity}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      { date: t.cronogramaAcceptance, activity: t.cronogramaInstallation },
+                      { date: t.cronogramaAcceptance, activity: t.cronogramaLicenses },
+                      { date: t.cronogramaAcceptance, activity: t.cronogramaReporting },
+                      { date: t.cronograma30days, activity: t.cronogramaMigration },
+                      { date: `2 ${t.cronogramaMonths}`, activity: t.cronogramaConsol2 },
+                      { date: `3 ${t.cronogramaMonths}`, activity: t.cronogramaConsol5 },
+                      { date: `4 ${t.cronogramaMonths}`, activity: t.cronogramaConsol10 },
+                      { date: `5 ${t.cronogramaMonths}`, activity: t.cronogramaConsol10 },
+                      { date: `6 ${t.cronogramaMonths}`, activity: t.cronogramaConsol10 },
+                      { date: `7 ${t.cronogramaMonths}`, activity: t.cronogramaConsol10 },
+                      { date: `8 ${t.cronogramaMonths}`, activity: t.cronogramaConsol10 },
+                      { date: `9 ${t.cronogramaMonths}`, activity: t.cronogramaConsol10 },
+                      { date: `10 ${t.cronogramaMonths}`, activity: t.cronogramaConsol10 },
+                      { date: `11 ${t.cronogramaMonths}`, activity: t.cronogramaConsol10 },
+                      { date: `12 ${t.cronogramaMonths}`, activity: t.cronogramaCertification },
+                      { date: t.cronogramaSupportContract, activity: t.cronogramaSupport },
+                      { date: t.cronograma12later, activity: t.cronogramaSupport },
+                    ].map((row, i) => (
+                      <tr key={i} className="border-b border-border/30 hover:bg-muted/20 transition-colors">
+                        <td className="px-4 py-2.5 font-medium text-foreground">{row.date}</td>
+                        <td className="px-4 py-2.5 text-muted-foreground">{row.activity}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Phase 2 Timeline */}
+          <Card className="overflow-hidden border-primary/20">
+            <CardHeader className="pb-2 bg-primary/5">
+              <CardTitle className="text-lg flex items-center gap-2">
+                <Badge className="bg-primary text-primary-foreground">2</Badge>
+                {t.cronogramaPhase2}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-0">
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="bg-muted/30 border-b border-border">
+                      <th className="text-left px-4 py-2.5 text-xs font-semibold text-muted-foreground w-1/3">{t.cronogramaDate}</th>
+                      <th className="text-left px-4 py-2.5 text-xs font-semibold text-muted-foreground">{t.cronogramaActivity}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      { date: `1-2 ${t.cronogramaMonths}`, activity: t.cronogramaP2Setup },
+                      { date: `3-4 ${t.cronogramaMonths}`, activity: t.cronogramaP2Training },
+                      { date: `5-6 ${t.cronogramaMonths}`, activity: t.cronogramaP2Parallel },
+                      { date: `7-9 ${t.cronogramaMonths}`, activity: t.cronogramaP2GoLive },
+                      { date: `10-12 ${t.cronogramaMonths}`, activity: t.cronogramaP2Optimize },
+                      { date: `12+ ${t.cronogramaMonths}`, activity: t.cronogramaP2Ongoing },
+                    ].map((row, i) => (
+                      <tr key={i} className="border-b border-border/30 hover:bg-muted/20 transition-colors">
+                        <td className="px-4 py-2.5 font-medium text-foreground">{row.date}</td>
+                        <td className="px-4 py-2.5 text-muted-foreground">{row.activity}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </section>

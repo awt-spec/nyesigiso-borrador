@@ -5,18 +5,48 @@ import { CheckCircle2, ArrowRight, PackageCheck, PackageX } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { useEffect, useRef, useState } from "react";
 
+const scopeLabels = {
+  es: {
+    sysdeCapability: "Capacidad SYSDE",
+    sysdeCapabilityDesc: "Lo que SYSDE puede cubrir",
+    initialProposal: "Propuesta Inicial",
+    initialProposalDesc: "Incluido en el alcance base",
+    included: "incluidos",
+    outsideScope: "fuera del alcance inicial",
+  },
+  fr: {
+    sysdeCapability: "Capacité SYSDE",
+    sysdeCapabilityDesc: "Ce que SYSDE peut couvrir",
+    initialProposal: "Proposition Initiale",
+    initialProposalDesc: "Inclus dans le périmètre de base",
+    included: "inclus",
+    outsideScope: "hors périmètre initial",
+  },
+  en: {
+    sysdeCapability: "SYSDE Capability",
+    sysdeCapabilityDesc: "What SYSDE can cover",
+    initialProposal: "Initial Proposal",
+    initialProposalDesc: "Included in base scope",
+    included: "included",
+    outsideScope: "outside initial scope",
+  },
+};
+
 const SynthesisTable = () => {
   const { language } = useLanguage();
   const t = translations[language];
-  const [progress, setProgress] = useState(0);
+  const sl = scopeLabels[language];
+  const [progressSysde, setProgressSysde] = useState(0);
+  const [progressInitial, setProgressInitial] = useState(0);
   const [visible, setVisible] = useState(false);
   const [hoveredDomain, setHoveredDomain] = useState<string | null>(null);
   const ref = useRef<HTMLElement>(null);
   const totalItems = domains.reduce((acc, d) => acc + d.items.length, 0);
   const totalCovered = domains.reduce((acc, d) => acc + d.items.filter(i => !i.status || i.status === "cubierto").length, 0);
-  const globalPercent = Math.round((totalCovered / totalItems) * 100);
+  const globalPercentSysde = Math.round((totalCovered / totalItems) * 100);
   const totalQuoted = domains.reduce((acc, d) => acc + d.items.filter(i => i.included !== false).length, 0);
-  const totalToQuote = totalItems - totalQuoted;
+  const totalOutsideScope = totalItems - totalQuoted;
+  const globalPercentInitial = Math.round((totalQuoted / totalItems) * 100);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -29,9 +59,10 @@ const SynthesisTable = () => {
 
   useEffect(() => {
     if (!visible) return;
-    const timer = setTimeout(() => setProgress(globalPercent), 300);
-    return () => clearTimeout(timer);
-  }, [visible, globalPercent]);
+    const timer1 = setTimeout(() => setProgressSysde(globalPercentSysde), 300);
+    const timer2 = setTimeout(() => setProgressInitial(globalPercentInitial), 500);
+    return () => { clearTimeout(timer1); clearTimeout(timer2); };
+  }, [visible, globalPercentSysde, globalPercentInitial]);
 
   const getDomainCoverage = (d: typeof domains[0]) => {
     const covered = d.items.filter(i => !i.status || i.status === "cubierto").length;
@@ -113,32 +144,49 @@ const SynthesisTable = () => {
           ))}
         </div>
 
-        {/* Total summary bar */}
-        <div className="rounded-xl border border-background/10 bg-background/5 p-5">
-          <div className="flex items-center justify-between mb-3">
-            <div>
-              <span className="text-background font-bold text-sm">{t.synthesis.total}</span>
-              <span className="text-background/40 text-xs ml-2 font-mono">{totalItems} items</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <span className="inline-flex items-center gap-1 text-xs font-bold text-blue-400">
-                <PackageCheck className="w-3.5 h-3.5" />
-                {totalQuoted}
-                <span className="text-background/30 font-normal ml-0.5">
-                  {language === "es" ? "cotizados" : language === "fr" ? "chiffrés" : "quoted"}
+        {/* Dual coverage bars */}
+        <div className="space-y-4">
+          {/* Bar 1: SYSDE Capability */}
+          <div className="rounded-xl border border-background/10 bg-background/5 p-5">
+            <div className="flex items-center justify-between mb-3">
+              <div>
+                <span className="text-background font-bold text-sm">{sl.sysdeCapability}</span>
+                <span className="text-background/40 text-xs ml-2">{sl.sysdeCapabilityDesc}</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-400">
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  {totalCovered}/{totalItems}
                 </span>
-              </span>
-              <span className="inline-flex items-center gap-1 text-xs font-bold text-orange-400">
-                <PackageX className="w-3.5 h-3.5" />
-                {totalToQuote}
-                <span className="text-background/30 font-normal ml-0.5">
-                  {language === "es" ? "por cotizar" : language === "fr" ? "à chiffrer" : "to quote"}
-                </span>
-              </span>
-              <span className={`font-black text-lg ${getCoverageColor(progress)}`}>{progress}%</span>
+                <span className={`font-black text-lg ${getCoverageColor(progressSysde)}`}>{progressSysde}%</span>
+              </div>
             </div>
+            <Progress value={progressSysde} className="h-2.5 bg-background/10 [&>div]:bg-emerald-500 [&>div]:transition-all [&>div]:duration-[2s]" />
           </div>
-          <Progress value={progress} className="h-2.5 bg-background/10 [&>div]:bg-primary [&>div]:transition-all [&>div]:duration-[2s]" />
+
+          {/* Bar 2: Initial Proposal */}
+          <div className="rounded-xl border border-background/10 bg-background/5 p-5">
+            <div className="flex items-center justify-between mb-3">
+              <div>
+                <span className="text-background font-bold text-sm">{sl.initialProposal}</span>
+                <span className="text-background/40 text-xs ml-2">{sl.initialProposalDesc}</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="inline-flex items-center gap-1 text-xs font-bold text-blue-400">
+                  <PackageCheck className="w-3.5 h-3.5" />
+                  {totalQuoted}
+                  <span className="text-background/30 font-normal ml-0.5">{sl.included}</span>
+                </span>
+                <span className="inline-flex items-center gap-1 text-xs font-bold text-orange-400">
+                  <PackageX className="w-3.5 h-3.5" />
+                  {totalOutsideScope}
+                  <span className="text-background/30 font-normal ml-0.5">{sl.outsideScope}</span>
+                </span>
+                <span className={`font-black text-lg ${getCoverageColor(progressInitial)}`}>{progressInitial}%</span>
+              </div>
+            </div>
+            <Progress value={progressInitial} className="h-2.5 bg-background/10 [&>div]:bg-primary [&>div]:transition-all [&>div]:duration-[2s]" />
+          </div>
         </div>
       </div>
     </section>

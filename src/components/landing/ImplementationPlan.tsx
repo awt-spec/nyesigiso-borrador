@@ -180,7 +180,7 @@ const labels: Record<Lang, Record<string, string>> = {
     title: "Proposition d'Expansion",
     subtitle: "PHASE 1 — Base · PHASE 2 — ALL IN",
     detailTitle: "Détail des Modules Additionnels",
-    detailSubtitle: "36 modules groupés · prix individuels du Cadre de Réponse",
+    detailSubtitle: "34 modules groupés · prix individuels du Cadre de Réponse",
     group: "Groupe",
     module: "Module",
     status: "Statut",

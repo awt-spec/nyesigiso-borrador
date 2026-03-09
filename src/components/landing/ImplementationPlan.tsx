@@ -376,6 +376,7 @@ const usd = (v: string) => {
 const ImplementationPlan = () => {
   const { language } = useLanguage();
   const [visible, setVisible] = useState(false);
+  const [showAllInDetail, setShowAllInDetail] = useState(false);
   const ref = useRef<HTMLElement>(null);
   const t = labels[language];
 

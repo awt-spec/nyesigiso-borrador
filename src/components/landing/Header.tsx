@@ -36,9 +36,7 @@ const Header = () => {
     <header className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-md border-b border-border shadow-sm animate-fade-in">
       <div className="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded bg-primary flex items-center justify-center font-bold text-primary-foreground text-xs tracking-tight">
-            SYS
-          </div>
+          <img src={logoSysde} alt="SYSDE" className="h-8 w-auto" />
           <div className="hidden md:flex flex-col leading-tight">
             <span className="text-foreground font-bold text-sm">SYSDE</span>
             <span className="text-muted-foreground text-[10px]">{t.nav.project}</span>

@@ -140,8 +140,10 @@ const labels = {
     phases: "Phases",
     horizon: "Total Horizon",
     finalCoverage: "Final Coverage",
-    investment: "Investment",
-    totalInvestment: "Total Investment",
+    monthlyFee: "Monthly Fee",
+    setupFee: "Setup Fee",
+    billing: "Quarterly billing",
+    totalMonthly: "Total Monthly Fee",
   },
 };
 

@@ -140,7 +140,7 @@ const labels: Record<Lang, Record<string, string>> = {
     quarterly: "Susc./Trim",
     annual: "Susc./Año",
     subtotal: "Subtotal",
-    totalAlaCarte: "TOTAL À LA CARTE",
+    totalAlaCarte: "TOTAL A LA CARTA",
     totalAllIn: "FASE 2 ALL IN (incluye FASE 1)",
     totalSavings: "AHORRO eligiendo ALL IN",
     perMonth: "/mes",
@@ -148,7 +148,7 @@ const labels: Record<Lang, Record<string, string>> = {
     // Phase cards
     chooseTitle: "Escoja su Modalidad",
     chooseSubtitle: "Dos opciones para activar los 34 módulos adicionales",
-    option1Title: "Opción A — À la Carte",
+    option1Title: "Opción A — A la Carta",
     option1Subtitle: "Active módulos individuales cuando quiera",
     option1Desc: "Elija y active solo los módulos que necesita, uno por uno, al precio individual del Cadre de Réponse. Sin compromiso de paquete.",
     option1Price: "USD $21,600",
@@ -165,11 +165,11 @@ const labels: Record<Lang, Record<string, string>> = {
     setupFee: "Setup Fee (único)",
     active: "ACTIVA",
     recommended: "RECOMENDADO",
-    savingsTitle: "Ahorro vs. À la Carte",
+    savingsTitle: "Ahorro vs. A la Carta",
     savingsDesc: "eligiendo ALL IN",
     comparisonTitle: "Comparación de Escenarios",
     phase1Label: "FASE 1",
-    alaCarte: "À la Carte",
+    alaCarte: "A la Carta",
     allIn: "ALL IN",
     coverage: "Cobertura",
     modules: "Módulos",
@@ -542,8 +542,8 @@ const ImplementationPlan = () => {
                   <tr className="border-b border-border/50">
                     <td className="px-4 py-3 font-medium text-foreground">{t.setupFee}</td>
                     <td className="px-4 py-3 text-center text-foreground">USD $35,000</td>
-                    <td className="px-4 py-3 text-center text-muted-foreground">USD $35,000</td>
-                    <td className="px-4 py-3 text-center font-bold text-primary">USD $35,000</td>
+                    <td className="px-4 py-3 text-center text-muted-foreground">—</td>
+                    <td className="px-4 py-3 text-center text-muted-foreground">—</td>
                   </tr>
                   <tr className="border-b border-border/50">
                     <td className="px-4 py-3 font-medium text-foreground">{t.perMonthLabel}</td>

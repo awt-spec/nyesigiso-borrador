@@ -94,9 +94,9 @@ export const domains: Domain[] = [
         fr: "Produit",
         en: "Product",
         scope: {
-          es: "SYSDE SAF UPV Versión 7.0+ — Sistema core financiero modular, independiente y altamente especializado. Líneas: SAF+ Credits, SAF+ Leasing, SAF+ Factoring, SAF+ Cards, SAF+ Pension.",
-          fr: "SYSDE SAF UPV Version 7.0+ — Système core financier modulaire, indépendant et hautement spécialisé. Lignes : SAF+ Credits, SAF+ Leasing, SAF+ Factoring, SAF+ Cards, SAF+ Pension.",
-          en: "SYSDE SAF UPV Version 7.0+ — Modular, independent, and highly specialized financial core system. Lines: SAF+ Credits, SAF+ Leasing, SAF+ Factoring, SAF+ Cards, SAF+ Pension.",
+          es: "SYSDE SAF UPV Versión 7.0+ — Sistema core financiero modular, independiente y altamente especializado. Líneas: SAF+ Credits, SAF+ Leasing, SAF+ Factoring, SAF+ Cards, Fondos de Pensión.",
+          fr: "SYSDE SAF UPV Version 7.0+ — Système core financier modulaire, indépendant et hautement spécialisé. Lignes : SAF+ Credits, SAF+ Leasing, SAF+ Factoring, SAF+ Cards, Fonds de Pension.",
+          en: "SYSDE SAF UPV Version 7.0+ — Modular, independent, and highly specialized financial core system. Lines: SAF+ Credits, SAF+ Leasing, SAF+ Factoring, SAF+ Cards, Pension Funds.",
         },
       },
       {

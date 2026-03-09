@@ -99,6 +99,7 @@ const DomainSection = ({ domain, index }: DomainSectionProps) => {
   const [visible, setVisible] = useState(false);
   const [expandedItems, setExpandedItems] = useState<Set<number>>(new Set());
   const [allExpanded, setAllExpanded] = useState(false);
+  const [sectionOpen, setSectionOpen] = useState(false);
   const ref = useRef<HTMLElement>(null);
   const isEven = index % 2 === 0;
   const hasStatuses = domain.items.some(item => item.status);

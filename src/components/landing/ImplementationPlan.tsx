@@ -116,7 +116,9 @@ const moduleGroups: ModuleGroup[] = [
   },
   {
     id: "J", label: "J", icon: Workflow,
-    subtotalName: { es: "Integración", fr: "Intégration", en: "Integration     { name: { es: "Workflow / Gestión de Flujos", fr: "Workflow / Gestion des Flux", en: "Workflow / Flow Management" }, status: "NO CUBIERTO", monthly: "$800", quarterly: "$2,400", annual: "$9,600" },
+    subtotalName: { es: "Integración", fr: "Intégration", en: "Integration" },
+    modules: [
+      { name: { es: "Workflow / Gestión de Flujos", fr: "Workflow / Gestion des Flux", en: "Workflow / Flow Management" }, status: "NO CUBIERTO", monthly: "$800", quarterly: "$2,400", annual: "$9,600" },
       { name: { es: "GED — Gestión Electrónica de Documentos", fr: "GED — Gestion Électronique de Documents", en: "DMS — Electronic Document Management" }, status: "NO CUBIERTO", monthly: "$600", quarterly: "$1,800", annual: "$7,200" },
     ],
     subtotalMonthly: "$1,400", subtotalQuarterly: "$4,200", subtotalAnnual: "$16,800",

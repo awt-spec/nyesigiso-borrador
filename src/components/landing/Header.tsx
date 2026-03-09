@@ -1,6 +1,7 @@
 import { useLanguage, Language } from "@/contexts/LanguageContext";
 import { translations } from "@/data/translations";
 import { CheckCircle2, Globe, Maximize, Minimize } from "lucide-react";
+import logoSysde from "@/assets/logo_sysde.png";
 import {
   DropdownMenu,
   DropdownMenuContent,

@@ -198,7 +198,7 @@ const labels: Record<Lang, Record<string, string>> = {
     option1Title: "Option A — À la Carte",
     option1Subtitle: "Activez les modules individuels quand vous voulez",
     option1Desc: "Choisissez et activez uniquement les modules dont vous avez besoin, un par un, au prix individuel du Cadre de Réponse. Sans engagement de package.",
-    option1Price: "USD $25,800",
+    option1Price: "USD $24,600",
     option1Note: "Somme de tous les modules séparément",
     option2Title: "Option B — ALL IN",
     option2Subtitle: "Les 36 modules dans un seul bundle",

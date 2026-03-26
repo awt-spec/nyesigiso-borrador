@@ -716,7 +716,7 @@ const ImplementationPlan = () => {
                         <div>
                           <p className="text-sm font-semibold text-foreground">{t.phase1} — 67 {t.modules}</p>
                           <p className="text-xs text-muted-foreground">
-                            {language === "es" ? "Migración SAF UPV 7.0 · Consolidación 87 BD → 1 · Licencias ilimitadas · Soporte + BCEAO" : language === "fr" ? "Migration SAF UPV 7.0 · Consolidation 87 BD → 1 · Licences illimitées · Support + BCEAO" : "SAF UPV 7.0 migration · 87 DB consolidation → 1 · Unlimited licenses · Support + BCEAO"}
+                            {language === "es" ? "Migración SAF UPV 7.0 · Consolidación 87 Bases de Datos → 1 · Licencias ilimitadas · Soporte + BCEAO" : language === "fr" ? "Migration SAF UPV 7.0 · Consolidation 87 Bases de Données → 1 · Licences illimitées · Support + BCEAO" : "SAF UPV 7.0 migration · 87 Database consolidation → 1 · Unlimited licenses · Support + BCEAO"}
                           </p>
                         </div>
                         <Badge className="bg-emerald-500 text-white text-xs ml-auto flex-shrink-0">{t.active}</Badge>

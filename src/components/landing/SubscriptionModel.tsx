@@ -8,72 +8,75 @@ type Lang = "es" | "fr" | "en";
 const labels: Record<Lang, Record<string, string>> = {
   es: {
     badge: "MODELO DE SUSCRIPCIÓN",
-    title: "Todo Ilimitado. Sin costos adicionales. Sin Sorpresas.",
-    subtitle: "Una suscripción que crece con Nyèsigiso. Sin límites de usuarios, sin restricciones de agencias, sin costos ocultos.",
+    titleLine1: "Todo Ilimitado. Sin costos adicionales.",
+    titleLine2: "Sin Sorpresas.",
+    subtitle: "Una suscripción que hace crecer a Nyèsigiso. Sin límites de usuarios, sin restricciones de agencias, sin costos ocultos.",
     unlimited: "Ilimitado",
-    usersTitle: "Usuarios Concurrentes",
+    usersTitle: "Usuarios Ilimitados",
     usersDesc: "Sin restricción de puestos de trabajo ni usuarios simultáneos. Toda la organización conectada.",
-    agenciesTitle: "Agencias Conectadas",
+    agenciesTitle: "Agencias Ilimitadas",
     agenciesDesc: "94 sucursales operando en tiempo real sobre una plataforma unificada y centralizada.",
-    licensesTitle: "Licencias de Uso",
+    licensesTitle: "Licencias Ilimitadas",
     licensesDesc: "Licencia perpetua sin límite. Crecimiento orgánico sin costos adicionales de licenciamiento.",
-    dbTitle: "Bases de Datos Consolidadas",
+    dbTitle: "Bases de Datos Ilimitadas",
     dbDesc: "87 bases unificadas en una sola base centralizada. Una fuente de verdad para toda la red.",
-    supportTitle: "Soporte Técnico",
+    supportTitle: "Soporte Ilimitado",
     supportDesc: "Acceso completo al equipo SYSDE: solicitudes, correcciones, actualizaciones y asistencia continua.",
-    updatesTitle: "Actualizaciones de Plataforma",
+    updatesTitle: "Actualizaciones Ilimitadas",
     updatesDesc: "Todas las mejoras, parches de seguridad y nuevas funcionalidades incluidas en la suscripción.",
-    scalabilityTitle: "Escalabilidad",
+    scalabilityTitle: "Escalabilidad Ilimitada",
     scalabilityDesc: "Arquitectura preparada para crecer: más agencias, más usuarios, más volumen — sin cargos extra.",
-    securityTitle: "Seguridad y Cumplimiento",
+    securityTitle: "Seguridad Ilimitada",
     securityDesc: "Cumplimiento regulatorio BCEAO, cifrado de datos, auditoría y trazabilidad completa.",
     bottomTitle: "Un precio. Todo incluido.",
     bottomDesc: "Sin negociaciones por módulo. Sin sorpresas al final del trimestre. La transformación digital completa de Nyèsigiso bajo un modelo predecible y transparente.",
   },
   fr: {
     badge: "MODÈLE D'ABONNEMENT",
-    title: "Tout Illimité. Sans coûts additionnels. Sans Surprises.",
-    subtitle: "Un abonnement qui grandit avec Nyèsigiso. Sans limites d'utilisateurs, sans restrictions d'agences, sans coûts cachés.",
+    titleLine1: "Tout Illimité. Sans coûts additionnels.",
+    titleLine2: "Sans Surprises.",
+    subtitle: "Un abonnement qui fait grandir Nyèsigiso. Sans limites d'utilisateurs, sans restrictions d'agences, sans coûts cachés.",
     unlimited: "Illimité",
-    usersTitle: "Utilisateurs Concurrents",
+    usersTitle: "Utilisateurs Illimités",
     usersDesc: "Aucune restriction de postes de travail ni d'utilisateurs simultanés. Toute l'organisation connectée.",
-    agenciesTitle: "Agences Connectées",
+    agenciesTitle: "Agences Illimitées",
     agenciesDesc: "94 succursales opérant en temps réel sur une plateforme unifiée et centralisée.",
-    licensesTitle: "Licences d'Utilisation",
+    licensesTitle: "Licences Illimitées",
     licensesDesc: "Licence perpétuelle sans limite. Croissance organique sans coûts additionnels de licence.",
-    dbTitle: "Bases de Données Consolidées",
+    dbTitle: "Bases de Données Illimitées",
     dbDesc: "87 bases unifiées en une seule base centralisée. Une source de vérité pour tout le réseau.",
-    supportTitle: "Support Technique",
+    supportTitle: "Support Illimité",
     supportDesc: "Accès complet à l'équipe SYSDE : requêtes, corrections, mises à jour et assistance continue.",
-    updatesTitle: "Mises à Jour de la Plateforme",
+    updatesTitle: "Mises à Jour Illimitées",
     updatesDesc: "Toutes les améliorations, correctifs de sécurité et nouvelles fonctionnalités inclus dans l'abonnement.",
-    scalabilityTitle: "Évolutivité",
+    scalabilityTitle: "Évolutivité Illimitée",
     scalabilityDesc: "Architecture prête à grandir : plus d'agences, plus d'utilisateurs, plus de volume — sans frais supplémentaires.",
-    securityTitle: "Sécurité et Conformité",
+    securityTitle: "Sécurité Illimitée",
     securityDesc: "Conformité réglementaire BCEAO, chiffrement des données, audit et traçabilité complète.",
     bottomTitle: "Un prix. Tout inclus.",
     bottomDesc: "Sans négociation par module. Sans surprises en fin de trimestre. La transformation digitale complète de Nyèsigiso sous un modèle prévisible et transparent.",
   },
   en: {
     badge: "SUBSCRIPTION MODEL",
-    title: "Everything Unlimited. No Additional Costs. No Surprises.",
-    subtitle: "A subscription that grows with Nyèsigiso. No user limits, no agency restrictions, no hidden costs.",
+    titleLine1: "Everything Unlimited. No Additional Costs.",
+    titleLine2: "No Surprises.",
+    subtitle: "A subscription that makes Nyèsigiso grow. No user limits, no agency restrictions, no hidden costs.",
     unlimited: "Unlimited",
-    usersTitle: "Concurrent Users",
+    usersTitle: "Unlimited Users",
     usersDesc: "No workstation or simultaneous user restrictions. The entire organization connected.",
-    agenciesTitle: "Connected Agencies",
+    agenciesTitle: "Unlimited Agencies",
     agenciesDesc: "94 branches operating in real time on a unified, centralized platform.",
-    licensesTitle: "Usage Licenses",
+    licensesTitle: "Unlimited Licenses",
     licensesDesc: "Perpetual license without limits. Organic growth without additional licensing costs.",
-    dbTitle: "Consolidated Databases",
+    dbTitle: "Unlimited Databases",
     dbDesc: "87 databases unified into a single centralized database. One source of truth for the entire network.",
-    supportTitle: "Technical Support",
+    supportTitle: "Unlimited Support",
     supportDesc: "Full access to the SYSDE team: requests, fixes, updates, and ongoing assistance.",
-    updatesTitle: "Platform Updates",
+    updatesTitle: "Unlimited Updates",
     updatesDesc: "All improvements, security patches, and new features included in the subscription.",
-    scalabilityTitle: "Scalability",
+    scalabilityTitle: "Unlimited Scalability",
     scalabilityDesc: "Architecture built to grow: more agencies, more users, more volume — no extra charges.",
-    securityTitle: "Security & Compliance",
+    securityTitle: "Unlimited Security",
     securityDesc: "BCEAO regulatory compliance, data encryption, audit trails, and full traceability.",
     bottomTitle: "One Price. Everything Included.",
     bottomDesc: "No per-module negotiations. No end-of-quarter surprises. Nyèsigiso's complete digital transformation under a predictable, transparent model.",
@@ -120,8 +123,11 @@ const SubscriptionModel = () => {
             <Infinity className="w-3.5 h-3.5 mr-1.5" />
             {t.badge}
           </Badge>
-          <h2 className="text-2xl md:text-4xl lg:text-5xl font-black text-background leading-tight mb-4 whitespace-nowrap">
-            {t.title}
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-black text-background leading-tight mb-1 whitespace-nowrap">
+            {t.titleLine1}
+          </h2>
+          <h2 className="text-xl md:text-3xl lg:text-4xl font-black text-primary leading-tight mb-4">
+            {t.titleLine2}
           </h2>
           <p className="text-background/50 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
             {t.subtitle}
@@ -149,8 +155,8 @@ const SubscriptionModel = () => {
                   </div>
 
                   <div className="flex items-center gap-2 mb-2">
-                    <Infinity className="w-3.5 h-3.5 text-primary" />
-                    <span className="text-[10px] font-bold text-primary uppercase tracking-wider">{t.unlimited}</span>
+                    <Infinity className="w-4 h-4 text-primary drop-shadow-[0_0_6px_hsl(var(--primary)/0.6)]" />
+                    <span className="text-xs font-black text-primary uppercase tracking-wider drop-shadow-[0_0_8px_hsl(var(--primary)/0.4)]">{t.unlimited}</span>
                   </div>
 
                   <h3 className="text-background font-bold text-sm mb-2 group-hover:text-primary transition-colors">

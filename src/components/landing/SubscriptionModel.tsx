@@ -15,7 +15,7 @@ const labels: Record<Lang, Record<string, string>> = {
     usersTitle: "Usuarios Ilimitados",
     usersDesc: "Sin restricción de la cantidad de puestos de trabajo. Toda la organización conectada hoy y a futuro.",
     agenciesTitle: "Agencias Ilimitadas",
-    agenciesDesc: "94 sucursales operando en tiempo real sobre una plataforma unificada y centralizada.",
+    agenciesDesc: "94 sucursales operando en tiempo real sobre una plataforma unificada y centralizada. Agencias actuales y futuras incluidas.",
     licensesTitle: "Licencias Ilimitadas",
     licensesDesc: "Licencia perpetua sin límite. Crecimiento orgánico sin costos adicionales de licenciamiento.",
     dbTitle: "Bases de Datos Ilimitadas",

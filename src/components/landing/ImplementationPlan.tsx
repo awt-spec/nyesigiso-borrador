@@ -29,17 +29,6 @@ interface ModuleGroup {
 
 const moduleGroups: ModuleGroup[] = [
   {
-    id: "G", label: "G", icon: Shield,
-    subtotalName: { es: "Seguridad & Control", fr: "Sécurité & Contrôle", en: "Security & Control" },
-    modules: [
-      { name: { es: "Habilitations — Autorizaciones y Permisos", fr: "Habilitations — Autorisations et Permissions", en: "Authorizations & Permissions" }, status: "EXCL. Art.6", monthly: "$1,400", quarterly: "$4,200", annual: "$16,800" },
-      { name: { es: "Delegaciones", fr: "Délégations", en: "Delegations" }, status: "EXCL. Art.6", monthly: "$700", quarterly: "$2,100", annual: "$8,400" },
-      { name: { es: "Inspección", fr: "Inspection", en: "Inspection" }, status: "NO CUBIERTO", monthly: "$300", quarterly: "$900", annual: "$3,600" },
-      { name: { es: "Control y Trazabilidad", fr: "Contrôle et Traçabilité", en: "Control & Traceability" }, status: "EXCL. Art.6", monthly: "$1,000", quarterly: "$3,000", annual: "$12,000" },
-    ],
-    subtotalMonthly: "$3,400", subtotalQuarterly: "$10,200", subtotalAnnual: "$40,800",
-  },
-  {
     id: "C", label: "C", icon: AlertTriangle,
     subtotalName: { es: "Riesgos & Scoring", fr: "Risques & Scoring", en: "Risks & Scoring" },
     modules: [
@@ -64,11 +53,11 @@ const moduleGroups: ModuleGroup[] = [
     id: "A", label: "A", icon: Globe,
     subtotalName: { es: "Canales Digitales", fr: "Canaux Digitaux", en: "Digital Channels" },
     modules: [
-      { name: { es: "Internet Banking", fr: "Internet Banking", en: "Internet Banking" }, status: "NO CUBIERTO", monthly: "$2,000", quarterly: "$6,000", annual: "$24,000" },
-      { name: { es: "Mobile Banking (iOS/Android + PWA)", fr: "Mobile Banking (iOS/Android + PWA)", en: "Mobile Banking (iOS/Android + PWA)" }, status: "NO CUBIERTO", monthly: "$2,000", quarterly: "$6,000", annual: "$24,000" },
+      { name: { es: "Internet Banking", fr: "Internet Banking", en: "Internet Banking" }, status: "NO CUBIERTO", monthly: "$2,100", quarterly: "$6,300", annual: "$25,200" },
+      { name: { es: "Mobile Banking (iOS/Android + PWA)", fr: "Mobile Banking (iOS/Android + PWA)", en: "Mobile Banking (iOS/Android + PWA)" }, status: "NO CUBIERTO", monthly: "$2,100", quarterly: "$6,300", annual: "$25,200" },
       { name: { es: "SMS & Alertas Transaccionales", fr: "SMS & Alertes Transactionnelles", en: "SMS & Transactional Alerts" }, status: "NO CUBIERTO", monthly: "$900", quarterly: "$2,700", annual: "$10,800" },
     ],
-    subtotalMonthly: "$4,900", subtotalQuarterly: "$14,700", subtotalAnnual: "$58,800",
+    subtotalMonthly: "$5,100", subtotalQuarterly: "$15,300", subtotalAnnual: "$61,200",
   },
   {
     id: "B", label: "B", icon: Users,
@@ -110,10 +99,10 @@ const moduleGroups: ModuleGroup[] = [
       { name: { es: "Tableros Avanzados (upgrade PARCIAL → Avanzado)", fr: "Tableaux Avancés (upgrade PARTIEL → Avancé)", en: "Advanced Dashboards (upgrade PARTIAL → Advanced)" }, status: "UPGRADE", monthly: "$400", quarterly: "$1,200", annual: "$4,800" },
       { name: { es: "Contabilidad Analítica", fr: "Comptabilité Analytique", en: "Analytical Accounting" }, status: "NO CUBIERTO", monthly: "$600", quarterly: "$1,800", annual: "$7,200" },
       { name: { es: "Presupuesto", fr: "Budget", en: "Budget" }, status: "NO CUBIERTO", monthly: "$400", quarterly: "$1,200", annual: "$4,800" },
-      { name: { es: "DataWarehouse", fr: "DataWarehouse", en: "DataWarehouse" }, status: "NO CUBIERTO", monthly: "$1,200", quarterly: "$3,600", annual: "$14,400" },
+      { name: { es: "DataWarehouse", fr: "DataWarehouse", en: "DataWarehouse" }, status: "NO CUBIERTO", monthly: "$1,400", quarterly: "$4,200", annual: "$16,800" },
       { name: { es: "Herramientas BI / Soporte a la Decisión", fr: "Outils BI / Aide à la décision", en: "BI Tools / Decision Support" }, status: "NO CUBIERTO", monthly: "$1,050", quarterly: "$3,150", annual: "$12,600" },
     ],
-    subtotalMonthly: "$3,650", subtotalQuarterly: "$10,950", subtotalAnnual: "$43,800",
+    subtotalMonthly: "$3,850", subtotalQuarterly: "$11,550", subtotalAnnual: "$46,200",
   },
   {
     id: "J", label: "J", icon: Workflow,
@@ -133,7 +122,7 @@ const labels: Record<Lang, Record<string, string>> = {
     expandAll: "Expandir todo",
     collapseAll: "Colapsar todo",
     detailTitle: "Detalle de Módulos Adicionales",
-    detailSubtitle: "34 módulos agrupados · precios individuales del Cadre de Réponse",
+    detailSubtitle: "30 módulos agrupados · precios individuales del Cadre de Réponse",
     group: "Grupo",
     module: "Módulo",
     status: "Estado",
@@ -147,14 +136,14 @@ const labels: Record<Lang, Record<string, string>> = {
     perMonth: "/mes",
     billing: "Suscripción mensual · Facturación trimestral anticipada · Precios en USD",
     chooseTitle: "Escoja su Modalidad",
-    chooseSubtitle: "Dos opciones para implementar los 34 módulos adicionales",
+    chooseSubtitle: "Dos opciones para implementar los 30 módulos adicionales",
     option1Title: "Opción A — A la Carta",
     option1Subtitle: "Implemente módulos individuales cuando quiera",
     option1Desc: "Elija e implemente solo los módulos que necesita, uno por uno, al precio individual del Cadre de Réponse. Sin compromiso de paquete.",
     option1Price: "USD $20,900",
     option1Note: "Suma de todos los módulos por separado",
     option2Title: "Opción B — ALL IN",
-    option2Subtitle: "Todos los 34 módulos en un solo bundle",
+    option2Subtitle: "Todos los 30 módulos en un solo bundle",
     option2Desc: "Implemente todos los módulos de una vez con un descuento masivo. Incluye FASE 1 + FASE 2 por un precio único e imbatible.",
     option2Price: "USD $16,999",
     option2Note: "FASE 1 (USD $7,500) + FASE 2 (USD $9,499)",
@@ -199,7 +188,7 @@ const labels: Record<Lang, Record<string, string>> = {
     cronogramaConsol10: "Consolidación de 10 bases de datos",
     cronogramaCertification: "Proceso final de certificación de la base de datos para su puesta en producción",
     cronogramaSupport: "Acceso al soporte técnico — Envío de solicitudes, correcciones, soportes diversos",
-    cronogramaP2Setup: "Configuración y despliegue de los 34 módulos adicionales",
+    cronogramaP2Setup: "Configuración y despliegue de los 30 módulos adicionales",
     cronogramaP2Training: "Capacitación de usuarios por grupo funcional",
     cronogramaP2Parallel: "Operación en paralelo y validación",
     cronogramaP2GoLive: "Puesta en producción progresiva por módulo",
@@ -207,9 +196,9 @@ const labels: Record<Lang, Record<string, string>> = {
     cronogramaP2Ongoing: "Soporte continuo y mejora continua",
     cronogramaP2Flexible: "Cronograma definido según las prioridades del cliente",
     cronogramaP2Priority: "Priorización por el Cliente",
-    cronogramaP2PriorityDesc: "Nyèsigiso define el orden de implementación de los 34 módulos según sus prioridades operativas y estratégicas.",
-    cronogramaP2Scope: "9 Grupos Funcionales",
-    cronogramaP2ScopeDesc: "Seguridad, Riesgos, Jurídico, Canales Digitales, CRM, ERP, RRHH, BI y APIs — despliegue por bloques o individual.",
+    cronogramaP2PriorityDesc: "Nyèsigiso define el orden de implementación de los 30 módulos según sus prioridades operativas y estratégicas.",
+    cronogramaP2Scope: "8 Grupos Funcionales",
+    cronogramaP2ScopeDesc: "Riesgos, Jurídico, Canales Digitales, CRM, ERP, RRHH, BI e Integración — despliegue por bloques o individual.",
     cronogramaP2Support: "Acompañamiento SYSDE",
     cronogramaP2SupportDesc: "Capacitación, operación en paralelo, validación y puesta en producción progresiva para cada módulo implementado.",
     cronogramaP2NoteTitle: "Calendario abierto y flexible",
@@ -221,7 +210,7 @@ const labels: Record<Lang, Record<string, string>> = {
     expandAll: "Tout développer",
     collapseAll: "Tout réduire",
     detailTitle: "Détail des Modules Additionnels",
-    detailSubtitle: "34 modules groupés · prix individuels du Cadre de Réponse",
+    detailSubtitle: "30 modules groupés · prix individuels du Cadre de Réponse",
     group: "Groupe",
     module: "Module",
     status: "Statut",
@@ -235,14 +224,14 @@ const labels: Record<Lang, Record<string, string>> = {
     perMonth: "/mois",
     billing: "Abonnement mensuel · Facturation trimestrielle anticipée · Prix en USD",
     chooseTitle: "Choisissez votre Modalité",
-    chooseSubtitle: "Deux options pour déployer les 34 modules supplémentaires",
+    chooseSubtitle: "Deux options pour déployer les 30 modules supplémentaires",
     option1Title: "Option A — À la Carte",
     option1Subtitle: "Déployez les modules individuels quand vous voulez",
     option1Desc: "Choisissez et déployez uniquement les modules dont vous avez besoin, un par un, au prix individuel du Cadre de Réponse. Sans engagement de package.",
     option1Price: "USD $20,900",
     option1Note: "Somme de tous les modules séparément",
     option2Title: "Option B — ALL IN",
-    option2Subtitle: "Les 34 modules dans un seul bundle",
+    option2Subtitle: "Les 30 modules dans un seul bundle",
     option2Desc: "Déployez tous les modules d'un coup avec une remise massive. Inclut PHASE 1 + PHASE 2 pour un prix unique et imbattable.",
     option2Price: "USD $16,999",
     option2Note: "PHASE 1 (USD $7,500) + PHASE 2 (USD $9,499)",
@@ -287,7 +276,7 @@ const labels: Record<Lang, Record<string, string>> = {
     cronogramaConsol10: "Consolidation de 10 bases de données",
     cronogramaCertification: "Processus final de certification de la base de données pour sa mise en production",
     cronogramaSupport: "Accès au support technique — Envoi de requêtes, corrections, supports divers",
-    cronogramaP2Setup: "Configuration et déploiement des 34 modules supplémentaires",
+    cronogramaP2Setup: "Configuration et déploiement des 30 modules supplémentaires",
     cronogramaP2Training: "Formation des utilisateurs par groupe fonctionnel",
     cronogramaP2Parallel: "Fonctionnement en parallèle et validation",
     cronogramaP2GoLive: "Mise en production progressive par module",
@@ -295,9 +284,9 @@ const labels: Record<Lang, Record<string, string>> = {
     cronogramaP2Ongoing: "Support continu et amélioration continue",
     cronogramaP2Flexible: "Chronogramme défini selon les priorités du client",
     cronogramaP2Priority: "Priorisation par le Client",
-    cronogramaP2PriorityDesc: "Nyèsigiso définit l'ordre de déploiement des 34 modules selon ses priorités opérationnelles et stratégiques.",
-    cronogramaP2Scope: "9 Groupes Fonctionnels",
-    cronogramaP2ScopeDesc: "Sécurité, Risques, Juridique, Canaux Digitaux, CRM, ERP, RH, BI et APIs — déploiement par blocs ou individuel.",
+    cronogramaP2PriorityDesc: "Nyèsigiso définit l'ordre de déploiement des 30 modules selon ses priorités opérationnelles et stratégiques.",
+    cronogramaP2Scope: "8 Groupes Fonctionnels",
+    cronogramaP2ScopeDesc: "Risques, Juridique, Canaux Digitaux, CRM, ERP, RH, BI et Intégration — déploiement par blocs ou individuel.",
     cronogramaP2Support: "Accompagnement SYSDE",
     cronogramaP2SupportDesc: "Formation, fonctionnement en parallèle, validation et mise en production progressive pour chaque module déployé.",
     cronogramaP2NoteTitle: "Calendrier ouvert et flexible",
@@ -309,7 +298,7 @@ const labels: Record<Lang, Record<string, string>> = {
     expandAll: "Expand all",
     collapseAll: "Collapse all",
     detailTitle: "Additional Module Detail",
-    detailSubtitle: "34 grouped modules · individual pricing from Cadre de Réponse",
+    detailSubtitle: "30 grouped modules · individual pricing from Cadre de Réponse",
     group: "Group",
     module: "Module",
     status: "Status",
@@ -323,14 +312,14 @@ const labels: Record<Lang, Record<string, string>> = {
     perMonth: "/mo",
     billing: "Monthly subscription · Quarterly prepaid billing · Prices in USD",
     chooseTitle: "Choose your Option",
-    chooseSubtitle: "Two ways to deploy the 34 additional modules",
+    chooseSubtitle: "Two ways to deploy the 30 additional modules",
     option1Title: "Option A — À la Carte",
     option1Subtitle: "Deploy individual modules when you want",
     option1Desc: "Choose and deploy only the modules you need, one by one, at individual Cadre de Réponse pricing. No package commitment.",
     option1Price: "USD $20,900",
     option1Note: "Sum of all modules separately",
     option2Title: "Option B — ALL IN",
-    option2Subtitle: "All 34 modules in a single bundle",
+    option2Subtitle: "All 30 modules in a single bundle",
     option2Desc: "Deploy all modules at once with a massive discount. Includes PHASE 1 + PHASE 2 for a single unbeatable price.",
     option2Price: "USD $16,999",
     option2Note: "PHASE 1 (USD $7,500) + PHASE 2 (USD $9,499)",
@@ -375,7 +364,7 @@ const labels: Record<Lang, Record<string, string>> = {
     cronogramaConsol10: "Consolidation of 10 databases",
     cronogramaCertification: "Final database certification process for production deployment",
     cronogramaSupport: "Access to technical support — Request submission, corrections, various support",
-    cronogramaP2Setup: "Configuration and deployment of all 34 additional modules",
+    cronogramaP2Setup: "Configuration and deployment of all 30 additional modules",
     cronogramaP2Training: "User training by functional group",
     cronogramaP2Parallel: "Parallel operation and validation",
     cronogramaP2GoLive: "Progressive production rollout per module",
@@ -383,9 +372,9 @@ const labels: Record<Lang, Record<string, string>> = {
     cronogramaP2Ongoing: "Ongoing support and continuous improvement",
     cronogramaP2Flexible: "Timeline defined by client priorities",
     cronogramaP2Priority: "Client Prioritization",
-    cronogramaP2PriorityDesc: "Nyèsigiso defines the deployment order of the 34 modules based on their operational and strategic priorities.",
-    cronogramaP2Scope: "9 Functional Groups",
-    cronogramaP2ScopeDesc: "Security, Risks, Legal, Digital Channels, CRM, ERP, HR, BI and APIs — deployment by blocks or individually.",
+    cronogramaP2PriorityDesc: "Nyèsigiso defines the deployment order of the 30 modules based on their operational and strategic priorities.",
+    cronogramaP2Scope: "8 Functional Groups",
+    cronogramaP2ScopeDesc: "Risks, Legal, Digital Channels, CRM, ERP, HR, BI and Integration — deployment by blocks or individually.",
     cronogramaP2Support: "SYSDE Accompaniment",
     cronogramaP2SupportDesc: "Training, parallel operation, validation, and progressive rollout for each deployed module.",
     cronogramaP2NoteTitle: "Open & Flexible Calendar",
@@ -467,7 +456,7 @@ const ImplementationPlan = () => {
                     <p className="text-xs text-muted-foreground">{t.setupFee}</p>
                     <span className="text-lg font-bold text-foreground">USD $35,000</span>
                   </div>
-                  <Badge variant="secondary" className="text-xs">~61% {t.coverage}</Badge>
+                  <Badge variant="secondary" className="text-xs">~69% {t.coverage}</Badge>
                 </div>
               </div>
               <div className="mt-3 flex flex-col md:flex-row md:items-center gap-2">
@@ -635,15 +624,15 @@ const ImplementationPlan = () => {
                 <div className="flex gap-6 text-center">
                   <div>
                     <p className="text-xs text-muted-foreground uppercase">{t.perMonthLabel}</p>
-                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−USD $12,101 <span className="text-sm">(42%)</span></p>
+                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−USD $11,401 <span className="text-sm">(40%)</span></p>
                   </div>
                   <div>
                     <p className="text-xs text-muted-foreground uppercase">{t.perQuarterLabel}</p>
-                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−USD $36,303 <span className="text-sm">(42%)</span></p>
+                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−USD $34,203 <span className="text-sm">(40%)</span></p>
                   </div>
                   <div>
                     <p className="text-xs text-muted-foreground uppercase">{t.perYearLabel}</p>
-                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−USD $145,212 <span className="text-sm">(42%)</span></p>
+                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−USD $136,812 <span className="text-sm">(40%)</span></p>
                   </div>
                 </div>
               </div>
@@ -673,31 +662,31 @@ const ImplementationPlan = () => {
                   <tr className="border-b border-border/50">
                     <td className="px-4 py-3 font-medium text-foreground">{t.perMonthLabel}</td>
                     <td className="px-4 py-3 text-center text-foreground">USD $7,500</td>
-                    <td className="px-4 py-3 text-center text-muted-foreground line-through">USD $29,100</td>
+                    <td className="px-4 py-3 text-center text-muted-foreground line-through">USD $28,400</td>
                     <td className="px-4 py-3 text-center font-bold text-primary">USD $16,999</td>
                   </tr>
                   <tr className="border-b border-border/50">
                     <td className="px-4 py-3 font-medium text-foreground">{t.perQuarterLabel}</td>
                     <td className="px-4 py-3 text-center text-foreground">USD $22,500</td>
-                    <td className="px-4 py-3 text-center text-muted-foreground line-through">USD $87,300</td>
+                    <td className="px-4 py-3 text-center text-muted-foreground line-through">USD $85,200</td>
                     <td className="px-4 py-3 text-center font-bold text-primary">USD $50,997</td>
                   </tr>
                   <tr className="border-b border-border/50">
                     <td className="px-4 py-3 font-medium text-foreground">{t.perYearLabel}</td>
                     <td className="px-4 py-3 text-center text-foreground">USD $90,000</td>
-                    <td className="px-4 py-3 text-center text-muted-foreground line-through">USD $349,200</td>
+                    <td className="px-4 py-3 text-center text-muted-foreground line-through">USD $340,800</td>
                     <td className="px-4 py-3 text-center font-bold text-primary">USD $203,988</td>
                   </tr>
                   <tr className="border-b border-border/50">
                     <td className="px-4 py-3 font-medium text-foreground">{t.coverage}</td>
-                    <td className="px-4 py-3 text-center"><Badge variant="secondary">~61%</Badge></td>
+                    <td className="px-4 py-3 text-center"><Badge variant="secondary">~69%</Badge></td>
                     <td className="px-4 py-3 text-center"><Badge>100%</Badge></td>
                     <td className="px-4 py-3 text-center"><Badge>100%</Badge></td>
                   </tr>
                   <tr>
                     <td className="px-4 py-3 font-medium text-foreground">{t.modules}</td>
-                    <td className="px-4 py-3 text-center text-foreground font-semibold">63</td>
-                    <td className="px-4 py-3 text-center text-muted-foreground">34</td>
+                    <td className="px-4 py-3 text-center text-foreground font-semibold">67</td>
+                    <td className="px-4 py-3 text-center text-muted-foreground">30</td>
                     <td className="px-4 py-3 text-center">
                       <button
                         onClick={() => setShowAllInDetail(!showAllInDetail)}

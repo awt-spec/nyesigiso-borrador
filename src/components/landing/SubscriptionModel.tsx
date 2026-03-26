@@ -123,8 +123,11 @@ const SubscriptionModel = () => {
             <Infinity className="w-3.5 h-3.5 mr-1.5" />
             {t.badge}
           </Badge>
-          <h2 className="text-2xl md:text-4xl lg:text-5xl font-black text-background leading-tight mb-4 whitespace-nowrap">
-            {t.title}
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-black text-background leading-tight mb-1 whitespace-nowrap">
+            {t.titleLine1}
+          </h2>
+          <h2 className="text-xl md:text-3xl lg:text-4xl font-black text-primary leading-tight mb-4">
+            {t.titleLine2}
           </h2>
           <p className="text-background/50 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
             {t.subtitle}

@@ -1010,7 +1010,7 @@ const Phase2Timeline = ({ language, t }: { language: Lang; t: Record<string, str
                   <p className={`text-sm font-semibold truncate transition-colors ${isActive ? "text-primary" : "text-foreground"}`}>
                     {group.subtotalName[language]}
                   </p>
-                  <p className="text-[10px] text-muted-foreground">{group.modules.length} {t.modules} · USD {group.subtotalMonthly}{t.perMonth}</p>
+                  <p className="text-[10px] text-muted-foreground">{group.modules.length} {t.modules}</p>
                 </div>
                 <Badge variant="outline" className={`text-[9px] font-mono flex-shrink-0 transition-colors ${isActive ? "border-primary text-primary" : ""}`}>
                   {group.label}
@@ -1037,7 +1037,7 @@ const Phase2Timeline = ({ language, t }: { language: Lang; t: Record<string, str
                       </div>
                       <div>
                         <p className="font-bold text-foreground">{group.subtotalName[language]}</p>
-                        <p className="text-xs text-muted-foreground">{group.modules.length} {t.modules} · USD {group.subtotalMonthly}{t.perMonth}</p>
+                        <p className="text-xs text-muted-foreground">{group.modules.length} {t.modules}</p>
                       </div>
                     </div>
 
@@ -1052,12 +1052,9 @@ const Phase2Timeline = ({ language, t }: { language: Lang; t: Record<string, str
                             <div className="w-2 h-2 rounded-full bg-primary flex-shrink-0" />
                             <span className="text-sm text-foreground truncate">{mod.name[language]}</span>
                           </div>
-                          <div className="flex items-center gap-3 flex-shrink-0">
-                            <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full border ${statusColor(mod.status)}`}>
+                          <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full border ${statusColor(mod.status)}`}>
                               {mod.status}
                             </span>
-                            <span className="text-xs font-bold text-primary whitespace-nowrap">{usd(mod.monthly)}{t.perMonth}</span>
-                          </div>
                         </div>
                       ))}
                     </div>

@@ -3,8 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { CheckCircle2, Layers, DollarSign, TrendingDown, ChevronRight, Shield, AlertTriangle, Scale, Globe, Users, Building, UserCheck, BarChart3, Workflow, Zap, Calendar, ChevronDown, ChevronUp, Eye } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { CheckCircle2, Layers, DollarSign, TrendingDown, ChevronRight, Shield, AlertTriangle, Scale, Globe, Users, Building, UserCheck, BarChart3, Workflow, Zap, Calendar, ChevronDown, ChevronUp, Eye, ShoppingCart, Package, Server, Database, FileCheck, Headphones, BarChart } from "lucide-react";
+import { useEffect, useRef, useState, useMemo } from "react";
 
 type Lang = "es" | "fr" | "en";
 
@@ -12,8 +12,11 @@ interface Module {
   name: Record<Lang, string>;
   status: string;
   monthly: string;
+  monthlyNum: number;
   quarterly: string;
   annual: string;
+  setupFee: string;
+  setupFeeNum: number;
 }
 
 interface ModuleGroup {
@@ -32,9 +35,9 @@ const moduleGroups: ModuleGroup[] = [
     id: "C", label: "C", icon: AlertTriangle,
     subtotalName: { es: "Riesgos & Scoring", fr: "Risques & Scoring", en: "Risks & Scoring" },
     modules: [
-      { name: { es: "Garantías", fr: "Garanties", en: "Guarantees" }, status: "NO CUBIERTO", monthly: "$800", quarterly: "$2,400", annual: "$9,600" },
-      { name: { es: "Calificación / Scoring", fr: "Qualification / Scoring", en: "Qualification / Scoring" }, status: "NO CUBIERTO", monthly: "$1,050", quarterly: "$3,150", annual: "$12,600" },
-      { name: { es: "Compromisos (upgrade PARCIAL → Completo)", fr: "Engagements (upgrade PARTIEL → Complet)", en: "Commitments (upgrade PARTIAL → Full)" }, status: "UPGRADE", monthly: "$300", quarterly: "$900", annual: "$3,600" },
+      { name: { es: "Garantías", fr: "Garanties", en: "Guarantees" }, status: "NO CUBIERTO", monthly: "$800", monthlyNum: 800, quarterly: "$2,400", annual: "$9,600", setupFee: "$2,400", setupFeeNum: 2400 },
+      { name: { es: "Calificación / Scoring", fr: "Qualification / Scoring", en: "Qualification / Scoring" }, status: "NO CUBIERTO", monthly: "$1,050", monthlyNum: 1050, quarterly: "$3,150", annual: "$12,600", setupFee: "$3,150", setupFeeNum: 3150 },
+      { name: { es: "Compromisos (upgrade PARCIAL → Completo)", fr: "Engagements (upgrade PARTIEL → Complet)", en: "Commitments (upgrade PARTIAL → Full)" }, status: "UPGRADE", monthly: "$300", monthlyNum: 300, quarterly: "$900", annual: "$3,600", setupFee: "$900", setupFeeNum: 900 },
     ],
     subtotalMonthly: "$2,150", subtotalQuarterly: "$6,450", subtotalAnnual: "$25,800",
   },
@@ -42,10 +45,10 @@ const moduleGroups: ModuleGroup[] = [
     id: "D", label: "D", icon: Scale,
     subtotalName: { es: "Jurídico & Contencioso", fr: "Juridique & Contentieux", en: "Legal & Litigation" },
     modules: [
-      { name: { es: "Contencioso", fr: "Contentieux", en: "Litigation" }, status: "NO CUBIERTO", monthly: "$500", quarterly: "$1,500", annual: "$6,000" },
-      { name: { es: "Sucesiones", fr: "Successions", en: "Succession" }, status: "NO CUBIERTO", monthly: "$300", quarterly: "$900", annual: "$3,600" },
-      { name: { es: "Embargos / ATD", fr: "Saisies / ATD", en: "Seizures / ATD" }, status: "NO CUBIERTO", monthly: "$400", quarterly: "$1,200", annual: "$4,800" },
-      { name: { es: "Reclamaciones", fr: "Réclamations", en: "Claims" }, status: "NO CUBIERTO", monthly: "$300", quarterly: "$900", annual: "$3,600" },
+      { name: { es: "Contencioso", fr: "Contentieux", en: "Litigation" }, status: "NO CUBIERTO", monthly: "$500", monthlyNum: 500, quarterly: "$1,500", annual: "$6,000", setupFee: "$1,500", setupFeeNum: 1500 },
+      { name: { es: "Sucesiones", fr: "Successions", en: "Succession" }, status: "NO CUBIERTO", monthly: "$300", monthlyNum: 300, quarterly: "$900", annual: "$3,600", setupFee: "$900", setupFeeNum: 900 },
+      { name: { es: "Embargos / ATD", fr: "Saisies / ATD", en: "Seizures / ATD" }, status: "NO CUBIERTO", monthly: "$400", monthlyNum: 400, quarterly: "$1,200", annual: "$4,800", setupFee: "$1,200", setupFeeNum: 1200 },
+      { name: { es: "Reclamaciones", fr: "Réclamations", en: "Claims" }, status: "NO CUBIERTO", monthly: "$300", monthlyNum: 300, quarterly: "$900", annual: "$3,600", setupFee: "$900", setupFeeNum: 900 },
     ],
     subtotalMonthly: "$1,500", subtotalQuarterly: "$4,500", subtotalAnnual: "$18,000",
   },
@@ -53,9 +56,9 @@ const moduleGroups: ModuleGroup[] = [
     id: "A", label: "A", icon: Globe,
     subtotalName: { es: "Canales Digitales", fr: "Canaux Digitaux", en: "Digital Channels" },
     modules: [
-      { name: { es: "Internet Banking", fr: "Internet Banking", en: "Internet Banking" }, status: "NO CUBIERTO", monthly: "$2,100", quarterly: "$6,300", annual: "$25,200" },
-      { name: { es: "Mobile Banking (iOS/Android + PWA)", fr: "Mobile Banking (iOS/Android + PWA)", en: "Mobile Banking (iOS/Android + PWA)" }, status: "NO CUBIERTO", monthly: "$2,100", quarterly: "$6,300", annual: "$25,200" },
-      { name: { es: "SMS & Alertas Transaccionales", fr: "SMS & Alertes Transactionnelles", en: "SMS & Transactional Alerts" }, status: "NO CUBIERTO", monthly: "$900", quarterly: "$2,700", annual: "$10,800" },
+      { name: { es: "Internet Banking", fr: "Internet Banking", en: "Internet Banking" }, status: "NO CUBIERTO", monthly: "$2,100", monthlyNum: 2100, quarterly: "$6,300", annual: "$25,200", setupFee: "$6,300", setupFeeNum: 6300 },
+      { name: { es: "Mobile Banking (iOS/Android + PWA)", fr: "Mobile Banking (iOS/Android + PWA)", en: "Mobile Banking (iOS/Android + PWA)" }, status: "NO CUBIERTO", monthly: "$2,100", monthlyNum: 2100, quarterly: "$6,300", annual: "$25,200", setupFee: "$6,300", setupFeeNum: 6300 },
+      { name: { es: "SMS & Alertas Transaccionales", fr: "SMS & Alertes Transactionnelles", en: "SMS & Transactional Alerts" }, status: "NO CUBIERTO", monthly: "$900", monthlyNum: 900, quarterly: "$2,700", annual: "$10,800", setupFee: "$2,700", setupFeeNum: 2700 },
     ],
     subtotalMonthly: "$5,100", subtotalQuarterly: "$15,300", subtotalAnnual: "$61,200",
   },
@@ -63,10 +66,10 @@ const moduleGroups: ModuleGroup[] = [
     id: "B", label: "B", icon: Users,
     subtotalName: { es: "CRM & Marketing", fr: "CRM & Marketing", en: "CRM & Marketing" },
     modules: [
-      { name: { es: "Archivo de Prospectos", fr: "Archive de Prospects", en: "Prospect Archive" }, status: "NO CUBIERTO", monthly: "$400", quarterly: "$1,200", annual: "$4,800" },
-      { name: { es: "Carteras Comerciales", fr: "Portefeuilles Commerciaux", en: "Commercial Portfolios" }, status: "NO CUBIERTO", monthly: "$700", quarterly: "$2,100", annual: "$8,400" },
-      { name: { es: "Gestión de Eventos", fr: "Gestion des Événements", en: "Event Management" }, status: "NO CUBIERTO", monthly: "$250", quarterly: "$750", annual: "$3,000" },
-      { name: { es: "Seguimiento de Actividad del Asesor", fr: "Suivi d'Activité du Conseiller", en: "Advisor Activity Tracking" }, status: "NO CUBIERTO", monthly: "$250", quarterly: "$750", annual: "$3,000" },
+      { name: { es: "Archivo de Prospectos", fr: "Archive de Prospects", en: "Prospect Archive" }, status: "NO CUBIERTO", monthly: "$400", monthlyNum: 400, quarterly: "$1,200", annual: "$4,800", setupFee: "$1,200", setupFeeNum: 1200 },
+      { name: { es: "Carteras Comerciales", fr: "Portefeuilles Commerciaux", en: "Commercial Portfolios" }, status: "NO CUBIERTO", monthly: "$700", monthlyNum: 700, quarterly: "$2,100", annual: "$8,400", setupFee: "$2,100", setupFeeNum: 2100 },
+      { name: { es: "Gestión de Eventos", fr: "Gestion des Événements", en: "Event Management" }, status: "NO CUBIERTO", monthly: "$250", monthlyNum: 250, quarterly: "$750", annual: "$3,000", setupFee: "$750", setupFeeNum: 750 },
+      { name: { es: "Seguimiento de Actividad del Asesor", fr: "Suivi d'Activité du Conseiller", en: "Advisor Activity Tracking" }, status: "NO CUBIERTO", monthly: "$250", monthlyNum: 250, quarterly: "$750", annual: "$3,000", setupFee: "$750", setupFeeNum: 750 },
     ],
     subtotalMonthly: "$1,600", subtotalQuarterly: "$4,800", subtotalAnnual: "$19,200",
   },
@@ -74,12 +77,12 @@ const moduleGroups: ModuleGroup[] = [
     id: "E", label: "E", icon: Building,
     subtotalName: { es: "ERP Financiero", fr: "ERP Financier", en: "Financial ERP" },
     modules: [
-      { name: { es: "Activos Fijos", fr: "Immobilisations", en: "Fixed Assets" }, status: "NO CUBIERTO", monthly: "$600", quarterly: "$1,800", annual: "$7,200" },
-      { name: { es: "Conciliación", fr: "Rapprochement / Lettrage", en: "Reconciliation / Lettrage" }, status: "NO CUBIERTO", monthly: "$500", quarterly: "$1,500", annual: "$6,000" },
-      { name: { es: "Compras / Inventarios", fr: "Achats / Inventaires", en: "Purchasing / Inventory" }, status: "NO CUBIERTO", monthly: "$800", quarterly: "$2,400", annual: "$9,600" },
-      { name: { es: "Proveedores", fr: "Fournisseurs", en: "Vendors" }, status: "NO CUBIERTO", monthly: "$400", quarterly: "$1,200", annual: "$4,800" },
-      { name: { es: "Obras y Proyectos", fr: "Chantiers et Projets", en: "Projects & Construction" }, status: "NO CUBIERTO", monthly: "$300", quarterly: "$900", annual: "$3,600" },
-      { name: { es: "Archivo", fr: "Archivage", en: "Archiving" }, status: "NO CUBIERTO", monthly: "$500", quarterly: "$1,500", annual: "$6,000" },
+      { name: { es: "Activos Fijos", fr: "Immobilisations", en: "Fixed Assets" }, status: "NO CUBIERTO", monthly: "$600", monthlyNum: 600, quarterly: "$1,800", annual: "$7,200", setupFee: "$1,800", setupFeeNum: 1800 },
+      { name: { es: "Conciliación", fr: "Rapprochement / Lettrage", en: "Reconciliation / Lettrage" }, status: "NO CUBIERTO", monthly: "$500", monthlyNum: 500, quarterly: "$1,500", annual: "$6,000", setupFee: "$1,500", setupFeeNum: 1500 },
+      { name: { es: "Compras / Inventarios", fr: "Achats / Inventaires", en: "Purchasing / Inventory" }, status: "NO CUBIERTO", monthly: "$800", monthlyNum: 800, quarterly: "$2,400", annual: "$9,600", setupFee: "$2,400", setupFeeNum: 2400 },
+      { name: { es: "Proveedores", fr: "Fournisseurs", en: "Vendors" }, status: "NO CUBIERTO", monthly: "$400", monthlyNum: 400, quarterly: "$1,200", annual: "$4,800", setupFee: "$1,200", setupFeeNum: 1200 },
+      { name: { es: "Obras y Proyectos", fr: "Chantiers et Projets", en: "Projects & Construction" }, status: "NO CUBIERTO", monthly: "$300", monthlyNum: 300, quarterly: "$900", annual: "$3,600", setupFee: "$900", setupFeeNum: 900 },
+      { name: { es: "Archivo", fr: "Archivage", en: "Archiving" }, status: "NO CUBIERTO", monthly: "$500", monthlyNum: 500, quarterly: "$1,500", annual: "$6,000", setupFee: "$1,500", setupFeeNum: 1500 },
     ],
     subtotalMonthly: "$3,100", subtotalQuarterly: "$9,300", subtotalAnnual: "$37,200",
   },
@@ -87,8 +90,8 @@ const moduleGroups: ModuleGroup[] = [
     id: "F", label: "F", icon: UserCheck,
     subtotalName: { es: "RRHH & Nómina", fr: "RH & Paie", en: "HR & Payroll" },
     modules: [
-      { name: { es: "Nómina / Paie (DNSI, INPS)", fr: "Paie (DNSI, INPS)", en: "Payroll (DNSI, INPS)" }, status: "NO CUBIERTO", monthly: "$1,500", quarterly: "$4,500", annual: "$18,000" },
-      { name: { es: "Gestión del Personal", fr: "Gestion du Personnel", en: "Personnel Management" }, status: "NO CUBIERTO", monthly: "$700", quarterly: "$2,100", annual: "$8,400" },
+      { name: { es: "Nómina / Paie (DNSI, INPS)", fr: "Paie (DNSI, INPS)", en: "Payroll (DNSI, INPS)" }, status: "NO CUBIERTO", monthly: "$1,500", monthlyNum: 1500, quarterly: "$4,500", annual: "$18,000", setupFee: "$4,500", setupFeeNum: 4500 },
+      { name: { es: "Gestión del Personal", fr: "Gestion du Personnel", en: "Personnel Management" }, status: "NO CUBIERTO", monthly: "$700", monthlyNum: 700, quarterly: "$2,100", annual: "$8,400", setupFee: "$2,100", setupFeeNum: 2100 },
     ],
     subtotalMonthly: "$2,200", subtotalQuarterly: "$6,600", subtotalAnnual: "$26,400",
   },
@@ -96,11 +99,11 @@ const moduleGroups: ModuleGroup[] = [
     id: "I", label: "I", icon: BarChart3,
     subtotalName: { es: "BI & DataWarehouse", fr: "BI & DataWarehouse", en: "BI & DataWarehouse" },
     modules: [
-      { name: { es: "Tableros Avanzados (upgrade PARCIAL → Avanzado)", fr: "Tableaux Avancés (upgrade PARTIEL → Avancé)", en: "Advanced Dashboards (upgrade PARTIAL → Advanced)" }, status: "UPGRADE", monthly: "$400", quarterly: "$1,200", annual: "$4,800" },
-      { name: { es: "Contabilidad Analítica", fr: "Comptabilité Analytique", en: "Analytical Accounting" }, status: "NO CUBIERTO", monthly: "$600", quarterly: "$1,800", annual: "$7,200" },
-      { name: { es: "Presupuesto", fr: "Budget", en: "Budget" }, status: "NO CUBIERTO", monthly: "$400", quarterly: "$1,200", annual: "$4,800" },
-      { name: { es: "DataWarehouse", fr: "DataWarehouse", en: "DataWarehouse" }, status: "NO CUBIERTO", monthly: "$1,400", quarterly: "$4,200", annual: "$16,800" },
-      { name: { es: "Herramientas BI / Soporte a la Decisión", fr: "Outils BI / Aide à la décision", en: "BI Tools / Decision Support" }, status: "NO CUBIERTO", monthly: "$1,050", quarterly: "$3,150", annual: "$12,600" },
+      { name: { es: "Tableros Avanzados (upgrade PARCIAL → Avanzado)", fr: "Tableaux Avancés (upgrade PARTIEL → Avancé)", en: "Advanced Dashboards (upgrade PARTIAL → Advanced)" }, status: "UPGRADE", monthly: "$400", monthlyNum: 400, quarterly: "$1,200", annual: "$4,800", setupFee: "$1,200", setupFeeNum: 1200 },
+      { name: { es: "Contabilidad Analítica", fr: "Comptabilité Analytique", en: "Analytical Accounting" }, status: "NO CUBIERTO", monthly: "$600", monthlyNum: 600, quarterly: "$1,800", annual: "$7,200", setupFee: "$1,800", setupFeeNum: 1800 },
+      { name: { es: "Presupuesto", fr: "Budget", en: "Budget" }, status: "NO CUBIERTO", monthly: "$400", monthlyNum: 400, quarterly: "$1,200", annual: "$4,800", setupFee: "$1,200", setupFeeNum: 1200 },
+      { name: { es: "DataWarehouse", fr: "DataWarehouse", en: "DataWarehouse" }, status: "NO CUBIERTO", monthly: "$1,400", monthlyNum: 1400, quarterly: "$4,200", annual: "$16,800", setupFee: "$4,200", setupFeeNum: 4200 },
+      { name: { es: "Herramientas BI / Soporte a la Decisión", fr: "Outils BI / Aide à la décision", en: "BI Tools / Decision Support" }, status: "NO CUBIERTO", monthly: "$1,050", monthlyNum: 1050, quarterly: "$3,150", annual: "$12,600", setupFee: "$3,150", setupFeeNum: 3150 },
     ],
     subtotalMonthly: "$3,850", subtotalQuarterly: "$11,550", subtotalAnnual: "$46,200",
   },
@@ -108,8 +111,8 @@ const moduleGroups: ModuleGroup[] = [
     id: "J", label: "J", icon: Workflow,
     subtotalName: { es: "Integración", fr: "Intégration", en: "Integration" },
     modules: [
-      { name: { es: "Workflow / Gestión de Flujos", fr: "Workflow / Gestion des Flux", en: "Workflow / Flow Management" }, status: "NO CUBIERTO", monthly: "$800", quarterly: "$2,400", annual: "$9,600" },
-      { name: { es: "GED — Gestión Electrónica de Documentos", fr: "GED — Gestion Électronique de Documents", en: "DMS — Electronic Document Management" }, status: "NO CUBIERTO", monthly: "$600", quarterly: "$1,800", annual: "$7,200" },
+      { name: { es: "Workflow / Gestión de Flujos", fr: "Workflow / Gestion des Flux", en: "Workflow / Flow Management" }, status: "NO CUBIERTO", monthly: "$800", monthlyNum: 800, quarterly: "$2,400", annual: "$9,600", setupFee: "$2,400", setupFeeNum: 2400 },
+      { name: { es: "GED — Gestión Electrónica de Documentos", fr: "GED — Gestion Électronique de Documents", en: "DMS — Electronic Document Management" }, status: "NO CUBIERTO", monthly: "$600", monthlyNum: 600, quarterly: "$1,800", annual: "$7,200", setupFee: "$1,800", setupFeeNum: 1800 },
     ],
     subtotalMonthly: "$1,400", subtotalQuarterly: "$4,200", subtotalAnnual: "$16,800",
   },
@@ -203,6 +206,28 @@ const labels: Record<Lang, Record<string, string>> = {
     cronogramaP2SupportDesc: "Capacitación, operación en paralelo, validación y puesta en producción progresiva para cada módulo implementado.",
     cronogramaP2NoteTitle: "Calendario abierto y flexible",
     cronogramaP2NoteDesc: "La Fase 2 no tiene un cronograma rígido. Los módulos se implementan según las necesidades y prioridades que Nyèsigiso determine, con acompañamiento completo de SYSDE en cada etapa.",
+    phase1DetailTitle: "¿Qué incluye la Fase 1?",
+    phase1Item1: "Migración completa a SAF UPV 7.0",
+    phase1Item1Desc: "Actualización integral del Core Banking al último release de SYSDE, con todas las funcionalidades actuales preservadas.",
+    phase1Item2: "Consolidación de 87 Bases de Datos → 1",
+    phase1Item2Desc: "Unificación progresiva de las 87 bases de datos en una sola base centralizada, agencia por agencia durante 12 meses.",
+    phase1Item3: "94 Agencias conectadas",
+    phase1Item3Desc: "Todas las sucursales operando sobre la plataforma unificada con acceso en tiempo real.",
+    phase1Item4: "Licencias ilimitadas",
+    phase1Item4Desc: "Sin restricción de usuarios concurrentes ni de puestos de trabajo. Crecimiento sin costos adicionales de licencia.",
+    phase1Item5: "Reporting BCEAO",
+    phase1Item5Desc: "Informes regulatorios y operacionales listos para cumplir con los requisitos del Banco Central.",
+    phase1Item6: "Soporte técnico incluido",
+    phase1Item6Desc: "Acceso completo al equipo de soporte SYSDE para solicitudes, correcciones y asistencia continua.",
+    aLaCarteSimTitle: "Simulador A la Carta",
+    aLaCarteSimDesc: "Seleccione los módulos que desea implementar y vea cómo se actualiza el precio en tiempo real.",
+    selectedModules: "módulos seleccionados",
+    yourMonthly: "Su Suscripción Mensual",
+    yourSetupFee: "Su Setup Fee",
+    totalWithPhase1: "Total con Fase 1",
+    selectAll: "Seleccionar todo",
+    clearAll: "Limpiar selección",
+    setupFeeLabel: "Setup Fee",
   },
   fr: {
     title: "Proposition d'Expansion",
@@ -291,6 +316,28 @@ const labels: Record<Lang, Record<string, string>> = {
     cronogramaP2SupportDesc: "Formation, fonctionnement en parallèle, validation et mise en production progressive pour chaque module déployé.",
     cronogramaP2NoteTitle: "Calendrier ouvert et flexible",
     cronogramaP2NoteDesc: "La Phase 2 n'a pas de chronogramme rigide. Les modules sont déployés selon les besoins et priorités que Nyèsigiso détermine, avec accompagnement complet de SYSDE à chaque étape.",
+    phase1DetailTitle: "Que comprend la Phase 1 ?",
+    phase1Item1: "Migration complète vers SAF UPV 7.0",
+    phase1Item1Desc: "Mise à niveau intégrale du Core Banking vers la dernière version SYSDE, toutes fonctionnalités actuelles préservées.",
+    phase1Item2: "Consolidation de 87 Bases de Données → 1",
+    phase1Item2Desc: "Unification progressive des 87 bases de données en une seule base centralisée, agence par agence sur 12 mois.",
+    phase1Item3: "94 Agences connectées",
+    phase1Item3Desc: "Toutes les succursales opérant sur la plateforme unifiée avec accès en temps réel.",
+    phase1Item4: "Licences illimitées",
+    phase1Item4Desc: "Aucune restriction d'utilisateurs concurrents ni de postes. Croissance sans coûts additionnels de licence.",
+    phase1Item5: "Reporting BCEAO",
+    phase1Item5Desc: "Rapports réglementaires et opérationnels prêts pour répondre aux exigences de la Banque Centrale.",
+    phase1Item6: "Support technique inclus",
+    phase1Item6Desc: "Accès complet à l'équipe de support SYSDE pour requêtes, corrections et assistance continue.",
+    aLaCarteSimTitle: "Simulateur À la Carte",
+    aLaCarteSimDesc: "Sélectionnez les modules à déployer et visualisez le prix en temps réel.",
+    selectedModules: "modules sélectionnés",
+    yourMonthly: "Votre Abonnement Mensuel",
+    yourSetupFee: "Votre Setup Fee",
+    totalWithPhase1: "Total avec Phase 1",
+    selectAll: "Tout sélectionner",
+    clearAll: "Effacer sélection",
+    setupFeeLabel: "Setup Fee",
   },
   en: {
     title: "Expansion Proposal",
@@ -379,6 +426,28 @@ const labels: Record<Lang, Record<string, string>> = {
     cronogramaP2SupportDesc: "Training, parallel operation, validation, and progressive rollout for each deployed module.",
     cronogramaP2NoteTitle: "Open & Flexible Calendar",
     cronogramaP2NoteDesc: "Phase 2 has no rigid timeline. Modules are deployed based on needs and priorities determined by Nyèsigiso, with full SYSDE accompaniment at every stage.",
+    phase1DetailTitle: "What does Phase 1 include?",
+    phase1Item1: "Full migration to SAF UPV 7.0",
+    phase1Item1Desc: "Complete Core Banking upgrade to SYSDE's latest release, preserving all current functionality.",
+    phase1Item2: "Consolidation of 87 Databases → 1",
+    phase1Item2Desc: "Progressive unification of 87 databases into a single centralized database, agency by agency over 12 months.",
+    phase1Item3: "94 Agencies connected",
+    phase1Item3Desc: "All branches operating on the unified platform with real-time access.",
+    phase1Item4: "Unlimited licenses",
+    phase1Item4Desc: "No concurrent user or workstation restrictions. Growth without additional licensing costs.",
+    phase1Item5: "BCEAO Reporting",
+    phase1Item5Desc: "Regulatory and operational reports ready to meet Central Bank requirements.",
+    phase1Item6: "Technical support included",
+    phase1Item6Desc: "Full access to SYSDE's support team for requests, fixes, and ongoing assistance.",
+    aLaCarteSimTitle: "À la Carte Simulator",
+    aLaCarteSimDesc: "Select the modules you want to deploy and see pricing update in real time.",
+    selectedModules: "modules selected",
+    yourMonthly: "Your Monthly Subscription",
+    yourSetupFee: "Your Setup Fee",
+    totalWithPhase1: "Total with Phase 1",
+    selectAll: "Select all",
+    clearAll: "Clear selection",
+    setupFeeLabel: "Setup Fee",
   },
 };
 
@@ -388,17 +457,20 @@ const statusColor = (status: string) => {
   return "bg-muted text-muted-foreground border-border";
 };
 
-/** Prefix any $amount with USD */
 const usd = (v: string) => {
   if (!v || v === "bundled" || v === "—") return v;
   return v.startsWith("$") ? `USD ${v}` : v.startsWith("−$") ? `−USD ${v.slice(1)}` : v;
 };
+
+const formatUSD = (n: number) => `USD $${n.toLocaleString("en-US")}`;
 
 const ImplementationPlan = () => {
   const { language } = useLanguage();
   const [visible, setVisible] = useState(false);
   const [showAll, setShowAll] = useState(false);
   const [showAllInDetail, setShowAllInDetail] = useState(false);
+  const [selectedModules, setSelectedModules] = useState<Set<string>>(new Set());
+  const [activeTab, setActiveTab] = useState<"comparison" | "alacarte">("comparison");
   const ref = useRef<HTMLElement>(null);
   const t = labels[language];
 
@@ -410,6 +482,50 @@ const ImplementationPlan = () => {
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);
+
+  // À la carte interactive calculations
+  const aLaCarteCalc = useMemo(() => {
+    let monthlyTotal = 0;
+    let setupTotal = 0;
+    let count = 0;
+    moduleGroups.forEach(g => {
+      g.modules.forEach(m => {
+        const key = `${g.id}-${m.name.en}`;
+        if (selectedModules.has(key)) {
+          monthlyTotal += m.monthlyNum;
+          setupTotal += m.setupFeeNum;
+          count++;
+        }
+      });
+    });
+    return { monthlyTotal, setupTotal, count, withPhase1: monthlyTotal + 7500 };
+  }, [selectedModules]);
+
+  const toggleModule = (key: string) => {
+    setSelectedModules(prev => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      return next;
+    });
+  };
+
+  const selectAllModules = () => {
+    const all = new Set<string>();
+    moduleGroups.forEach(g => g.modules.forEach(m => all.add(`${g.id}-${m.name.en}`)));
+    setSelectedModules(all);
+  };
+
+  const clearAllModules = () => setSelectedModules(new Set());
+
+  const phase1Items = [
+    { icon: Database, title: t.phase1Item1, desc: t.phase1Item1Desc },
+    { icon: Server, title: t.phase1Item2, desc: t.phase1Item2Desc },
+    { icon: Globe, title: t.phase1Item3, desc: t.phase1Item3Desc },
+    { icon: Users, title: t.phase1Item4, desc: t.phase1Item4Desc },
+    { icon: FileCheck, title: t.phase1Item5, desc: t.phase1Item5Desc },
+    { icon: Headphones, title: t.phase1Item6, desc: t.phase1Item6Desc },
+  ];
 
   return (
     <section
@@ -434,16 +550,20 @@ const ImplementationPlan = () => {
         </div>
 
         <div className={`overflow-hidden transition-all duration-500 ${showAll ? "max-h-none opacity-100" : "max-h-0 opacity-0"}`}>
-        {/* FASE 1 Active Banner */}
-        <div className={`mb-8 transition-all duration-700 delay-100 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+
+        {/* ═══════════════════════════════════════════════ */}
+        {/* FASE 1 — Detailed Explanation */}
+        {/* ═══════════════════════════════════════════════ */}
+        <div className={`mb-10 transition-all duration-700 delay-100 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <Card className="border-emerald-500/30 bg-emerald-500/5 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-1 bg-emerald-500" />
-            <CardContent className="p-5">
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <CardContent className="p-6">
+              {/* Top row: badge + price */}
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                 <div className="flex items-center gap-3">
                   <Badge className="bg-emerald-500 text-white text-xs">{t.active}</Badge>
                   <div>
-                    <p className="font-bold text-foreground">{t.phase1}</p>
+                    <p className="font-bold text-lg text-foreground">{t.phase1}</p>
                     <p className="text-sm text-muted-foreground">{t.phase1desc}</p>
                   </div>
                 </div>
@@ -459,108 +579,40 @@ const ImplementationPlan = () => {
                   <Badge variant="secondary" className="text-xs">~69% {t.coverage}</Badge>
                 </div>
               </div>
-              <div className="mt-3 flex flex-col md:flex-row md:items-center gap-2">
-                <p className="text-xs text-muted-foreground flex-1">{t.phase1includes}</p>
-                <p className="text-xs text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5" />
-                  {t.phase1note}
-                </p>
+
+              {/* Detailed items grid */}
+              <div className="mb-4">
+                <p className="text-sm font-bold text-foreground mb-4">{t.phase1DetailTitle}</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                  {phase1Items.map((item, i) => {
+                    const Icon = item.icon;
+                    return (
+                      <div key={i} className="flex items-start gap-3 p-3 rounded-lg bg-background/60 border border-border/50 hover:border-emerald-500/30 transition-colors">
+                        <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <Icon className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-foreground leading-tight">{item.title}</p>
+                          <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{item.desc}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 pt-2 border-t border-emerald-500/10">
+                <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                <p className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">{t.phase1note}</p>
               </div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Module Detail with Accordions */}
-        <div className={`mb-12 transition-all duration-700 delay-200 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-          <div className="text-center mb-6">
-            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-medium mb-3">
-              <DollarSign className="w-4 h-4" />
-              {t.detailSubtitle}
-            </div>
-            <h3 className="text-2xl font-bold text-foreground">{t.detailTitle}</h3>
-          </div>
-
-          <Accordion type="multiple" className="space-y-2">
-            {moduleGroups.map((group) => {
-              const Icon = group.icon;
-              return (
-                <AccordionItem key={group.id} value={group.id} className="border rounded-lg overflow-hidden bg-card">
-                  <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-muted/30">
-                    <div className="flex items-center gap-3 flex-1 mr-4">
-                      <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                        <Icon className="w-4 h-4 text-primary" />
-                      </div>
-                      <div className="flex items-center gap-2 flex-1 min-w-0">
-                        <Badge variant="outline" className="text-xs font-mono flex-shrink-0">{t.group} {group.label}</Badge>
-                        <span className="font-semibold text-foreground text-sm truncate">{group.subtotalName[language]}</span>
-                      </div>
-                      <div className="flex items-center gap-1 text-sm font-bold text-primary flex-shrink-0">
-                        USD {group.subtotalMonthly}{t.perMonth}
-                      </div>
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent className="px-0 pb-0">
-                    <div className="overflow-x-auto">
-                      <table className="w-full text-sm">
-                        <thead>
-                          <tr className="bg-muted/30 border-y border-border">
-                            <th className="text-left px-4 py-2 text-xs font-medium text-muted-foreground">{t.module}</th>
-                            <th className="text-center px-3 py-2 text-xs font-medium text-muted-foreground">{t.status}</th>
-                            <th className="text-right px-3 py-2 text-xs font-medium text-muted-foreground">{t.monthly}</th>
-                            <th className="text-right px-3 py-2 text-xs font-medium text-muted-foreground">{t.quarterly}</th>
-                            <th className="text-right px-4 py-2 text-xs font-medium text-muted-foreground">{t.annual}</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {group.modules.map((mod, i) => (
-                            <tr key={i} className="border-b border-border/30 hover:bg-muted/20 transition-colors">
-                              <td className="px-4 py-2.5 text-foreground">{mod.name[language]}</td>
-                              <td className="px-3 py-2.5 text-center">
-                                <span className={`inline-block text-[10px] font-medium px-2 py-0.5 rounded-full border ${statusColor(mod.status)}`}>
-                                  {mod.status}
-                                </span>
-                              </td>
-                              <td className="px-3 py-2.5 text-right font-medium text-foreground">{usd(mod.monthly)}</td>
-                              <td className="px-3 py-2.5 text-right text-muted-foreground">{usd(mod.quarterly)}</td>
-                              <td className="px-4 py-2.5 text-right text-muted-foreground">{usd(mod.annual)}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                        <tfoot>
-                          <tr className="bg-primary/5 font-bold">
-                            <td className="px-4 py-2.5 text-foreground" colSpan={2}>{t.subtotal} — {group.subtotalName[language]}</td>
-                            <td className="px-3 py-2.5 text-right text-primary">{usd(group.subtotalMonthly)}</td>
-                            <td className="px-3 py-2.5 text-right text-foreground">{usd(group.subtotalQuarterly)}</td>
-                            <td className="px-4 py-2.5 text-right text-foreground">{usd(group.subtotalAnnual)}</td>
-                          </tr>
-                        </tfoot>
-                      </table>
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-              );
-            })}
-          </Accordion>
-
-          {/* Totals summary */}
-          <Card className="mt-4 overflow-hidden border-primary/20">
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <tbody>
-                  <tr className="bg-muted/30">
-                    <td className="px-4 py-3 font-semibold text-foreground">{t.totalAlaCarte}</td>
-                    <td className="px-3 py-3 text-right font-bold text-foreground">USD $20,900</td>
-                    <td className="px-3 py-3 text-right text-muted-foreground">USD $62,700</td>
-                    <td className="px-4 py-3 text-right text-muted-foreground">USD $250,800</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </Card>
-        </div>
-
-        {/* Choose your option */}
-        <div className={`transition-all duration-700 delay-300 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+        {/* ═══════════════════════════════════════════════ */}
+        {/* CHOOSE YOUR OPTION + OPTIONS CARDS */}
+        {/* ═══════════════════════════════════════════════ */}
+        <div className={`transition-all duration-700 delay-200 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-medium mb-3">
               <Zap className="w-4 h-4" />
@@ -570,7 +622,7 @@ const ImplementationPlan = () => {
           </div>
 
           <div className="grid md:grid-cols-2 gap-5 mb-8">
-            {/* Option A - À la Carte */}
+            {/* Option A */}
             <Card className="border-border hover:border-primary/30 transition-colors relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-1 bg-muted-foreground/30" />
               <CardHeader className="pb-3">
@@ -585,7 +637,7 @@ const ImplementationPlan = () => {
                     <span className="text-muted-foreground text-sm">{t.perMonth}</span>
                   </div>
                   <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                    <span className="bg-muted px-2 py-0.5 rounded font-medium">FASE 1: USD $7,500</span>
+                    <span className="bg-muted px-2 py-0.5 rounded font-medium">{t.phase1Label}: USD $7,500</span>
                     <span>+</span>
                     <span className="bg-muted px-2 py-0.5 rounded font-medium">FASE 2: USD $20,900</span>
                   </div>
@@ -594,7 +646,7 @@ const ImplementationPlan = () => {
               </CardContent>
             </Card>
 
-            {/* Option B - ALL IN */}
+            {/* Option B */}
             <Card className="border-primary/40 bg-primary/5 relative overflow-hidden ring-2 ring-primary/20">
               <div className="absolute top-0 left-0 w-full h-1 bg-primary" />
               <div className="absolute top-3 right-3">
@@ -612,7 +664,7 @@ const ImplementationPlan = () => {
                     <span className="text-muted-foreground text-sm">{t.perMonth}</span>
                   </div>
                   <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                    <span className="bg-primary/10 text-primary px-2 py-0.5 rounded font-medium">FASE 1: USD $7,500</span>
+                    <span className="bg-primary/10 text-primary px-2 py-0.5 rounded font-medium">{t.phase1Label}: USD $7,500</span>
                     <span>+</span>
                     <span className="bg-primary/10 text-primary px-2 py-0.5 rounded font-medium">FASE 2: USD $9,499</span>
                   </div>
@@ -653,97 +705,316 @@ const ImplementationPlan = () => {
             </CardContent>
           </Card>
 
-          {/* Comparison Table */}
-          <h3 className="text-xl font-bold text-foreground mb-4 text-center">{t.comparisonTitle}</h3>
-          <Card className="overflow-hidden border-primary/20 mb-4">
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="bg-primary/5 border-b border-border">
-                    <th className="text-left px-4 py-3 font-semibold text-foreground"></th>
-                    <th className="text-center px-4 py-3 font-semibold text-foreground">{t.phase1Label}</th>
-                    <th className="text-center px-4 py-3 font-semibold text-muted-foreground">{t.alaCarte}</th>
-                    <th className="text-center px-4 py-3 font-semibold text-primary">{t.allIn}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="border-b border-border/50">
-                    <td className="px-4 py-3 font-medium text-foreground">{t.setupFee}</td>
-                    <td className="px-4 py-3 text-center text-foreground">USD $35,000</td>
-                    <td className="px-4 py-3 text-center text-muted-foreground">—</td>
-                    <td className="px-4 py-3 text-center text-muted-foreground">—</td>
-                  </tr>
-                  <tr className="border-b border-border/50">
-                    <td className="px-4 py-3 font-medium text-foreground">{t.perMonthLabel}</td>
-                    <td className="px-4 py-3 text-center text-foreground">USD $7,500</td>
-                    <td className="px-4 py-3 text-center text-muted-foreground line-through">USD $28,400</td>
-                    <td className="px-4 py-3 text-center font-bold text-primary">USD $16,999</td>
-                  </tr>
-                  <tr className="border-b border-border/50">
-                    <td className="px-4 py-3 font-medium text-foreground">{t.perQuarterLabel}</td>
-                    <td className="px-4 py-3 text-center text-foreground">USD $22,500</td>
-                    <td className="px-4 py-3 text-center text-muted-foreground line-through">USD $85,200</td>
-                    <td className="px-4 py-3 text-center font-bold text-primary">USD $50,997</td>
-                  </tr>
-                  <tr className="border-b border-border/50">
-                    <td className="px-4 py-3 font-medium text-foreground">{t.perYearLabel}</td>
-                    <td className="px-4 py-3 text-center text-foreground">USD $90,000</td>
-                    <td className="px-4 py-3 text-center text-muted-foreground line-through">USD $340,800</td>
-                    <td className="px-4 py-3 text-center font-bold text-primary">USD $203,988</td>
-                  </tr>
-                  <tr className="border-b border-border/50">
-                    <td className="px-4 py-3 font-medium text-foreground">{t.coverage}</td>
-                    <td className="px-4 py-3 text-center"><Badge variant="secondary">~69%</Badge></td>
-                    <td className="px-4 py-3 text-center"><Badge>100%</Badge></td>
-                    <td className="px-4 py-3 text-center"><Badge>100%</Badge></td>
-                  </tr>
-                  <tr>
-                    <td className="px-4 py-3 font-medium text-foreground">{t.modules}</td>
-                    <td className="px-4 py-3 text-center text-foreground font-semibold">67</td>
-                    <td className="px-4 py-3 text-center text-muted-foreground">30</td>
-                    <td className="px-4 py-3 text-center">
-                      <button
-                        onClick={() => setShowAllInDetail(!showAllInDetail)}
-                        className="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:text-primary/80 transition-colors"
-                      >
-                        <Eye className="w-3.5 h-3.5" />
-                        {showAllInDetail ? t.hideDetail : t.viewDetail}
-                      </button>
-                    </td>
-                  </tr>
-                  {showAllInDetail && (
-                    <tr>
-                      <td colSpan={4} className="px-4 py-4">
-                        <div className="bg-primary/5 rounded-lg p-4 border border-primary/10">
-                          <p className="text-xs font-bold text-primary mb-3">63 + 34 = 97 {t.modules}</p>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                            <div>
-                              <p className="text-xs font-semibold text-foreground mb-1">{t.phase1Label} — 63 {t.modules}</p>
-                              <p className="text-xs text-muted-foreground">{t.phase1includes}</p>
+          {/* ═══════════════════════════════════════════════ */}
+          {/* INTERACTIVE COMPARISON / À LA CARTE TABS */}
+          {/* ═══════════════════════════════════════════════ */}
+          <div className="mb-10">
+            {/* Tab switcher */}
+            <div className="flex items-center justify-center gap-2 mb-6">
+              <button
+                onClick={() => setActiveTab("comparison")}
+                className={`px-5 py-2.5 rounded-lg text-sm font-semibold transition-all ${
+                  activeTab === "comparison"
+                    ? "bg-primary text-primary-foreground shadow-lg"
+                    : "bg-muted text-muted-foreground hover:bg-muted/80"
+                }`}
+              >
+                <BarChart className="w-4 h-4 inline mr-1.5" />
+                {t.comparisonTitle}
+              </button>
+              <button
+                onClick={() => setActiveTab("alacarte")}
+                className={`px-5 py-2.5 rounded-lg text-sm font-semibold transition-all ${
+                  activeTab === "alacarte"
+                    ? "bg-primary text-primary-foreground shadow-lg"
+                    : "bg-muted text-muted-foreground hover:bg-muted/80"
+                }`}
+              >
+                <ShoppingCart className="w-4 h-4 inline mr-1.5" />
+                {t.aLaCarteSimTitle}
+              </button>
+            </div>
+
+            {/* TAB: Comparison */}
+            {activeTab === "comparison" && (
+              <div className="animate-in fade-in duration-300">
+                <Card className="overflow-hidden border-primary/20 mb-4">
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="bg-primary/5 border-b border-border">
+                          <th className="text-left px-4 py-3 font-semibold text-foreground"></th>
+                          <th className="text-center px-4 py-3">
+                            <div className="font-semibold text-foreground">{t.phase1Label}</div>
+                            <div className="text-[10px] text-muted-foreground font-normal">67 {t.modules}</div>
+                          </th>
+                          <th className="text-center px-4 py-3">
+                            <div className="font-semibold text-muted-foreground">{t.alaCarte}</div>
+                            <div className="text-[10px] text-muted-foreground font-normal">67 + 30 {t.modules}</div>
+                          </th>
+                          <th className="text-center px-4 py-3 relative">
+                            <div className="font-semibold text-primary">{t.allIn}</div>
+                            <div className="text-[10px] text-primary/60 font-normal">67 + 30 {t.modules}</div>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className="border-b border-border/50 hover:bg-muted/20 transition-colors">
+                          <td className="px-4 py-3 font-medium text-foreground">{t.setupFee}</td>
+                          <td className="px-4 py-3 text-center text-foreground font-semibold">USD $35,000</td>
+                          <td className="px-4 py-3 text-center text-muted-foreground">USD $35,000</td>
+                          <td className="px-4 py-3 text-center text-primary font-semibold">USD $35,000</td>
+                        </tr>
+                        <tr className="border-b border-border/50 hover:bg-muted/20 transition-colors">
+                          <td className="px-4 py-3 font-medium text-foreground">{t.perMonthLabel}</td>
+                          <td className="px-4 py-3 text-center text-foreground">USD $7,500</td>
+                          <td className="px-4 py-3 text-center">
+                            <span className="text-muted-foreground">USD $28,400</span>
+                          </td>
+                          <td className="px-4 py-3 text-center font-bold text-primary">USD $16,999</td>
+                        </tr>
+                        <tr className="border-b border-border/50 hover:bg-muted/20 transition-colors">
+                          <td className="px-4 py-3 font-medium text-foreground">{t.perQuarterLabel}</td>
+                          <td className="px-4 py-3 text-center text-foreground">USD $22,500</td>
+                          <td className="px-4 py-3 text-center text-muted-foreground">USD $85,200</td>
+                          <td className="px-4 py-3 text-center font-bold text-primary">USD $50,997</td>
+                        </tr>
+                        <tr className="border-b border-border/50 hover:bg-muted/20 transition-colors">
+                          <td className="px-4 py-3 font-medium text-foreground">{t.perYearLabel}</td>
+                          <td className="px-4 py-3 text-center text-foreground">USD $90,000</td>
+                          <td className="px-4 py-3 text-center text-muted-foreground">USD $340,800</td>
+                          <td className="px-4 py-3 text-center font-bold text-primary">USD $203,988</td>
+                        </tr>
+                        <tr className="border-b border-border/50 hover:bg-muted/20 transition-colors">
+                          <td className="px-4 py-3 font-medium text-foreground">{t.coverage}</td>
+                          <td className="px-4 py-3 text-center"><Badge variant="secondary">~69%</Badge></td>
+                          <td className="px-4 py-3 text-center"><Badge>100%</Badge></td>
+                          <td className="px-4 py-3 text-center"><Badge className="bg-primary text-primary-foreground">100%</Badge></td>
+                        </tr>
+                        <tr className="bg-emerald-500/5 hover:bg-emerald-500/10 transition-colors">
+                          <td className="px-4 py-3 font-bold text-emerald-600 dark:text-emerald-400">{t.savingsTitle}</td>
+                          <td className="px-4 py-3 text-center text-muted-foreground">—</td>
+                          <td className="px-4 py-3 text-center text-muted-foreground">—</td>
+                          <td className="px-4 py-3 text-center font-bold text-emerald-600 dark:text-emerald-400">−40%</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </Card>
+              </div>
+            )}
+
+            {/* TAB: À la Carte Simulator */}
+            {activeTab === "alacarte" && (
+              <div className="animate-in fade-in duration-300">
+                <Card className="border-primary/20 overflow-hidden">
+                  <CardContent className="p-6">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-6">
+                      <div>
+                        <h4 className="font-bold text-foreground">{t.aLaCarteSimTitle}</h4>
+                        <p className="text-sm text-muted-foreground">{t.aLaCarteSimDesc}</p>
+                      </div>
+                      <div className="flex gap-2">
+                        <Button variant="outline" size="sm" onClick={selectAllModules}>
+                          <Package className="w-3.5 h-3.5 mr-1" />
+                          {t.selectAll}
+                        </Button>
+                        <Button variant="ghost" size="sm" onClick={clearAllModules}>
+                          {t.clearAll}
+                        </Button>
+                      </div>
+                    </div>
+
+                    {/* Module selection grid */}
+                    <div className="space-y-4 mb-6">
+                      {moduleGroups.map((group) => {
+                        const Icon = group.icon;
+                        return (
+                          <div key={group.id} className="rounded-lg border border-border p-4">
+                            <div className="flex items-center gap-2 mb-3">
+                              <Icon className="w-4 h-4 text-primary" />
+                              <span className="font-semibold text-sm text-foreground">{group.subtotalName[language]}</span>
+                              <Badge variant="outline" className="text-[10px] ml-auto">{t.group} {group.label}</Badge>
                             </div>
-                            <div>
-                              <p className="text-xs font-semibold text-foreground mb-1">FASE 2 — 34 {t.modules}</p>
-                              <div className="space-y-0.5">
-                                {moduleGroups.map(g => (
-                                  <p key={g.id} className="text-xs text-muted-foreground">
-                                    <span className="font-medium">{g.label}.</span> {g.subtotalName[language]} ({g.modules.length})
-                                  </p>
-                                ))}
-                              </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                              {group.modules.map((mod) => {
+                                const key = `${group.id}-${mod.name.en}`;
+                                const isSelected = selectedModules.has(key);
+                                return (
+                                  <button
+                                    key={key}
+                                    onClick={() => toggleModule(key)}
+                                    className={`flex items-center justify-between gap-2 px-3 py-2.5 rounded-lg border text-left text-sm transition-all ${
+                                      isSelected
+                                        ? "border-primary bg-primary/10 text-foreground shadow-sm"
+                                        : "border-border bg-card text-muted-foreground hover:border-primary/30 hover:bg-muted/30"
+                                    }`}
+                                  >
+                                    <div className="flex items-center gap-2 min-w-0">
+                                      <div className={`w-4 h-4 rounded border-2 flex items-center justify-center flex-shrink-0 transition-all ${
+                                        isSelected ? "border-primary bg-primary" : "border-muted-foreground/30"
+                                      }`}>
+                                        {isSelected && <CheckCircle2 className="w-3 h-3 text-primary-foreground" />}
+                                      </div>
+                                      <span className="truncate">{mod.name[language]}</span>
+                                    </div>
+                                    <div className="flex flex-col items-end flex-shrink-0">
+                                      <span className={`text-xs font-bold ${isSelected ? "text-primary" : "text-muted-foreground"}`}>
+                                        {usd(mod.monthly)}{t.perMonth}
+                                      </span>
+                                      <span className="text-[10px] text-muted-foreground">
+                                        {t.setupFeeLabel}: {usd(mod.setupFee)}
+                                      </span>
+                                    </div>
+                                  </button>
+                                );
+                              })}
                             </div>
                           </div>
-                        </div>
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
-          </Card>
+                        );
+                      })}
+                    </div>
 
-          <p className="text-xs text-muted-foreground text-center mt-3">
+                    {/* Live pricing summary */}
+                    <div className="sticky bottom-0 rounded-xl border-2 border-primary/30 bg-card p-5 shadow-xl">
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center gap-2">
+                          <ShoppingCart className="w-5 h-5 text-primary" />
+                          <span className="font-bold text-foreground">{aLaCarteCalc.count} {t.selectedModules}</span>
+                        </div>
+                        {aLaCarteCalc.count === 30 && (
+                          <Badge className="bg-primary text-primary-foreground text-xs animate-pulse">ALL IN = USD $9,499{t.perMonth}</Badge>
+                        )}
+                      </div>
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div>
+                          <p className="text-xs text-muted-foreground">{t.yourMonthly} (FASE 2)</p>
+                          <p className="text-xl font-bold text-foreground">{formatUSD(aLaCarteCalc.monthlyTotal)}</p>
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground">{t.yourSetupFee} (FASE 2)</p>
+                          <p className="text-xl font-bold text-foreground">{formatUSD(aLaCarteCalc.setupTotal)}</p>
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground">{t.totalWithPhase1}</p>
+                          <p className="text-xl font-bold text-primary">{formatUSD(aLaCarteCalc.withPhase1)}{t.perMonth}</p>
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground">{t.setupFee} Total</p>
+                          <p className="text-xl font-bold text-foreground">{formatUSD(aLaCarteCalc.setupTotal + 35000)}</p>
+                        </div>
+                      </div>
+                      {aLaCarteCalc.count > 0 && aLaCarteCalc.monthlyTotal > 9499 && (
+                        <div className="mt-3 pt-3 border-t border-border flex items-center gap-2">
+                          <TrendingDown className="w-4 h-4 text-emerald-500" />
+                          <p className="text-sm text-emerald-600 dark:text-emerald-400 font-medium">
+                            ALL IN = USD $9,499{t.perMonth} — {t.savingsTitle}: {formatUSD(aLaCarteCalc.monthlyTotal - 9499)}{t.perMonth} (−{Math.round((1 - 9499 / aLaCarteCalc.monthlyTotal) * 100)}%)
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            )}
+          </div>
+
+          <p className="text-xs text-muted-foreground text-center mt-3 mb-8">
             💡 {t.billing}
           </p>
+
+          {/* ═══════════════════════════════════════════════ */}
+          {/* MODULE DETAIL (now AFTER comparison) */}
+          {/* ═══════════════════════════════════════════════ */}
+          <div className={`mb-12 transition-all duration-700 delay-300 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+            <div className="text-center mb-6">
+              <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-medium mb-3">
+                <DollarSign className="w-4 h-4" />
+                {t.detailSubtitle}
+              </div>
+              <h3 className="text-2xl font-bold text-foreground">{t.detailTitle}</h3>
+            </div>
+
+            <Accordion type="multiple" className="space-y-2">
+              {moduleGroups.map((group) => {
+                const Icon = group.icon;
+                return (
+                  <AccordionItem key={group.id} value={group.id} className="border rounded-lg overflow-hidden bg-card">
+                    <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-muted/30">
+                      <div className="flex items-center gap-3 flex-1 mr-4">
+                        <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                          <Icon className="w-4 h-4 text-primary" />
+                        </div>
+                        <div className="flex items-center gap-2 flex-1 min-w-0">
+                          <Badge variant="outline" className="text-xs font-mono flex-shrink-0">{t.group} {group.label}</Badge>
+                          <span className="font-semibold text-foreground text-sm truncate">{group.subtotalName[language]}</span>
+                        </div>
+                        <div className="flex items-center gap-1 text-sm font-bold text-primary flex-shrink-0">
+                          USD {group.subtotalMonthly}{t.perMonth}
+                        </div>
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="px-0 pb-0">
+                      <div className="overflow-x-auto">
+                        <table className="w-full text-sm">
+                          <thead>
+                            <tr className="bg-muted/30 border-y border-border">
+                              <th className="text-left px-4 py-2 text-xs font-medium text-muted-foreground">{t.module}</th>
+                              <th className="text-center px-3 py-2 text-xs font-medium text-muted-foreground">{t.status}</th>
+                              <th className="text-right px-3 py-2 text-xs font-medium text-muted-foreground">{t.setupFeeLabel}</th>
+                              <th className="text-right px-3 py-2 text-xs font-medium text-muted-foreground">{t.monthly}</th>
+                              <th className="text-right px-3 py-2 text-xs font-medium text-muted-foreground">{t.quarterly}</th>
+                              <th className="text-right px-4 py-2 text-xs font-medium text-muted-foreground">{t.annual}</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {group.modules.map((mod, i) => (
+                              <tr key={i} className="border-b border-border/30 hover:bg-muted/20 transition-colors">
+                                <td className="px-4 py-2.5 text-foreground">{mod.name[language]}</td>
+                                <td className="px-3 py-2.5 text-center">
+                                  <span className={`inline-block text-[10px] font-medium px-2 py-0.5 rounded-full border ${statusColor(mod.status)}`}>
+                                    {mod.status}
+                                  </span>
+                                </td>
+                                <td className="px-3 py-2.5 text-right text-muted-foreground">{usd(mod.setupFee)}</td>
+                                <td className="px-3 py-2.5 text-right font-medium text-foreground">{usd(mod.monthly)}</td>
+                                <td className="px-3 py-2.5 text-right text-muted-foreground">{usd(mod.quarterly)}</td>
+                                <td className="px-4 py-2.5 text-right text-muted-foreground">{usd(mod.annual)}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                          <tfoot>
+                            <tr className="bg-primary/5 font-bold">
+                              <td className="px-4 py-2.5 text-foreground" colSpan={3}>{t.subtotal} — {group.subtotalName[language]}</td>
+                              <td className="px-3 py-2.5 text-right text-primary">{usd(group.subtotalMonthly)}</td>
+                              <td className="px-3 py-2.5 text-right text-foreground">{usd(group.subtotalQuarterly)}</td>
+                              <td className="px-4 py-2.5 text-right text-foreground">{usd(group.subtotalAnnual)}</td>
+                            </tr>
+                          </tfoot>
+                        </table>
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                );
+              })}
+            </Accordion>
+
+            {/* Totals summary */}
+            <Card className="mt-4 overflow-hidden border-primary/20">
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <tbody>
+                    <tr className="bg-muted/30">
+                      <td className="px-4 py-3 font-semibold text-foreground">{t.totalAlaCarte}</td>
+                      <td className="px-3 py-3 text-right font-bold text-foreground">USD $20,900</td>
+                      <td className="px-3 py-3 text-right text-muted-foreground">USD $62,700</td>
+                      <td className="px-4 py-3 text-right text-muted-foreground">USD $250,800</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </Card>
+          </div>
         </div>
 
         {/* Cronograma */}
@@ -756,7 +1027,6 @@ const ImplementationPlan = () => {
             <h3 className="text-2xl font-bold text-foreground">{t.cronogramaTitle}</h3>
           </div>
 
-          {/* Phase 1 Timeline - Collapsible */}
           <Accordion type="multiple" className="space-y-4">
             <AccordionItem value="phase1" className="border rounded-lg overflow-hidden border-primary/20">
               <AccordionTrigger className="px-5 py-4 hover:no-underline bg-primary/5 border-b border-border">
@@ -769,104 +1039,28 @@ const ImplementationPlan = () => {
                 </div>
               </AccordionTrigger>
               <AccordionContent className="px-6 pt-6 pb-6">
-                {/* Visual timeline */}
                 <div className="relative">
-                  {/* Vertical line */}
                   <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-border" />
-
                   {(() => {
                     const phase1Steps = [
-                      { 
-                        period: t.cronogramaAcceptance, 
-                        items: [t.cronogramaInstallation, t.cronogramaLicenses, t.cronogramaReporting],
-                        icon: "🚀",
-                        color: "bg-primary/10 border-primary/30"
-                      },
-                      { 
-                        period: t.cronograma30days, 
-                        items: [t.cronogramaMigration],
-                        icon: "🔄",
-                        color: "bg-primary/10 border-primary/30"
-                      },
-                      { 
-                        period: `2-3 ${t.cronogramaMonths}`, 
-                        items: [t.cronogramaConsol2, t.cronogramaConsol5],
-                        icon: "📦",
-                        color: "bg-secondary/50 border-secondary"
-                      },
-                      { 
-                        period: `4 ${t.cronogramaMonths}`, 
-                        items: [t.cronogramaConsol10],
-                        icon: "⚡",
-                        color: "bg-secondary/50 border-secondary"
-                      },
-                      { 
-                        period: `5 ${t.cronogramaMonths}`, 
-                        items: [t.cronogramaConsol10],
-                        icon: "⚡",
-                        color: "bg-secondary/50 border-secondary"
-                      },
-                      { 
-                        period: `6 ${t.cronogramaMonths}`, 
-                        items: [t.cronogramaConsol10],
-                        icon: "⚡",
-                        color: "bg-secondary/50 border-secondary"
-                      },
-                      { 
-                        period: `7 ${t.cronogramaMonths}`, 
-                        items: [t.cronogramaConsol10],
-                        icon: "⚡",
-                        color: "bg-secondary/50 border-secondary"
-                      },
-                      { 
-                        period: `8 ${t.cronogramaMonths}`, 
-                        items: [t.cronogramaConsol10],
-                        icon: "⚡",
-                        color: "bg-secondary/50 border-secondary"
-                      },
-                      { 
-                        period: `9 ${t.cronogramaMonths}`, 
-                        items: [t.cronogramaConsol10],
-                        icon: "⚡",
-                        color: "bg-secondary/50 border-secondary"
-                      },
-                      { 
-                        period: `10 ${t.cronogramaMonths}`, 
-                        items: [t.cronogramaConsol10],
-                        icon: "⚡",
-                        color: "bg-secondary/50 border-secondary"
-                      },
-                      { 
-                        period: `11 ${t.cronogramaMonths}`, 
-                        items: [t.cronogramaConsol10],
-                        icon: "⚡",
-                        color: "bg-secondary/50 border-secondary"
-                      },
-                      { 
-                        period: `12 ${t.cronogramaMonths}`, 
-                        items: [t.cronogramaCertification],
-                        icon: "✅",
-                        color: "bg-primary/10 border-primary/30"
-                      },
-                      { 
-                        period: t.cronogramaSupportContract, 
-                        items: [t.cronogramaSupport],
-                        icon: "🛟",
-                        color: "bg-muted border-border"
-                      },
-                      { 
-                        period: t.cronograma12later, 
-                        items: [t.cronogramaSupport],
-                        icon: "🔁",
-                        color: "bg-muted border-border"
-                      },
+                      { period: t.cronogramaAcceptance, items: [t.cronogramaInstallation, t.cronogramaLicenses, t.cronogramaReporting], icon: "🚀", color: "bg-primary/10 border-primary/30" },
+                      { period: t.cronograma30days, items: [t.cronogramaMigration], icon: "🔄", color: "bg-primary/10 border-primary/30" },
+                      { period: `2-3 ${t.cronogramaMonths}`, items: [t.cronogramaConsol2, t.cronogramaConsol5], icon: "📦", color: "bg-secondary/50 border-secondary" },
+                      { period: `4 ${t.cronogramaMonths}`, items: [t.cronogramaConsol10], icon: "⚡", color: "bg-secondary/50 border-secondary" },
+                      { period: `5 ${t.cronogramaMonths}`, items: [t.cronogramaConsol10], icon: "⚡", color: "bg-secondary/50 border-secondary" },
+                      { period: `6 ${t.cronogramaMonths}`, items: [t.cronogramaConsol10], icon: "⚡", color: "bg-secondary/50 border-secondary" },
+                      { period: `7 ${t.cronogramaMonths}`, items: [t.cronogramaConsol10], icon: "⚡", color: "bg-secondary/50 border-secondary" },
+                      { period: `8 ${t.cronogramaMonths}`, items: [t.cronogramaConsol10], icon: "⚡", color: "bg-secondary/50 border-secondary" },
+                      { period: `9 ${t.cronogramaMonths}`, items: [t.cronogramaConsol10], icon: "⚡", color: "bg-secondary/50 border-secondary" },
+                      { period: `10 ${t.cronogramaMonths}`, items: [t.cronogramaConsol10], icon: "⚡", color: "bg-secondary/50 border-secondary" },
+                      { period: `11 ${t.cronogramaMonths}`, items: [t.cronogramaConsol10], icon: "⚡", color: "bg-secondary/50 border-secondary" },
+                      { period: `12 ${t.cronogramaMonths}`, items: [t.cronogramaCertification], icon: "✅", color: "bg-primary/10 border-primary/30" },
+                      { period: t.cronogramaSupportContract, items: [t.cronogramaSupport], icon: "🛟", color: "bg-muted border-border" },
+                      { period: t.cronograma12later, items: [t.cronogramaSupport], icon: "🔁", color: "bg-muted border-border" },
                     ];
-
                     return phase1Steps.map((step, i) => (
                       <div key={i} className="relative pl-12 pb-6 last:pb-0 group">
-                        {/* Dot on line */}
                         <div className="absolute left-2.5 top-1.5 w-3.5 h-3.5 rounded-full bg-primary border-2 border-background ring-2 ring-primary/20 group-hover:ring-primary/40 transition-all" />
-                        
                         <div className={`rounded-lg border p-4 ${step.color} hover:shadow-md transition-all duration-200`}>
                           <div className="flex items-center gap-2 mb-2">
                             <span className="text-base">{step.icon}</span>
@@ -888,19 +1082,17 @@ const ImplementationPlan = () => {
               </AccordionContent>
             </AccordionItem>
 
-            {/* Phase 2 - Collapsible */}
             <AccordionItem value="phase2" className="border rounded-lg overflow-hidden border-primary/20">
               <AccordionTrigger className="px-5 py-4 hover:no-underline bg-primary/5 border-b border-border">
                 <div className="flex items-center gap-3 flex-1 mr-4">
                   <Badge className="bg-primary text-primary-foreground">2</Badge>
                   <div className="text-left">
                     <p className="text-lg font-bold text-foreground">{t.cronogramaPhase2}</p>
-                    <p className="text-xs text-muted-foreground mt-0.5">34 {t.modules} · {t.cronogramaP2Flexible}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">30 {t.modules} · {t.cronogramaP2Flexible}</p>
                   </div>
                 </div>
               </AccordionTrigger>
               <AccordionContent className="px-6 pt-6 pb-6">
-                {/* Priority banner */}
                 <div className="flex items-center gap-3 mb-6 p-4 rounded-lg bg-primary/5 border border-primary/10">
                   <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                     <Zap className="w-5 h-5 text-primary" />
@@ -911,19 +1103,15 @@ const ImplementationPlan = () => {
                   </div>
                 </div>
 
-                {/* 9 Module groups as interactive cards */}
                 <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">{t.cronogramaP2Scope}</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
                   {moduleGroups.map((group) => {
                     const Icon = group.icon;
                     return (
-                      <div
-                        key={group.id}
-                        className="group relative rounded-xl border border-border bg-card p-4 hover:border-primary/40 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 cursor-default"
-                      >
+                      <div key={group.id} className="group relative rounded-xl border border-border bg-card p-4 hover:border-primary/40 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 cursor-default">
                         <div className="flex items-center gap-3 mb-2">
                           <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                            <Icon className="w-4.5 h-4.5 text-primary" />
+                            <Icon className="w-4 h-4 text-primary" />
                           </div>
                           <div className="flex-1 min-w-0">
                             <p className="text-sm font-bold text-foreground truncate">{group.subtotalName[language]}</p>
@@ -947,7 +1135,6 @@ const ImplementationPlan = () => {
                   })}
                 </div>
 
-                {/* Accompaniment + flexible note */}
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="rounded-lg border border-border bg-card p-4 hover:border-primary/30 transition-colors">
                     <div className="flex items-center gap-2 mb-2">

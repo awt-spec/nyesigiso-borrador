@@ -32,7 +32,7 @@ const scopeLabels = {
   },
 };
 
-const SynthesisTable = () => {
+const SynthesisTable = ({ onDomainClick }: { onDomainClick?: () => void }) => {
   const { language } = useLanguage();
   const t = translations[language];
   const sl = scopeLabels[language];
@@ -100,6 +100,7 @@ const SynthesisTable = () => {
             <a
               key={d.id}
               href={`#${d.id}`}
+              onClick={() => onDomainClick?.()}
               className={`group relative rounded-xl border border-background/10 p-4 transition-all duration-300 cursor-pointer hover:border-primary/40 hover:bg-background/5 ${
                 visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               } ${hoveredDomain === d.id ? "border-primary/40 bg-background/5 scale-[1.02]" : ""}`}

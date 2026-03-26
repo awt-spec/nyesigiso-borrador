@@ -733,6 +733,17 @@ const ImplementationPlan = () => {
                 <ShoppingCart className="w-4 h-4 inline mr-1.5" />
                 {t.aLaCarteSimTitle}
               </button>
+              <button
+                onClick={() => setActiveTab("allin")}
+                className={`px-5 py-2.5 rounded-lg text-sm font-semibold transition-all ${
+                  activeTab === "allin"
+                    ? "bg-primary text-primary-foreground shadow-lg"
+                    : "bg-muted text-muted-foreground hover:bg-muted/80"
+                }`}
+              >
+                <Package className="w-4 h-4 inline mr-1.5" />
+                ALL IN
+              </button>
             </div>
 
             {/* TAB: Comparison */}

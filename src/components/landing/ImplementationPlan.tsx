@@ -1052,12 +1052,9 @@ const Phase2Timeline = ({ language, t }: { language: Lang; t: Record<string, str
                             <div className="w-2 h-2 rounded-full bg-primary flex-shrink-0" />
                             <span className="text-sm text-foreground truncate">{mod.name[language]}</span>
                           </div>
-                          <div className="flex items-center gap-3 flex-shrink-0">
-                            <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full border ${statusColor(mod.status)}`}>
+                          <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full border ${statusColor(mod.status)}`}>
                               {mod.status}
                             </span>
-                            <span className="text-xs font-bold text-primary whitespace-nowrap">{mod.name[language]}</span>
-                          </div>
                         </div>
                       ))}
                     </div>

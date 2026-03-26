@@ -442,7 +442,6 @@ const ImplementationPlan = () => {
           </h2>
         </div>
 
-        <div>
 
         {/* ═══════════════════════════════════════════════ */}
         {/* PROPUESTA INICIAL — Detailed Explanation */}

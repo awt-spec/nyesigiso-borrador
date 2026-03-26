@@ -29,7 +29,7 @@ const labels: Record<Lang, Record<string, string>> = {
     securityTitle: "Seguridad Ilimitada",
     securityDesc: "Cumplimiento regulatorio BCEAO, cifrado de datos, auditoría y trazabilidad completa.",
     bottomTitle: "Un precio. Todo incluido.",
-    bottomDesc: "Sin negociaciones por módulo. Sin sorpresas al final del trimestre. La transformación digital completa de Nyèsigiso bajo un modelo predecible y transparente.",
+    bottomDesc: "Sin negociaciones adicionales. Sin sorpresas al final del trimestre. La transformación digital completa de Nyèsigiso bajo un modelo predecible y transparente.",
   },
   fr: {
     badge: "MODÈLE D'ABONNEMENT",

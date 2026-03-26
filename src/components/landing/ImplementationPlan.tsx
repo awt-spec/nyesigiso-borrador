@@ -999,22 +999,6 @@ const ImplementationPlan = () => {
               })}
             </Accordion>
 
-            {/* Totals summary */}
-            <Card className="mt-4 overflow-hidden border-primary/20">
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <tbody>
-                    <tr className="bg-muted/30">
-                      <td className="px-4 py-3 font-semibold text-foreground" colSpan={2}>{t.totalAlaCarte}</td>
-                      <td className="px-3 py-3 text-right font-bold text-muted-foreground">USD $62,700</td>
-                      <td className="px-3 py-3 text-right font-bold text-foreground">USD $20,900</td>
-                      <td className="px-3 py-3 text-right text-muted-foreground">USD $62,700</td>
-                      <td className="px-4 py-3 text-right text-muted-foreground">USD $250,800</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </Card>
           </div>
         </div>
 
@@ -1029,6 +1013,7 @@ const ImplementationPlan = () => {
           </div>
 
           <Accordion type="multiple" className="space-y-4">
+            {/* Phase 1 — Horizontal Timeline */}
             <AccordionItem value="phase1" className="border rounded-lg overflow-hidden border-primary/20">
               <AccordionTrigger className="px-5 py-4 hover:no-underline bg-primary/5 border-b border-border">
                 <div className="flex items-center gap-3 flex-1 mr-4">
@@ -1039,50 +1024,83 @@ const ImplementationPlan = () => {
                   </div>
                 </div>
               </AccordionTrigger>
-              <AccordionContent className="px-6 pt-6 pb-6">
-                <div className="relative">
-                  <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-border" />
-                  {(() => {
-                    const phase1Steps = [
-                      { period: t.cronogramaAcceptance, items: [t.cronogramaInstallation, t.cronogramaLicenses, t.cronogramaReporting], icon: "🚀", color: "bg-primary/10 border-primary/30" },
-                      { period: t.cronograma30days, items: [t.cronogramaMigration], icon: "🔄", color: "bg-primary/10 border-primary/30" },
-                      { period: `2-3 ${t.cronogramaMonths}`, items: [t.cronogramaConsol2, t.cronogramaConsol5], icon: "📦", color: "bg-secondary/50 border-secondary" },
-                      { period: `4 ${t.cronogramaMonths}`, items: [t.cronogramaConsol10], icon: "⚡", color: "bg-secondary/50 border-secondary" },
-                      { period: `5 ${t.cronogramaMonths}`, items: [t.cronogramaConsol10], icon: "⚡", color: "bg-secondary/50 border-secondary" },
-                      { period: `6 ${t.cronogramaMonths}`, items: [t.cronogramaConsol10], icon: "⚡", color: "bg-secondary/50 border-secondary" },
-                      { period: `7 ${t.cronogramaMonths}`, items: [t.cronogramaConsol10], icon: "⚡", color: "bg-secondary/50 border-secondary" },
-                      { period: `8 ${t.cronogramaMonths}`, items: [t.cronogramaConsol10], icon: "⚡", color: "bg-secondary/50 border-secondary" },
-                      { period: `9 ${t.cronogramaMonths}`, items: [t.cronogramaConsol10], icon: "⚡", color: "bg-secondary/50 border-secondary" },
-                      { period: `10 ${t.cronogramaMonths}`, items: [t.cronogramaConsol10], icon: "⚡", color: "bg-secondary/50 border-secondary" },
-                      { period: `11 ${t.cronogramaMonths}`, items: [t.cronogramaConsol10], icon: "⚡", color: "bg-secondary/50 border-secondary" },
-                      { period: `12 ${t.cronogramaMonths}`, items: [t.cronogramaCertification], icon: "✅", color: "bg-primary/10 border-primary/30" },
-                      { period: t.cronogramaSupportContract, items: [t.cronogramaSupport], icon: "🛟", color: "bg-muted border-border" },
-                      { period: t.cronograma12later, items: [t.cronogramaSupport], icon: "🔁", color: "bg-muted border-border" },
-                    ];
-                    return phase1Steps.map((step, i) => (
-                      <div key={i} className="relative pl-12 pb-6 last:pb-0 group">
-                        <div className="absolute left-2.5 top-1.5 w-3.5 h-3.5 rounded-full bg-primary border-2 border-background ring-2 ring-primary/20 group-hover:ring-primary/40 transition-all" />
-                        <div className={`rounded-lg border p-4 ${step.color} hover:shadow-md transition-all duration-200`}>
-                          <div className="flex items-center gap-2 mb-2">
-                            <span className="text-base">{step.icon}</span>
-                            <span className="text-sm font-bold text-foreground">{step.period}</span>
+              <AccordionContent className="p-6">
+                {/* Horizontal scrollable timeline */}
+                <div className="overflow-x-auto pb-4 -mx-2">
+                  <div className="relative min-w-[1100px] px-2">
+                    {/* Horizontal line */}
+                    <div className="absolute top-6 left-8 right-8 h-0.5 bg-border" />
+                    <div className="flex justify-between gap-0">
+                      {(() => {
+                        const steps = [
+                          { label: language === "es" ? "Inicio" : language === "fr" ? "Début" : "Start", icon: "🚀", items: [t.cronogramaInstallation, t.cronogramaLicenses, t.cronogramaReporting], highlight: true },
+                          { label: "30d", icon: "🔄", items: [t.cronogramaMigration], highlight: true },
+                          { label: `M2-3`, icon: "📦", items: [t.cronogramaConsol2, t.cronogramaConsol5], highlight: false },
+                          { label: "M4", icon: "⚡", items: [t.cronogramaConsol10], highlight: false },
+                          { label: "M5", icon: "⚡", items: [t.cronogramaConsol10], highlight: false },
+                          { label: "M6", icon: "⚡", items: [t.cronogramaConsol10], highlight: false },
+                          { label: "M7", icon: "⚡", items: [t.cronogramaConsol10], highlight: false },
+                          { label: "M8", icon: "⚡", items: [t.cronogramaConsol10], highlight: false },
+                          { label: "M9", icon: "⚡", items: [t.cronogramaConsol10], highlight: false },
+                          { label: "M10", icon: "⚡", items: [t.cronogramaConsol10], highlight: false },
+                          { label: "M11", icon: "⚡", items: [t.cronogramaConsol10], highlight: false },
+                          { label: "M12", icon: "✅", items: [t.cronogramaCertification], highlight: true },
+                        ];
+                        return steps.map((step, i) => (
+                          <div key={i} className="flex flex-col items-center flex-1 group relative">
+                            {/* Dot */}
+                            <div className={`w-12 h-12 rounded-full flex items-center justify-center z-10 border-2 transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg ${
+                              step.highlight
+                                ? "bg-primary/10 border-primary shadow-sm"
+                                : "bg-card border-border group-hover:border-primary/40"
+                            }`}>
+                              <span className="text-lg">{step.icon}</span>
+                            </div>
+                            {/* Label */}
+                            <span className={`text-xs font-bold mt-2 ${step.highlight ? "text-primary" : "text-muted-foreground"}`}>
+                              {step.label}
+                            </span>
+                            {/* Tooltip card on hover */}
+                            <div className="absolute top-16 left-1/2 -translate-x-1/2 w-48 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all duration-200 z-20 translate-y-1 group-hover:translate-y-0">
+                              <div className={`rounded-lg border p-3 shadow-xl text-left ${step.highlight ? "bg-card border-primary/30" : "bg-card border-border"}`}>
+                                <ul className="space-y-1">
+                                  {step.items.map((item, j) => (
+                                    <li key={j} className="flex items-start gap-1.5 text-[11px] text-muted-foreground leading-tight">
+                                      <ChevronRight className="w-3 h-3 mt-0.5 text-primary flex-shrink-0" />
+                                      <span>{item}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            </div>
                           </div>
-                          <ul className="space-y-1">
-                            {step.items.map((item, j) => (
-                              <li key={j} className="flex items-start gap-2 text-sm text-muted-foreground">
-                                <ChevronRight className="w-3.5 h-3.5 mt-0.5 text-primary flex-shrink-0" />
-                                {item}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-                    ));
-                  })()}
+                        ));
+                      })()}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Support row */}
+                <div className="mt-6 grid md:grid-cols-2 gap-3">
+                  <div className="flex items-center gap-3 rounded-lg border border-border bg-muted/30 p-3">
+                    <span className="text-lg">🛟</span>
+                    <div>
+                      <p className="text-xs font-bold text-foreground">{t.cronogramaSupportContract}</p>
+                      <p className="text-[11px] text-muted-foreground">{t.cronogramaSupport}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 rounded-lg border border-border bg-muted/30 p-3">
+                    <span className="text-lg">🔁</span>
+                    <div>
+                      <p className="text-xs font-bold text-foreground">{t.cronograma12later}</p>
+                      <p className="text-[11px] text-muted-foreground">{t.cronogramaSupport}</p>
+                    </div>
+                  </div>
                 </div>
               </AccordionContent>
             </AccordionItem>
 
+            {/* Phase 2 — Horizontal Flow */}
             <AccordionItem value="phase2" className="border rounded-lg overflow-hidden border-primary/20">
               <AccordionTrigger className="px-5 py-4 hover:no-underline bg-primary/5 border-b border-border">
                 <div className="flex items-center gap-3 flex-1 mr-4">
@@ -1093,7 +1111,8 @@ const ImplementationPlan = () => {
                   </div>
                 </div>
               </AccordionTrigger>
-              <AccordionContent className="px-6 pt-6 pb-6">
+              <AccordionContent className="p-6">
+                {/* Priority banner */}
                 <div className="flex items-center gap-3 mb-6 p-4 rounded-lg bg-primary/5 border border-primary/10">
                   <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                     <Zap className="w-5 h-5 text-primary" />
@@ -1104,39 +1123,50 @@ const ImplementationPlan = () => {
                   </div>
                 </div>
 
-                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">{t.cronogramaP2Scope}</p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
-                  {moduleGroups.map((group) => {
-                    const Icon = group.icon;
-                    return (
-                      <div key={group.id} className="group relative rounded-xl border border-border bg-card p-4 hover:border-primary/40 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 cursor-default">
-                        <div className="flex items-center gap-3 mb-2">
-                          <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                            <Icon className="w-4 h-4 text-primary" />
+                {/* Horizontal flow of groups */}
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-4">{t.cronogramaP2Scope}</p>
+                <div className="overflow-x-auto pb-4 -mx-2">
+                  <div className="relative min-w-[900px] px-2">
+                    {/* Horizontal connector */}
+                    <div className="absolute top-8 left-8 right-8 h-0.5 bg-gradient-to-r from-primary/40 via-primary/20 to-primary/40" />
+                    <div className="flex gap-0">
+                      {moduleGroups.map((group, i) => {
+                        const Icon = group.icon;
+                        return (
+                          <div key={group.id} className="flex-1 flex flex-col items-center group relative">
+                            {/* Circle node */}
+                            <div className="w-16 h-16 rounded-2xl bg-card border-2 border-border flex items-center justify-center z-10 group-hover:border-primary group-hover:shadow-lg group-hover:scale-105 transition-all duration-300">
+                              <Icon className="w-6 h-6 text-primary" />
+                            </div>
+                            <Badge variant="outline" className="text-[9px] font-mono mt-2 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">{group.label}</Badge>
+                            <p className="text-[11px] font-semibold text-foreground text-center mt-1 max-w-[100px] leading-tight">{group.subtotalName[language]}</p>
+                            <p className="text-[10px] text-muted-foreground">{group.modules.length} {t.modules}</p>
+
+                            {/* Hover detail */}
+                            <div className="absolute top-20 left-1/2 -translate-x-1/2 w-44 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all duration-200 z-20 translate-y-2 group-hover:translate-y-0 mt-10">
+                              <div className="rounded-lg border border-primary/20 bg-card p-3 shadow-xl">
+                                <div className="space-y-1">
+                                  {group.modules.map((mod, j) => (
+                                    <p key={j} className="text-[10px] text-muted-foreground flex items-center gap-1">
+                                      <span className="w-1 h-1 rounded-full bg-primary/50 flex-shrink-0" />
+                                      {mod.name[language]}
+                                    </p>
+                                  ))}
+                                </div>
+                                <div className="mt-2 pt-2 border-t border-border">
+                                  <p className="text-[10px] font-bold text-primary">USD {group.subtotalMonthly}{t.perMonth}</p>
+                                </div>
+                              </div>
+                            </div>
                           </div>
-                          <div className="flex-1 min-w-0">
-                            <p className="text-sm font-bold text-foreground truncate">{group.subtotalName[language]}</p>
-                            <p className="text-[11px] text-muted-foreground">{group.modules.length} {t.modules}</p>
-                          </div>
-                          <Badge variant="outline" className="text-[10px] font-mono flex-shrink-0">{group.label}</Badge>
-                        </div>
-                        <div className="space-y-0.5">
-                          {group.modules.slice(0, 3).map((mod, j) => (
-                            <p key={j} className="text-[11px] text-muted-foreground truncate flex items-center gap-1">
-                              <span className="w-1 h-1 rounded-full bg-primary/40 flex-shrink-0" />
-                              {mod.name[language]}
-                            </p>
-                          ))}
-                          {group.modules.length > 3 && (
-                            <p className="text-[11px] text-primary/60 font-medium">+{group.modules.length - 3} más</p>
-                          )}
-                        </div>
-                      </div>
-                    );
-                  })}
+                        );
+                      })}
+                    </div>
+                  </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-4">
+                {/* Bottom cards */}
+                <div className="grid md:grid-cols-2 gap-4 mt-6">
                   <div className="rounded-lg border border-border bg-card p-4 hover:border-primary/30 transition-colors">
                     <div className="flex items-center gap-2 mb-2">
                       <Users className="w-4 h-4 text-primary" />

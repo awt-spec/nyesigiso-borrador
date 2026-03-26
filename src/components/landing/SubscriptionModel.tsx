@@ -155,8 +155,8 @@ const SubscriptionModel = () => {
                   </div>
 
                   <div className="flex items-center gap-2 mb-2">
-                    <Infinity className="w-3.5 h-3.5 text-primary" />
-                    <span className="text-[10px] font-bold text-primary uppercase tracking-wider">{t.unlimited}</span>
+                    <Infinity className="w-4 h-4 text-primary drop-shadow-[0_0_6px_hsl(var(--primary)/0.6)]" />
+                    <span className="text-xs font-black text-primary uppercase tracking-wider drop-shadow-[0_0_8px_hsl(var(--primary)/0.4)]">{t.unlimited}</span>
                   </div>
 
                   <h3 className="text-background font-bold text-sm mb-2 group-hover:text-primary transition-colors">

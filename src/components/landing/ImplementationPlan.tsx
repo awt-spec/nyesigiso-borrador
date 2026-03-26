@@ -1005,7 +1005,8 @@ const ImplementationPlan = () => {
                 <table className="w-full text-sm">
                   <tbody>
                     <tr className="bg-muted/30">
-                      <td className="px-4 py-3 font-semibold text-foreground">{t.totalAlaCarte}</td>
+                      <td className="px-4 py-3 font-semibold text-foreground" colSpan={2}>{t.totalAlaCarte}</td>
+                      <td className="px-3 py-3 text-right font-bold text-muted-foreground">USD $62,700</td>
                       <td className="px-3 py-3 text-right font-bold text-foreground">USD $20,900</td>
                       <td className="px-3 py-3 text-right text-muted-foreground">USD $62,700</td>
                       <td className="px-4 py-3 text-right text-muted-foreground">USD $250,800</td>

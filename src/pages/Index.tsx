@@ -24,6 +24,7 @@ const IndexContent = () => {
     <div className="min-h-screen">
       <Header />
       <Hero />
+      <ImplementationPlan />
       <SynthesisTable />
 
       {/* Expandable domain detail */}
@@ -58,8 +59,6 @@ const IndexContent = () => {
           <DomainSection key={domain.id} domain={domain} index={i} />
         ))}
       </div>
-
-      <ImplementationPlan />
       <Footer />
     </div>
   );

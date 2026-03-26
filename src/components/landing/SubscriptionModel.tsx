@@ -13,7 +13,7 @@ const labels: Record<Lang, Record<string, string>> = {
     subtitle: "Una suscripción que hace crecer a Nyèsigiso. Sin límites de usuarios, sin restricciones de agencias, sin costos ocultos.",
     unlimited: "Ilimitado",
     usersTitle: "Usuarios Ilimitados",
-    usersDesc: "Sin restricción de puestos de trabajo ni usuarios simultáneos. Toda la organización conectada.",
+    usersDesc: "Sin restricción de la cantidad de puestos de trabajo. Toda la organización conectada hoy y a futuro.",
     agenciesTitle: "Agencias Ilimitadas",
     agenciesDesc: "94 sucursales operando en tiempo real sobre una plataforma unificada y centralizada.",
     licensesTitle: "Licencias Ilimitadas",

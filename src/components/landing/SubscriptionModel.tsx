@@ -8,7 +8,7 @@ type Lang = "es" | "fr" | "en";
 const labels: Record<Lang, Record<string, string>> = {
   es: {
     badge: "MODELO DE SUSCRIPCIÓN",
-    title: "Todo Ilimitado. Sin Sorpresas.",
+    title: "Todo Ilimitado. Sin costos adicionales. Sin Sorpresas.",
     subtitle: "Una suscripción que crece con Nyèsigiso. Sin límites de usuarios, sin restricciones de agencias, sin costos ocultos.",
     unlimited: "Ilimitado",
     usersTitle: "Usuarios Concurrentes",
@@ -32,7 +32,7 @@ const labels: Record<Lang, Record<string, string>> = {
   },
   fr: {
     badge: "MODÈLE D'ABONNEMENT",
-    title: "Tout Illimité. Sans Surprises.",
+    title: "Tout Illimité. Sans coûts additionnels. Sans Surprises.",
     subtitle: "Un abonnement qui grandit avec Nyèsigiso. Sans limites d'utilisateurs, sans restrictions d'agences, sans coûts cachés.",
     unlimited: "Illimité",
     usersTitle: "Utilisateurs Concurrents",
@@ -56,7 +56,7 @@ const labels: Record<Lang, Record<string, string>> = {
   },
   en: {
     badge: "SUBSCRIPTION MODEL",
-    title: "Everything Unlimited. No Surprises.",
+    title: "Everything Unlimited. No Additional Costs. No Surprises.",
     subtitle: "A subscription that grows with Nyèsigiso. No user limits, no agency restrictions, no hidden costs.",
     unlimited: "Unlimited",
     usersTitle: "Concurrent Users",

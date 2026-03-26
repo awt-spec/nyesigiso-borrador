@@ -5,8 +5,8 @@ export const translations = {
       cta: "Ver Cobertura",
     },
     hero: {
-      title: "Cobertura Total para NYESIGISO",
-      subtitle: "Migración SAF UPV 7.0 y Consolidación de 87 Bases de Datos",
+      title: "NYESIGISO DIGITAL",
+      subtitle: "El core bancario más robusto de África Occidental. Una plataforma. 87 bases. 94 agencias. Sin límites.",
       cta: "Explorar Dominios",
       stats: {
         items: "Items Evaluados",
@@ -41,8 +41,8 @@ export const translations = {
       cta: "Voir Couverture",
     },
     hero: {
-      title: "Couverture Totale pour NYESIGISO",
-      subtitle: "Migration SAF UPV 7.0 et Consolidation de 87 Bases de Données",
+      title: "NYESIGISO DIGITAL",
+      subtitle: "Le core banking le plus robuste d'Afrique de l'Ouest. Une plateforme. 87 bases. 94 agences. Sans limites.",
       cta: "Explorer les Domaines",
       stats: {
         items: "Items Évalués",
@@ -77,8 +77,8 @@ export const translations = {
       cta: "View Coverage",
     },
     hero: {
-      title: "Full Coverage for NYESIGISO",
-      subtitle: "SAF UPV 7.0 Migration & Consolidation of 87 Databases",
+      title: "NYESIGISO DIGITAL",
+      subtitle: "West Africa's most robust core banking platform. One platform. 87 databases. 94 agencies. No limits.",
       cta: "Explore Domains",
       stats: {
         items: "Items Evaluated",

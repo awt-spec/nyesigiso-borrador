@@ -3,8 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { CheckCircle2, Layers, DollarSign, TrendingDown, ChevronRight, Shield, AlertTriangle, Scale, Globe, Users, Building, UserCheck, BarChart3, Workflow, Zap, Calendar, ChevronDown, ChevronUp, Eye, ShoppingCart, Package, Server, Database, FileCheck, Headphones, BarChart } from "lucide-react";
-import { useEffect, useRef, useState, useMemo } from "react";
+import { CheckCircle2, Layers, DollarSign, TrendingDown, ChevronRight, Shield, AlertTriangle, Scale, Globe, Users, Building, UserCheck, BarChart3, Workflow, Zap, Calendar, ChevronDown, ChevronUp, Eye, Package, Server, Database, FileCheck, Headphones, BarChart } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 type Lang = "es" | "fr" | "en";
 
@@ -120,8 +120,8 @@ const moduleGroups: ModuleGroup[] = [
 
 const labels: Record<Lang, Record<string, string>> = {
   es: {
-    title: "Propuesta de Expansión",
-    subtitle: "FASE 1 — Base · FASE 2 — ALL IN",
+    title: "Propuesta de Transformación",
+    subtitle: "PROPUESTA INICIAL · PROPUESTA INTEGRAL",
     expandAll: "Expandir todo",
     collapseAll: "Colapsar todo",
     detailTitle: "Detalle de Módulos Adicionales",
@@ -133,36 +133,23 @@ const labels: Record<Lang, Record<string, string>> = {
     quarterly: "Susc./Trim",
     annual: "Susc./Año",
     subtotal: "Subtotal",
-    totalAlaCarte: "TOTAL A LA CARTA",
-    totalAllIn: "FASE 2 ALL IN (incluye FASE 1)",
-    totalSavings: "AHORRO eligiendo ALL IN",
     perMonth: "/mes",
+    perQuarter: "/trim",
     billing: "Suscripción mensual · Facturación trimestral anticipada · Precios en USD",
-    chooseTitle: "Escoja su Modalidad",
-    chooseSubtitle: "Dos opciones para implementar los 30 módulos adicionales",
-    option1Title: "Opción A — A la Carta",
-    option1Subtitle: "Implemente módulos individuales cuando quiera",
-    option1Desc: "Elija e implemente solo los módulos que necesita, uno por uno, al precio individual del Cadre de Réponse. Sin compromiso de paquete.",
-    option1Price: "USD $20,900",
-    option1Note: "Suma de todos los módulos por separado",
-    option2Title: "Opción B — ALL IN",
-    option2Subtitle: "Todos los 30 módulos en un solo bundle",
-    option2Desc: "Implemente todos los módulos de una vez con un descuento masivo. Incluye FASE 1 + FASE 2 por un precio único e imbatible.",
-    option2Price: "USD $16,999",
-    option2Note: "FASE 1 (USD $7,500) + FASE 2 (USD $9,499)",
-    phase1: "FASE 1 — BASE VIGENTE",
+    proposalTitle: "Propuesta Integral",
+    proposalSubtitle: "Todo lo de la Propuesta Inicial + 30 módulos adicionales",
+    proposalDesc: "La transformación digital completa de Nyèsigiso. Incluye toda la base vigente más los 30 módulos que llevan la operación al siguiente nivel.",
+    proposalPrice: "USD $16,999",
+    proposalNote: "Propuesta Inicial (USD $7,500) + Módulos Adicionales (USD $9,499)",
+    phase1: "PROPUESTA INICIAL",
     phase1desc: "SAF UPV 7.0 · 87 BD · 94 Agencias",
     phase1note: "Ya activo desde la firma",
-    phase1includes: "Migración SAF UPV 7.0 completa · Consolidación 87 BD → 1 · Licencias ilimitadas · Soporte + BCEAO",
     setupFee: "Setup Fee (único)",
     active: "ACTIVA",
     recommended: "RECOMENDADO",
-    savingsTitle: "Ahorro vs. A la Carta",
-    savingsDesc: "eligiendo ALL IN",
     comparisonTitle: "Comparación de Escenarios",
-    phase1Label: "FASE 1",
-    alaCarte: "A la Carta",
-    allIn: "ALL IN",
+    phase1Label: "PROPUESTA INICIAL",
+    integralLabel: "PROPUESTA INTEGRAL",
     coverage: "Cobertura",
     modules: "Módulos",
     perMonthLabel: "Susc./Mes",
@@ -172,8 +159,8 @@ const labels: Record<Lang, Record<string, string>> = {
     hideDetail: "Ocultar Detalle",
     cronogramaTitle: "Cronograma de Implementación",
     cronogramaSubtitle: "Plan de despliegue por fases",
-    cronogramaPhase1: "FASE 1 — Migración y Consolidación",
-    cronogramaPhase2: "FASE 2 — ALL IN / A la Carta",
+    cronogramaPhase1: "PROPUESTA INICIAL — Migración y Consolidación",
+    cronogramaPhase2: "PROPUESTA INTEGRAL — Módulos Adicionales",
     cronogramaDate: "Fecha",
     cronogramaActivity: "Actividad",
     cronogramaAcceptance: "Aceptación del proyecto",
@@ -205,8 +192,8 @@ const labels: Record<Lang, Record<string, string>> = {
     cronogramaP2Support: "Acompañamiento SYSDE",
     cronogramaP2SupportDesc: "Capacitación, operación en paralelo, validación y puesta en producción progresiva para cada módulo implementado.",
     cronogramaP2NoteTitle: "Calendario abierto y flexible",
-    cronogramaP2NoteDesc: "La Fase 2 no tiene un cronograma rígido. Los módulos se implementan según las necesidades y prioridades que Nyèsigiso determine, con acompañamiento completo de SYSDE en cada etapa.",
-    phase1DetailTitle: "¿Qué incluye la Fase 1?",
+    cronogramaP2NoteDesc: "La Propuesta Integral no tiene un cronograma rígido. Los módulos se implementan según las necesidades y prioridades que Nyèsigiso determine, con acompañamiento completo de SYSDE en cada etapa.",
+    phase1DetailTitle: "¿Qué incluye la Propuesta Inicial?",
     phase1Item1: "Migración completa a SAF UPV 7.0",
     phase1Item1Desc: "Actualización integral del Core Banking al último release de SYSDE, con todas las funcionalidades actuales preservadas.",
     phase1Item2: "Consolidación de 87 Bases de Datos → 1",
@@ -219,19 +206,11 @@ const labels: Record<Lang, Record<string, string>> = {
     phase1Item5Desc: "Informes regulatorios y operacionales listos para cumplir con los requisitos del Banco Central.",
     phase1Item6: "Soporte técnico incluido",
     phase1Item6Desc: "Acceso completo al equipo de soporte SYSDE para solicitudes, correcciones y asistencia continua.",
-    aLaCarteSimTitle: "Simulador A la Carta",
-    aLaCarteSimDesc: "Seleccione los módulos que desea implementar y vea cómo se actualiza el precio en tiempo real.",
-    selectedModules: "módulos seleccionados",
-    yourMonthly: "Su Suscripción Mensual",
-    yourSetupFee: "Su Setup Fee",
-    totalWithPhase1: "Total con Fase 1",
-    selectAll: "Seleccionar todo",
-    clearAll: "Limpiar selección",
     setupFeeLabel: "Setup Fee",
   },
   fr: {
-    title: "Proposition d'Expansion",
-    subtitle: "PHASE 1 — Base · PHASE 2 — ALL IN",
+    title: "Proposition de Transformation",
+    subtitle: "PROPOSITION INITIALE · PROPOSITION INTÉGRALE",
     expandAll: "Tout développer",
     collapseAll: "Tout réduire",
     detailTitle: "Détail des Modules Additionnels",
@@ -243,36 +222,23 @@ const labels: Record<Lang, Record<string, string>> = {
     quarterly: "Abon./Trim",
     annual: "Abon./An",
     subtotal: "Sous-total",
-    totalAlaCarte: "TOTAL À LA CARTE",
-    totalAllIn: "PHASE 2 ALL IN (inclut PHASE 1)",
-    totalSavings: "ÉCONOMIE en choisissant ALL IN",
     perMonth: "/mois",
+    perQuarter: "/trim",
     billing: "Abonnement mensuel · Facturation trimestrielle anticipée · Prix en USD",
-    chooseTitle: "Choisissez votre Modalité",
-    chooseSubtitle: "Deux options pour déployer les 30 modules supplémentaires",
-    option1Title: "Option A — À la Carte",
-    option1Subtitle: "Déployez les modules individuels quand vous voulez",
-    option1Desc: "Choisissez et déployez uniquement les modules dont vous avez besoin, un par un, au prix individuel du Cadre de Réponse. Sans engagement de package.",
-    option1Price: "USD $20,900",
-    option1Note: "Somme de tous les modules séparément",
-    option2Title: "Option B — ALL IN",
-    option2Subtitle: "Les 30 modules dans un seul bundle",
-    option2Desc: "Déployez tous les modules d'un coup avec une remise massive. Inclut PHASE 1 + PHASE 2 pour un prix unique et imbattable.",
-    option2Price: "USD $16,999",
-    option2Note: "PHASE 1 (USD $7,500) + PHASE 2 (USD $9,499)",
-    phase1: "PHASE 1 — BASE ACTIVE",
+    proposalTitle: "Proposition Intégrale",
+    proposalSubtitle: "Tout de la Proposition Initiale + 30 modules supplémentaires",
+    proposalDesc: "La transformation digitale complète de Nyèsigiso. Inclut toute la base active plus les 30 modules qui amènent l'opération au niveau supérieur.",
+    proposalPrice: "USD $16,999",
+    proposalNote: "Proposition Initiale (USD $7,500) + Modules Additionnels (USD $9,499)",
+    phase1: "PROPOSITION INITIALE",
     phase1desc: "SAF UPV 7.0 · 87 BD · 94 Agences",
     phase1note: "Active depuis la signature",
-    phase1includes: "Migration SAF UPV 7.0 complète · Consolidation 87 BD → 1 · Licences illimitées · Support + BCEAO",
     setupFee: "Setup Fee (unique)",
     active: "ACTIVE",
     recommended: "RECOMMANDÉ",
-    savingsTitle: "Économie vs. À la Carte",
-    savingsDesc: "en choisissant ALL IN",
     comparisonTitle: "Comparaison des Scénarios",
-    phase1Label: "PHASE 1",
-    alaCarte: "À la Carte",
-    allIn: "ALL IN",
+    phase1Label: "PROPOSITION INITIALE",
+    integralLabel: "PROPOSITION INTÉGRALE",
     coverage: "Couverture",
     modules: "Modules",
     perMonthLabel: "Abon./Mois",
@@ -282,8 +248,8 @@ const labels: Record<Lang, Record<string, string>> = {
     hideDetail: "Masquer Détail",
     cronogramaTitle: "Chronogramme d'Implémentation",
     cronogramaSubtitle: "Plan de déploiement par phases",
-    cronogramaPhase1: "PHASE 1 — Migration et Consolidation",
-    cronogramaPhase2: "PHASE 2 — ALL IN / À la Carte",
+    cronogramaPhase1: "PROPOSITION INITIALE — Migration et Consolidation",
+    cronogramaPhase2: "PROPOSITION INTÉGRALE — Modules Additionnels",
     cronogramaDate: "Date",
     cronogramaActivity: "Activité",
     cronogramaAcceptance: "Acceptation du projet",
@@ -315,8 +281,8 @@ const labels: Record<Lang, Record<string, string>> = {
     cronogramaP2Support: "Accompagnement SYSDE",
     cronogramaP2SupportDesc: "Formation, fonctionnement en parallèle, validation et mise en production progressive pour chaque module déployé.",
     cronogramaP2NoteTitle: "Calendrier ouvert et flexible",
-    cronogramaP2NoteDesc: "La Phase 2 n'a pas de chronogramme rigide. Les modules sont déployés selon les besoins et priorités que Nyèsigiso détermine, avec accompagnement complet de SYSDE à chaque étape.",
-    phase1DetailTitle: "Que comprend la Phase 1 ?",
+    cronogramaP2NoteDesc: "La Proposition Intégrale n'a pas de chronogramme rigide. Les modules sont déployés selon les besoins et priorités que Nyèsigiso détermine, avec accompagnement complet de SYSDE à chaque étape.",
+    phase1DetailTitle: "Que comprend la Proposition Initiale ?",
     phase1Item1: "Migration complète vers SAF UPV 7.0",
     phase1Item1Desc: "Mise à niveau intégrale du Core Banking vers la dernière version SYSDE, toutes fonctionnalités actuelles préservées.",
     phase1Item2: "Consolidation de 87 Bases de Données → 1",
@@ -329,19 +295,11 @@ const labels: Record<Lang, Record<string, string>> = {
     phase1Item5Desc: "Rapports réglementaires et opérationnels prêts pour répondre aux exigences de la Banque Centrale.",
     phase1Item6: "Support technique inclus",
     phase1Item6Desc: "Accès complet à l'équipe de support SYSDE pour requêtes, corrections et assistance continue.",
-    aLaCarteSimTitle: "Simulateur À la Carte",
-    aLaCarteSimDesc: "Sélectionnez les modules à déployer et visualisez le prix en temps réel.",
-    selectedModules: "modules sélectionnés",
-    yourMonthly: "Votre Abonnement Mensuel",
-    yourSetupFee: "Votre Setup Fee",
-    totalWithPhase1: "Total avec Phase 1",
-    selectAll: "Tout sélectionner",
-    clearAll: "Effacer sélection",
     setupFeeLabel: "Setup Fee",
   },
   en: {
-    title: "Expansion Proposal",
-    subtitle: "PHASE 1 — Base · PHASE 2 — ALL IN",
+    title: "Transformation Proposal",
+    subtitle: "INITIAL PROPOSAL · INTEGRAL PROPOSAL",
     expandAll: "Expand all",
     collapseAll: "Collapse all",
     detailTitle: "Additional Module Detail",
@@ -353,36 +311,23 @@ const labels: Record<Lang, Record<string, string>> = {
     quarterly: "Subs./Qtr",
     annual: "Subs./Yr",
     subtotal: "Subtotal",
-    totalAlaCarte: "TOTAL À LA CARTE",
-    totalAllIn: "PHASE 2 ALL IN (includes PHASE 1)",
-    totalSavings: "SAVINGS by choosing ALL IN",
     perMonth: "/mo",
+    perQuarter: "/qtr",
     billing: "Monthly subscription · Quarterly prepaid billing · Prices in USD",
-    chooseTitle: "Choose your Option",
-    chooseSubtitle: "Two ways to deploy the 30 additional modules",
-    option1Title: "Option A — À la Carte",
-    option1Subtitle: "Deploy individual modules when you want",
-    option1Desc: "Choose and deploy only the modules you need, one by one, at individual Cadre de Réponse pricing. No package commitment.",
-    option1Price: "USD $20,900",
-    option1Note: "Sum of all modules separately",
-    option2Title: "Option B — ALL IN",
-    option2Subtitle: "All 30 modules in a single bundle",
-    option2Desc: "Deploy all modules at once with a massive discount. Includes PHASE 1 + PHASE 2 for a single unbeatable price.",
-    option2Price: "USD $16,999",
-    option2Note: "PHASE 1 (USD $7,500) + PHASE 2 (USD $9,499)",
-    phase1: "PHASE 1 — CURRENT BASE",
+    proposalTitle: "Integral Proposal",
+    proposalSubtitle: "Everything in the Initial Proposal + 30 additional modules",
+    proposalDesc: "The complete digital transformation of Nyèsigiso. Includes the entire active base plus the 30 modules that take operations to the next level.",
+    proposalPrice: "USD $16,999",
+    proposalNote: "Initial Proposal (USD $7,500) + Additional Modules (USD $9,499)",
+    phase1: "INITIAL PROPOSAL",
     phase1desc: "SAF UPV 7.0 · 87 DBs · 94 Agencies",
     phase1note: "Active since signing",
-    phase1includes: "Full SAF UPV 7.0 migration · 87 DB consolidation → 1 · Unlimited licenses · Support + BCEAO",
     setupFee: "Setup Fee (one-time)",
     active: "ACTIVE",
     recommended: "RECOMMENDED",
-    savingsTitle: "Savings vs. À la Carte",
-    savingsDesc: "by choosing ALL IN",
     comparisonTitle: "Scenario Comparison",
-    phase1Label: "PHASE 1",
-    alaCarte: "À la Carte",
-    allIn: "ALL IN",
+    phase1Label: "INITIAL PROPOSAL",
+    integralLabel: "INTEGRAL PROPOSAL",
     coverage: "Coverage",
     modules: "Modules",
     perMonthLabel: "Subs./Mo",
@@ -392,8 +337,8 @@ const labels: Record<Lang, Record<string, string>> = {
     hideDetail: "Hide Detail",
     cronogramaTitle: "Implementation Timeline",
     cronogramaSubtitle: "Phase-based deployment plan",
-    cronogramaPhase1: "PHASE 1 — Migration & Consolidation",
-    cronogramaPhase2: "PHASE 2 — ALL IN / À la Carte",
+    cronogramaPhase1: "INITIAL PROPOSAL — Migration & Consolidation",
+    cronogramaPhase2: "INTEGRAL PROPOSAL — Additional Modules",
     cronogramaDate: "Date",
     cronogramaActivity: "Activity",
     cronogramaAcceptance: "Project acceptance",
@@ -425,8 +370,8 @@ const labels: Record<Lang, Record<string, string>> = {
     cronogramaP2Support: "SYSDE Accompaniment",
     cronogramaP2SupportDesc: "Training, parallel operation, validation, and progressive rollout for each deployed module.",
     cronogramaP2NoteTitle: "Open & Flexible Calendar",
-    cronogramaP2NoteDesc: "Phase 2 has no rigid timeline. Modules are deployed based on needs and priorities determined by Nyèsigiso, with full SYSDE accompaniment at every stage.",
-    phase1DetailTitle: "What does Phase 1 include?",
+    cronogramaP2NoteDesc: "The Integral Proposal has no rigid timeline. Modules are deployed based on needs and priorities determined by Nyèsigiso, with full SYSDE accompaniment at every stage.",
+    phase1DetailTitle: "What does the Initial Proposal include?",
     phase1Item1: "Full migration to SAF UPV 7.0",
     phase1Item1Desc: "Complete Core Banking upgrade to SYSDE's latest release, preserving all current functionality.",
     phase1Item2: "Consolidation of 87 Databases → 1",
@@ -439,14 +384,6 @@ const labels: Record<Lang, Record<string, string>> = {
     phase1Item5Desc: "Regulatory and operational reports ready to meet Central Bank requirements.",
     phase1Item6: "Technical support included",
     phase1Item6Desc: "Full access to SYSDE's support team for requests, fixes, and ongoing assistance.",
-    aLaCarteSimTitle: "À la Carte Simulator",
-    aLaCarteSimDesc: "Select the modules you want to deploy and see pricing update in real time.",
-    selectedModules: "modules selected",
-    yourMonthly: "Your Monthly Subscription",
-    yourSetupFee: "Your Setup Fee",
-    totalWithPhase1: "Total with Phase 1",
-    selectAll: "Select all",
-    clearAll: "Clear selection",
     setupFeeLabel: "Setup Fee",
   },
 };
@@ -462,15 +399,11 @@ const usd = (v: string) => {
   return v.startsWith("$") ? `USD ${v}` : v.startsWith("−$") ? `−USD ${v.slice(1)}` : v;
 };
 
-const formatUSD = (n: number) => `USD $${n.toLocaleString("en-US")}`;
-
 const ImplementationPlan = () => {
   const { language } = useLanguage();
   const [visible, setVisible] = useState(false);
   const [showAll, setShowAll] = useState(false);
-  const [showAllInDetail, setShowAllInDetail] = useState(false);
-  const [selectedModules, setSelectedModules] = useState<Set<string>>(new Set());
-  const [activeTab, setActiveTab] = useState<"comparison" | "alacarte" | "allin">("comparison");
+  const [activeTab, setActiveTab] = useState<"comparison" | "allin">("comparison");
   const ref = useRef<HTMLElement>(null);
   const t = labels[language];
 
@@ -482,41 +415,6 @@ const ImplementationPlan = () => {
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);
-
-  // À la carte interactive calculations
-  const aLaCarteCalc = useMemo(() => {
-    let monthlyTotal = 0;
-    let setupTotal = 0;
-    let count = 0;
-    moduleGroups.forEach(g => {
-      g.modules.forEach(m => {
-        const key = `${g.id}-${m.name.en}`;
-        if (selectedModules.has(key)) {
-          monthlyTotal += m.monthlyNum;
-          setupTotal += m.setupFeeNum;
-          count++;
-        }
-      });
-    });
-    return { monthlyTotal, setupTotal, count, withPhase1: monthlyTotal + 7500 };
-  }, [selectedModules]);
-
-  const toggleModule = (key: string) => {
-    setSelectedModules(prev => {
-      const next = new Set(prev);
-      if (next.has(key)) next.delete(key);
-      else next.add(key);
-      return next;
-    });
-  };
-
-  const selectAllModules = () => {
-    const all = new Set<string>();
-    moduleGroups.forEach(g => g.modules.forEach(m => all.add(`${g.id}-${m.name.en}`)));
-    setSelectedModules(all);
-  };
-
-  const clearAllModules = () => setSelectedModules(new Set());
 
   const phase1Items = [
     { icon: Database, title: t.phase1Item1, desc: t.phase1Item1Desc },
@@ -552,13 +450,13 @@ const ImplementationPlan = () => {
         <div className={`overflow-hidden transition-all duration-500 ${showAll ? "max-h-none opacity-100" : "max-h-0 opacity-0"}`}>
 
         {/* ═══════════════════════════════════════════════ */}
-        {/* FASE 1 — Detailed Explanation */}
+        {/* PROPUESTA INICIAL — Detailed Explanation */}
         {/* ═══════════════════════════════════════════════ */}
         <div className={`mb-10 transition-all duration-700 delay-100 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <Card className="border-emerald-500/30 bg-emerald-500/5 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-1 bg-emerald-500" />
             <CardContent className="p-6">
-              {/* Top row: badge + price */}
+              {/* Top row: badge + pricing */}
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                 <div className="flex items-center gap-3">
                   <Badge className="bg-emerald-500 text-white text-xs">{t.active}</Badge>
@@ -567,14 +465,23 @@ const ImplementationPlan = () => {
                     <p className="text-sm text-muted-foreground">{t.phase1desc}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4 flex-wrap">
-                  <div className="text-right">
-                    <span className="text-2xl font-bold text-foreground">USD $7,500</span>
-                    <span className="text-muted-foreground text-sm">{t.perMonth}</span>
+                <div className="flex items-center gap-5 flex-wrap">
+                  {/* Setup Fee - prominent */}
+                  <div className="text-center">
+                    <p className="text-xs text-muted-foreground font-medium mb-0.5">{t.setupFee}</p>
+                    <span className="text-2xl font-bold text-foreground">USD $35,000</span>
                   </div>
-                  <div className="text-right border-l border-border pl-4">
-                    <p className="text-xs text-muted-foreground">{t.setupFee}</p>
-                    <span className="text-lg font-bold text-foreground">USD $35,000</span>
+                  <div className="w-px h-10 bg-border hidden md:block" />
+                  {/* Monthly */}
+                  <div className="text-center">
+                    <p className="text-xs text-muted-foreground font-medium mb-0.5">{t.perMonthLabel}</p>
+                    <span className="text-2xl font-bold text-foreground">USD $7,500</span>
+                  </div>
+                  <div className="w-px h-10 bg-border hidden md:block" />
+                  {/* Quarterly */}
+                  <div className="text-center">
+                    <p className="text-xs text-muted-foreground font-medium mb-0.5">{t.perQuarterLabel}</p>
+                    <span className="text-2xl font-bold text-foreground">USD $22,500</span>
                   </div>
                   <Badge variant="secondary" className="text-xs">~69% {t.coverage}</Badge>
                 </div>
@@ -610,103 +517,51 @@ const ImplementationPlan = () => {
         </div>
 
         {/* ═══════════════════════════════════════════════ */}
-        {/* CHOOSE YOUR OPTION + OPTIONS CARDS */}
+        {/* PROPUESTA INTEGRAL — Main Card */}
         {/* ═══════════════════════════════════════════════ */}
         <div className={`transition-all duration-700 delay-200 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-medium mb-3">
-              <Zap className="w-4 h-4" />
-              {t.chooseSubtitle}
-            </div>
-            <h3 className="text-2xl font-bold text-foreground">{t.chooseTitle}</h3>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-5 mb-8">
-            {/* Option A */}
-            <Card className="border-border hover:border-primary/30 transition-colors relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-1 bg-muted-foreground/30" />
-              <CardHeader className="pb-3">
-                <CardTitle className="text-lg font-bold text-foreground">{t.option1Title}</CardTitle>
-                <p className="text-sm text-muted-foreground">{t.option1Subtitle}</p>
-              </CardHeader>
-              <CardContent className="pt-0 space-y-3">
-                <p className="text-sm text-muted-foreground">{t.option1Desc}</p>
-                <div className="pt-2 space-y-1">
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-3xl font-bold text-foreground">{t.option1Price}</span>
-                    <span className="text-muted-foreground text-sm">{t.perMonth}</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                    <span className="bg-muted px-2 py-0.5 rounded font-medium">{t.phase1Label}: USD $7,500</span>
-                    <span>+</span>
-                    <span className="bg-muted px-2 py-0.5 rounded font-medium">FASE 2: USD $20,900</span>
-                  </div>
-                </div>
-                <p className="text-xs text-muted-foreground">{t.option1Note}</p>
-              </CardContent>
-            </Card>
-
-            {/* Option B */}
+          <div className="mb-8">
             <Card className="border-primary/40 bg-primary/5 relative overflow-hidden ring-2 ring-primary/20">
               <div className="absolute top-0 left-0 w-full h-1 bg-primary" />
               <div className="absolute top-3 right-3">
                 <Badge className="bg-primary text-primary-foreground text-xs">{t.recommended}</Badge>
               </div>
               <CardHeader className="pb-3">
-                <CardTitle className="text-lg font-bold text-foreground">{t.option2Title}</CardTitle>
-                <p className="text-sm text-muted-foreground">{t.option2Subtitle}</p>
+                <CardTitle className="text-xl font-bold text-foreground">{t.proposalTitle}</CardTitle>
+                <p className="text-sm text-muted-foreground">{t.proposalSubtitle}</p>
               </CardHeader>
-              <CardContent className="pt-0 space-y-3">
-                <p className="text-sm text-muted-foreground">{t.option2Desc}</p>
-                <div className="pt-2 space-y-1">
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-3xl font-bold text-primary">{t.option2Price}</span>
-                    <span className="text-muted-foreground text-sm">{t.perMonth}</span>
+              <CardContent className="pt-0 space-y-4">
+                <p className="text-sm text-muted-foreground">{t.proposalDesc}</p>
+                <div className="flex items-center gap-5 flex-wrap pt-2">
+                  <div className="text-center">
+                    <p className="text-xs text-muted-foreground font-medium mb-0.5">{t.setupFee}</p>
+                    <span className="text-2xl font-bold text-foreground">USD $35,000</span>
                   </div>
-                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                    <span className="bg-primary/10 text-primary px-2 py-0.5 rounded font-medium">{t.phase1Label}: USD $7,500</span>
-                    <span>+</span>
-                    <span className="bg-primary/10 text-primary px-2 py-0.5 rounded font-medium">FASE 2: USD $9,499</span>
+                  <div className="w-px h-10 bg-border" />
+                  <div className="text-center">
+                    <p className="text-xs text-muted-foreground font-medium mb-0.5">{t.perMonthLabel}</p>
+                    <span className="text-3xl font-bold text-primary">USD $16,999</span>
+                  </div>
+                  <div className="w-px h-10 bg-border" />
+                  <div className="text-center">
+                    <p className="text-xs text-muted-foreground font-medium mb-0.5">{t.perQuarterLabel}</p>
+                    <span className="text-2xl font-bold text-primary">USD $50,997</span>
                   </div>
                 </div>
-                <p className="text-xs text-muted-foreground">{t.option2Note}</p>
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <span className="bg-primary/10 text-primary px-2 py-0.5 rounded font-medium">{t.phase1Label}: USD $7,500</span>
+                  <span>+</span>
+                  <span className="bg-primary/10 text-primary px-2 py-0.5 rounded font-medium">{language === "es" ? "Módulos Adicionales" : language === "fr" ? "Modules Additionnels" : "Additional Modules"}: USD $9,499</span>
+                </div>
+                <p className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">
+                  {language === "es" ? "Sin setup fee adicional — todo incluido en USD $35,000" : language === "fr" ? "Pas de setup fee additionnel — tout inclus dans USD $35,000" : "No additional setup fee — everything included in USD $35,000"}
+                </p>
               </CardContent>
             </Card>
           </div>
 
-          {/* Savings Banner */}
-          <Card className="border-emerald-500/30 bg-gradient-to-r from-emerald-500/10 to-emerald-500/5 mb-8">
-            <CardContent className="p-5">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center">
-                    <TrendingDown className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
-                  </div>
-                  <div>
-                    <p className="font-bold text-foreground">{t.savingsTitle}</p>
-                    <p className="text-sm text-muted-foreground">{t.savingsDesc}</p>
-                  </div>
-                </div>
-                <div className="flex gap-6 text-center">
-                  <div>
-                    <p className="text-xs text-muted-foreground uppercase">{t.perMonthLabel}</p>
-                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−USD $11,401 <span className="text-sm">(40%)</span></p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground uppercase">{t.perQuarterLabel}</p>
-                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−USD $34,203 <span className="text-sm">(40%)</span></p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground uppercase">{t.perYearLabel}</p>
-                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">−USD $136,812 <span className="text-sm">(40%)</span></p>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
           {/* ═══════════════════════════════════════════════ */}
-          {/* INTERACTIVE COMPARISON / À LA CARTE TABS */}
+          {/* INTERACTIVE TABS: Comparison / ALL IN Detail */}
           {/* ═══════════════════════════════════════════════ */}
           <div className="mb-10">
             {/* Tab switcher */}
@@ -723,17 +578,6 @@ const ImplementationPlan = () => {
                 {t.comparisonTitle}
               </button>
               <button
-                onClick={() => setActiveTab("alacarte")}
-                className={`px-5 py-2.5 rounded-lg text-sm font-semibold transition-all ${
-                  activeTab === "alacarte"
-                    ? "bg-primary text-primary-foreground shadow-lg"
-                    : "bg-muted text-muted-foreground hover:bg-muted/80"
-                }`}
-              >
-                <ShoppingCart className="w-4 h-4 inline mr-1.5" />
-                {t.aLaCarteSimTitle}
-              </button>
-              <button
                 onClick={() => setActiveTab("allin")}
                 className={`px-5 py-2.5 rounded-lg text-sm font-semibold transition-all ${
                   activeTab === "allin"
@@ -742,7 +586,7 @@ const ImplementationPlan = () => {
                 }`}
               >
                 <Package className="w-4 h-4 inline mr-1.5" />
-                ALL IN
+                {t.proposalTitle}
               </button>
             </div>
 
@@ -759,12 +603,8 @@ const ImplementationPlan = () => {
                             <div className="font-semibold text-foreground">{t.phase1Label}</div>
                             <div className="text-[10px] text-muted-foreground font-normal">67 {t.modules}</div>
                           </th>
-                          <th className="text-center px-4 py-3">
-                            <div className="font-semibold text-muted-foreground">{t.alaCarte}</div>
-                            <div className="text-[10px] text-muted-foreground font-normal">67 + 30 {t.modules}</div>
-                          </th>
                           <th className="text-center px-4 py-3 relative">
-                            <div className="font-semibold text-primary">{t.allIn}</div>
+                            <div className="font-semibold text-primary">{t.integralLabel}</div>
                             <div className="text-[10px] text-primary/60 font-normal">67 + 30 {t.modules}</div>
                           </th>
                         </tr>
@@ -773,40 +613,32 @@ const ImplementationPlan = () => {
                         <tr className="border-b border-border/50 hover:bg-muted/20 transition-colors">
                           <td className="px-4 py-3 font-medium text-foreground">{t.setupFee}</td>
                           <td className="px-4 py-3 text-center text-foreground font-semibold">USD $35,000</td>
-                          <td className="px-4 py-3 text-center text-muted-foreground">USD $35,000</td>
                           <td className="px-4 py-3 text-center text-primary font-semibold">USD $35,000</td>
                         </tr>
                         <tr className="border-b border-border/50 hover:bg-muted/20 transition-colors">
                           <td className="px-4 py-3 font-medium text-foreground">{t.perMonthLabel}</td>
                           <td className="px-4 py-3 text-center text-foreground">USD $7,500</td>
-                          <td className="px-4 py-3 text-center">
-                            <span className="text-muted-foreground">USD $28,400</span>
-                          </td>
                           <td className="px-4 py-3 text-center font-bold text-primary">USD $16,999</td>
                         </tr>
                         <tr className="border-b border-border/50 hover:bg-muted/20 transition-colors">
                           <td className="px-4 py-3 font-medium text-foreground">{t.perQuarterLabel}</td>
                           <td className="px-4 py-3 text-center text-foreground">USD $22,500</td>
-                          <td className="px-4 py-3 text-center text-muted-foreground">USD $85,200</td>
                           <td className="px-4 py-3 text-center font-bold text-primary">USD $50,997</td>
                         </tr>
                         <tr className="border-b border-border/50 hover:bg-muted/20 transition-colors">
                           <td className="px-4 py-3 font-medium text-foreground">{t.perYearLabel}</td>
                           <td className="px-4 py-3 text-center text-foreground">USD $90,000</td>
-                          <td className="px-4 py-3 text-center text-muted-foreground">USD $340,800</td>
                           <td className="px-4 py-3 text-center font-bold text-primary">USD $203,988</td>
                         </tr>
                         <tr className="border-b border-border/50 hover:bg-muted/20 transition-colors">
                           <td className="px-4 py-3 font-medium text-foreground">{t.coverage}</td>
                           <td className="px-4 py-3 text-center"><Badge variant="secondary">~69%</Badge></td>
-                          <td className="px-4 py-3 text-center"><Badge>100%</Badge></td>
                           <td className="px-4 py-3 text-center"><Badge className="bg-primary text-primary-foreground">100%</Badge></td>
                         </tr>
-                        <tr className="bg-emerald-500/5 hover:bg-emerald-500/10 transition-colors">
-                          <td className="px-4 py-3 font-bold text-emerald-600 dark:text-emerald-400">{t.savingsTitle}</td>
-                          <td className="px-4 py-3 text-center text-muted-foreground">—</td>
-                          <td className="px-4 py-3 text-center text-muted-foreground">—</td>
-                          <td className="px-4 py-3 text-center font-bold text-emerald-600 dark:text-emerald-400">−40%</td>
+                        <tr className="hover:bg-muted/20 transition-colors">
+                          <td className="px-4 py-3 font-medium text-foreground">{t.modules}</td>
+                          <td className="px-4 py-3 text-center text-foreground">67</td>
+                          <td className="px-4 py-3 text-center font-bold text-primary">97</td>
                         </tr>
                       </tbody>
                     </table>
@@ -815,120 +647,7 @@ const ImplementationPlan = () => {
               </div>
             )}
 
-            {/* TAB: À la Carte Simulator */}
-            {activeTab === "alacarte" && (
-              <div className="animate-in fade-in duration-300">
-                <Card className="border-primary/20 overflow-hidden">
-                  <CardContent className="p-6">
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-6">
-                      <div>
-                        <h4 className="font-bold text-foreground">{t.aLaCarteSimTitle}</h4>
-                        <p className="text-sm text-muted-foreground">{t.aLaCarteSimDesc}</p>
-                      </div>
-                      <div className="flex gap-2">
-                        <Button variant="outline" size="sm" onClick={selectAllModules}>
-                          <Package className="w-3.5 h-3.5 mr-1" />
-                          {t.selectAll}
-                        </Button>
-                        <Button variant="ghost" size="sm" onClick={clearAllModules}>
-                          {t.clearAll}
-                        </Button>
-                      </div>
-                    </div>
-
-                    {/* Module selection grid */}
-                    <div className="space-y-4 mb-6">
-                      {moduleGroups.map((group) => {
-                        const Icon = group.icon;
-                        return (
-                          <div key={group.id} className="rounded-lg border border-border p-4">
-                            <div className="flex items-center gap-2 mb-3">
-                              <Icon className="w-4 h-4 text-primary" />
-                              <span className="font-semibold text-sm text-foreground">{group.subtotalName[language]}</span>
-                              <Badge variant="outline" className="text-[10px] ml-auto">{t.group} {group.label}</Badge>
-                            </div>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                              {group.modules.map((mod) => {
-                                const key = `${group.id}-${mod.name.en}`;
-                                const isSelected = selectedModules.has(key);
-                                return (
-                                  <button
-                                    key={key}
-                                    onClick={() => toggleModule(key)}
-                                    className={`flex items-center justify-between gap-2 px-3 py-2.5 rounded-lg border text-left text-sm transition-all ${
-                                      isSelected
-                                        ? "border-primary bg-primary/10 text-foreground shadow-sm"
-                                        : "border-border bg-card text-muted-foreground hover:border-primary/30 hover:bg-muted/30"
-                                    }`}
-                                  >
-                                    <div className="flex items-center gap-2 min-w-0">
-                                      <div className={`w-4 h-4 rounded border-2 flex items-center justify-center flex-shrink-0 transition-all ${
-                                        isSelected ? "border-primary bg-primary" : "border-muted-foreground/30"
-                                      }`}>
-                                        {isSelected && <CheckCircle2 className="w-3 h-3 text-primary-foreground" />}
-                                      </div>
-                                      <span className="truncate">{mod.name[language]}</span>
-                                    </div>
-                                    <div className="flex flex-col items-end flex-shrink-0">
-                                      <span className={`text-xs font-bold ${isSelected ? "text-primary" : "text-muted-foreground"}`}>
-                                        {usd(mod.monthly)}{t.perMonth}
-                                      </span>
-                                      <span className="text-[10px] text-muted-foreground">
-                                        {t.setupFeeLabel}: {usd(mod.setupFee)}
-                                      </span>
-                                    </div>
-                                  </button>
-                                );
-                              })}
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-
-                    {/* Live pricing summary */}
-                    <div className="sticky bottom-0 rounded-xl border-2 border-primary/30 bg-card p-5 shadow-xl">
-                      <div className="flex items-center justify-between mb-3">
-                        <div className="flex items-center gap-2">
-                          <ShoppingCart className="w-5 h-5 text-primary" />
-                          <span className="font-bold text-foreground">{aLaCarteCalc.count} {t.selectedModules}</span>
-                        </div>
-                        {aLaCarteCalc.count === 30 && (
-                          <Badge className="bg-primary text-primary-foreground text-xs animate-pulse">ALL IN = USD $9,499{t.perMonth}</Badge>
-                        )}
-                      </div>
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div>
-                          <p className="text-xs text-muted-foreground">{t.yourMonthly} (FASE 2)</p>
-                          <p className="text-xl font-bold text-foreground">{formatUSD(aLaCarteCalc.monthlyTotal)}</p>
-                        </div>
-                        <div>
-                          <p className="text-xs text-muted-foreground">{t.yourSetupFee} (FASE 2)</p>
-                          <p className="text-xl font-bold text-foreground">{formatUSD(aLaCarteCalc.setupTotal)}</p>
-                        </div>
-                        <div>
-                          <p className="text-xs text-muted-foreground">{t.totalWithPhase1}</p>
-                          <p className="text-xl font-bold text-primary">{formatUSD(aLaCarteCalc.withPhase1)}{t.perMonth}</p>
-                        </div>
-                        <div>
-                          <p className="text-xs text-muted-foreground">{t.setupFee} Total</p>
-                          <p className="text-xl font-bold text-foreground">{formatUSD(aLaCarteCalc.setupTotal + 35000)}</p>
-                        </div>
-                      </div>
-                      {aLaCarteCalc.count > 0 && aLaCarteCalc.monthlyTotal > 9499 && (
-                        <div className="mt-3 pt-3 border-t border-border flex items-center gap-2">
-                          <TrendingDown className="w-4 h-4 text-emerald-500" />
-                          <p className="text-sm text-emerald-600 dark:text-emerald-400 font-medium">
-                            ALL IN = USD $9,499{t.perMonth} — {t.savingsTitle}: {formatUSD(aLaCarteCalc.monthlyTotal - 9499)}{t.perMonth} (−{Math.round((1 - 9499 / aLaCarteCalc.monthlyTotal) * 100)}%)
-                          </p>
-                        </div>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            )}
-            {/* TAB: ALL IN Detail */}
+            {/* TAB: ALL IN / Integral Detail */}
             {activeTab === "allin" && (
               <div className="animate-in fade-in duration-300">
                 <Card className="border-primary/20 overflow-hidden">
@@ -939,9 +658,9 @@ const ImplementationPlan = () => {
                       <div>
                         <div className="flex items-center gap-2 mb-1">
                           <Badge className="bg-primary text-primary-foreground">{t.recommended}</Badge>
-                          <h4 className="font-bold text-lg text-foreground">{t.option2Title}</h4>
+                          <h4 className="font-bold text-lg text-foreground">{t.proposalTitle}</h4>
                         </div>
-                        <p className="text-sm text-muted-foreground">{t.option2Desc}</p>
+                        <p className="text-sm text-muted-foreground">{t.proposalDesc}</p>
                       </div>
                       <div className="flex items-center gap-4 flex-shrink-0">
                         <div className="text-right">
@@ -959,7 +678,7 @@ const ImplementationPlan = () => {
                         <p className="text-xs text-muted-foreground mt-1">67 {t.modules} · ~69% {t.coverage}</p>
                       </div>
                       <div className="rounded-lg border border-primary/30 bg-primary/5 p-4">
-                        <p className="text-xs text-muted-foreground uppercase font-medium mb-1">FASE 2</p>
+                        <p className="text-xs text-muted-foreground uppercase font-medium mb-1">{language === "es" ? "MÓDULOS ADICIONALES" : language === "fr" ? "MODULES ADDITIONNELS" : "ADDITIONAL MODULES"}</p>
                         <p className="text-xl font-bold text-primary">USD $9,499<span className="text-sm text-muted-foreground font-normal">{t.perMonth}</span></p>
                         <p className="text-xs text-muted-foreground mt-1">30 {t.modules} · +31% {t.coverage}</p>
                       </div>
@@ -969,21 +688,6 @@ const ImplementationPlan = () => {
                         <p className="text-xs text-emerald-600 dark:text-emerald-400 mt-1 font-medium">
                           {language === "es" ? "Sin setup fee adicional" : language === "fr" ? "Pas de setup fee additionnel" : "No additional setup fee"}
                         </p>
-                      </div>
-                    </div>
-
-                    {/* Savings highlight */}
-                    <div className="rounded-lg border border-emerald-500/30 bg-gradient-to-r from-emerald-500/10 to-emerald-500/5 p-4 mb-6">
-                      <div className="flex items-center gap-3">
-                        <TrendingDown className="w-5 h-5 text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
-                        <div>
-                          <p className="text-sm font-bold text-emerald-600 dark:text-emerald-400">
-                            {t.savingsTitle}: −USD $11,401{t.perMonth} (−40%)
-                          </p>
-                          <p className="text-xs text-muted-foreground">
-                            {language === "es" ? "vs. USD $28,400/mes si contrata todos los módulos A la Carta" : language === "fr" ? "vs. USD $28,400/mois si vous contractez tous les modules À la Carte" : "vs. USD $28,400/mo if contracting all modules À la Carte"}
-                          </p>
-                        </div>
                       </div>
                     </div>
 
@@ -998,7 +702,9 @@ const ImplementationPlan = () => {
                         <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0" />
                         <div>
                           <p className="text-sm font-semibold text-foreground">{t.phase1} — 67 {t.modules}</p>
-                          <p className="text-xs text-muted-foreground">{t.phase1includes}</p>
+                          <p className="text-xs text-muted-foreground">
+                            {language === "es" ? "Migración SAF UPV 7.0 · Consolidación 87 BD → 1 · Licencias ilimitadas · Soporte + BCEAO" : language === "fr" ? "Migration SAF UPV 7.0 · Consolidation 87 BD → 1 · Licences illimitées · Support + BCEAO" : "SAF UPV 7.0 migration · 87 DB consolidation → 1 · Unlimited licenses · Support + BCEAO"}
+                          </p>
                         </div>
                         <Badge className="bg-emerald-500 text-white text-xs ml-auto flex-shrink-0">{t.active}</Badge>
                       </div>
@@ -1045,7 +751,7 @@ const ImplementationPlan = () => {
           </p>
 
           {/* ═══════════════════════════════════════════════ */}
-          {/* MODULE DETAIL (now AFTER comparison) */}
+          {/* MODULE DETAIL */}
           {/* ═══════════════════════════════════════════════ */}
           <div className={`mb-12 transition-all duration-700 delay-300 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             <div className="text-center mb-6">
@@ -1119,7 +825,6 @@ const ImplementationPlan = () => {
                 );
               })}
             </Accordion>
-
           </div>
         </div>
 

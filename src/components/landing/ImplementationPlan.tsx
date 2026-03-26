@@ -470,7 +470,7 @@ const ImplementationPlan = () => {
   const [showAll, setShowAll] = useState(false);
   const [showAllInDetail, setShowAllInDetail] = useState(false);
   const [selectedModules, setSelectedModules] = useState<Set<string>>(new Set());
-  const [activeTab, setActiveTab] = useState<"comparison" | "alacarte">("comparison");
+  const [activeTab, setActiveTab] = useState<"comparison" | "alacarte" | "allin">("comparison");
   const ref = useRef<HTMLElement>(null);
   const t = labels[language];
 

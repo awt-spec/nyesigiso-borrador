@@ -1013,7 +1013,7 @@ const ImplementationPlan = () => {
           </div>
 
           <Accordion type="multiple" className="space-y-4">
-            {/* Phase 1 — Horizontal Timeline */}
+            {/* Phase 1 — Interactive Timeline */}
             <AccordionItem value="phase1" className="border rounded-lg overflow-hidden border-primary/20">
               <AccordionTrigger className="px-5 py-4 hover:no-underline bg-primary/5 border-b border-border">
                 <div className="flex items-center gap-3 flex-1 mr-4">
@@ -1025,82 +1025,11 @@ const ImplementationPlan = () => {
                 </div>
               </AccordionTrigger>
               <AccordionContent className="p-6">
-                {/* Horizontal scrollable timeline */}
-                <div className="overflow-x-auto pb-4 -mx-2">
-                  <div className="relative min-w-[1100px] px-2">
-                    {/* Horizontal line */}
-                    <div className="absolute top-6 left-8 right-8 h-0.5 bg-border" />
-                    <div className="flex justify-between gap-0">
-                      {(() => {
-                        const steps = [
-                          { label: language === "es" ? "Inicio" : language === "fr" ? "Début" : "Start", icon: "🚀", items: [t.cronogramaInstallation, t.cronogramaLicenses, t.cronogramaReporting], highlight: true },
-                          { label: "30d", icon: "🔄", items: [t.cronogramaMigration], highlight: true },
-                          { label: `M2-3`, icon: "📦", items: [t.cronogramaConsol2, t.cronogramaConsol5], highlight: false },
-                          { label: "M4", icon: "⚡", items: [t.cronogramaConsol10], highlight: false },
-                          { label: "M5", icon: "⚡", items: [t.cronogramaConsol10], highlight: false },
-                          { label: "M6", icon: "⚡", items: [t.cronogramaConsol10], highlight: false },
-                          { label: "M7", icon: "⚡", items: [t.cronogramaConsol10], highlight: false },
-                          { label: "M8", icon: "⚡", items: [t.cronogramaConsol10], highlight: false },
-                          { label: "M9", icon: "⚡", items: [t.cronogramaConsol10], highlight: false },
-                          { label: "M10", icon: "⚡", items: [t.cronogramaConsol10], highlight: false },
-                          { label: "M11", icon: "⚡", items: [t.cronogramaConsol10], highlight: false },
-                          { label: "M12", icon: "✅", items: [t.cronogramaCertification], highlight: true },
-                        ];
-                        return steps.map((step, i) => (
-                          <div key={i} className="flex flex-col items-center flex-1 group relative">
-                            {/* Dot */}
-                            <div className={`w-12 h-12 rounded-full flex items-center justify-center z-10 border-2 transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg ${
-                              step.highlight
-                                ? "bg-primary/10 border-primary shadow-sm"
-                                : "bg-card border-border group-hover:border-primary/40"
-                            }`}>
-                              <span className="text-lg">{step.icon}</span>
-                            </div>
-                            {/* Label */}
-                            <span className={`text-xs font-bold mt-2 ${step.highlight ? "text-primary" : "text-muted-foreground"}`}>
-                              {step.label}
-                            </span>
-                            {/* Tooltip card on hover */}
-                            <div className="absolute top-16 left-1/2 -translate-x-1/2 w-48 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all duration-200 z-20 translate-y-1 group-hover:translate-y-0">
-                              <div className={`rounded-lg border p-3 shadow-xl text-left ${step.highlight ? "bg-card border-primary/30" : "bg-card border-border"}`}>
-                                <ul className="space-y-1">
-                                  {step.items.map((item, j) => (
-                                    <li key={j} className="flex items-start gap-1.5 text-[11px] text-muted-foreground leading-tight">
-                                      <ChevronRight className="w-3 h-3 mt-0.5 text-primary flex-shrink-0" />
-                                      <span>{item}</span>
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-                        ));
-                      })()}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Support row */}
-                <div className="mt-6 grid md:grid-cols-2 gap-3">
-                  <div className="flex items-center gap-3 rounded-lg border border-border bg-muted/30 p-3">
-                    <span className="text-lg">🛟</span>
-                    <div>
-                      <p className="text-xs font-bold text-foreground">{t.cronogramaSupportContract}</p>
-                      <p className="text-[11px] text-muted-foreground">{t.cronogramaSupport}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 rounded-lg border border-border bg-muted/30 p-3">
-                    <span className="text-lg">🔁</span>
-                    <div>
-                      <p className="text-xs font-bold text-foreground">{t.cronograma12later}</p>
-                      <p className="text-[11px] text-muted-foreground">{t.cronogramaSupport}</p>
-                    </div>
-                  </div>
-                </div>
+                <Phase1Timeline language={language} t={t} />
               </AccordionContent>
             </AccordionItem>
 
-            {/* Phase 2 — Horizontal Flow */}
+            {/* Phase 2 — Interactive Groups */}
             <AccordionItem value="phase2" className="border rounded-lg overflow-hidden border-primary/20">
               <AccordionTrigger className="px-5 py-4 hover:no-underline bg-primary/5 border-b border-border">
                 <div className="flex items-center gap-3 flex-1 mr-4">
@@ -1112,76 +1041,7 @@ const ImplementationPlan = () => {
                 </div>
               </AccordionTrigger>
               <AccordionContent className="p-6">
-                {/* Priority banner */}
-                <div className="flex items-center gap-3 mb-6 p-4 rounded-lg bg-primary/5 border border-primary/10">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <Zap className="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold text-foreground">{t.cronogramaP2Priority}</p>
-                    <p className="text-xs text-muted-foreground">{t.cronogramaP2PriorityDesc}</p>
-                  </div>
-                </div>
-
-                {/* Horizontal flow of groups */}
-                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-4">{t.cronogramaP2Scope}</p>
-                <div className="overflow-x-auto pb-4 -mx-2">
-                  <div className="relative min-w-[900px] px-2">
-                    {/* Horizontal connector */}
-                    <div className="absolute top-8 left-8 right-8 h-0.5 bg-gradient-to-r from-primary/40 via-primary/20 to-primary/40" />
-                    <div className="flex gap-0">
-                      {moduleGroups.map((group, i) => {
-                        const Icon = group.icon;
-                        return (
-                          <div key={group.id} className="flex-1 flex flex-col items-center group relative">
-                            {/* Circle node */}
-                            <div className="w-16 h-16 rounded-2xl bg-card border-2 border-border flex items-center justify-center z-10 group-hover:border-primary group-hover:shadow-lg group-hover:scale-105 transition-all duration-300">
-                              <Icon className="w-6 h-6 text-primary" />
-                            </div>
-                            <Badge variant="outline" className="text-[9px] font-mono mt-2 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">{group.label}</Badge>
-                            <p className="text-[11px] font-semibold text-foreground text-center mt-1 max-w-[100px] leading-tight">{group.subtotalName[language]}</p>
-                            <p className="text-[10px] text-muted-foreground">{group.modules.length} {t.modules}</p>
-
-                            {/* Hover detail */}
-                            <div className="absolute top-20 left-1/2 -translate-x-1/2 w-44 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all duration-200 z-20 translate-y-2 group-hover:translate-y-0 mt-10">
-                              <div className="rounded-lg border border-primary/20 bg-card p-3 shadow-xl">
-                                <div className="space-y-1">
-                                  {group.modules.map((mod, j) => (
-                                    <p key={j} className="text-[10px] text-muted-foreground flex items-center gap-1">
-                                      <span className="w-1 h-1 rounded-full bg-primary/50 flex-shrink-0" />
-                                      {mod.name[language]}
-                                    </p>
-                                  ))}
-                                </div>
-                                <div className="mt-2 pt-2 border-t border-border">
-                                  <p className="text-[10px] font-bold text-primary">USD {group.subtotalMonthly}{t.perMonth}</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Bottom cards */}
-                <div className="grid md:grid-cols-2 gap-4 mt-6">
-                  <div className="rounded-lg border border-border bg-card p-4 hover:border-primary/30 transition-colors">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Users className="w-4 h-4 text-primary" />
-                      <p className="text-sm font-bold text-foreground">{t.cronogramaP2Support}</p>
-                    </div>
-                    <p className="text-xs text-muted-foreground leading-relaxed">{t.cronogramaP2SupportDesc}</p>
-                  </div>
-                  <div className="rounded-lg border border-primary/20 bg-primary/5 p-4">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Calendar className="w-4 h-4 text-primary" />
-                      <p className="text-sm font-bold text-foreground">{t.cronogramaP2NoteTitle}</p>
-                    </div>
-                    <p className="text-xs text-muted-foreground leading-relaxed">{t.cronogramaP2NoteDesc}</p>
-                  </div>
-                </div>
+                <Phase2Timeline language={language} t={t} />
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -1189,6 +1049,294 @@ const ImplementationPlan = () => {
         </div>
       </div>
     </section>
+  );
+};
+
+/* ═══════════════════════════════════════════════════ */
+/* Phase 1 — Interactive horizontal timeline          */
+/* ═══════════════════════════════════════════════════ */
+const Phase1Timeline = ({ language, t }: { language: Lang; t: Record<string, string> }) => {
+  const [activeStep, setActiveStep] = useState(0);
+
+  const phases = [
+    {
+      label: language === "es" ? "Inicio" : language === "fr" ? "Début" : "Start",
+      icon: "🚀",
+      color: "from-primary to-primary/70",
+      title: t.cronogramaAcceptance,
+      items: [t.cronogramaInstallation, t.cronogramaLicenses, t.cronogramaReporting],
+    },
+    {
+      label: "30d",
+      icon: "🔄",
+      color: "from-primary to-primary/70",
+      title: t.cronogramaMigration,
+      items: [t.cronogramaMigration],
+    },
+    {
+      label: `M2-3`,
+      icon: "📦",
+      color: "from-blue-500 to-blue-400",
+      title: language === "es" ? "Consolidación Inicial" : language === "fr" ? "Consolidation Initiale" : "Initial Consolidation",
+      items: [t.cronogramaConsol2, t.cronogramaConsol5],
+    },
+    {
+      label: "M4-11",
+      icon: "⚡",
+      color: "from-amber-500 to-amber-400",
+      title: language === "es" ? "Consolidación Masiva" : language === "fr" ? "Consolidation Massive" : "Mass Consolidation",
+      items: [
+        t.cronogramaConsol10,
+        language === "es" ? "8 meses de consolidación progresiva — 10 BD por mes" : language === "fr" ? "8 mois de consolidation progressive — 10 BD par mois" : "8 months of progressive consolidation — 10 DBs per month",
+      ],
+    },
+    {
+      label: "M12",
+      icon: "✅",
+      color: "from-emerald-500 to-emerald-400",
+      title: language === "es" ? "Certificación Final" : language === "fr" ? "Certification Finale" : "Final Certification",
+      items: [t.cronogramaCertification],
+    },
+    {
+      label: "∞",
+      icon: "🛟",
+      color: "from-muted-foreground/60 to-muted-foreground/40",
+      title: language === "es" ? "Soporte Continuo" : language === "fr" ? "Support Continu" : "Ongoing Support",
+      items: [t.cronogramaSupportContract, t.cronogramaSupport],
+    },
+  ];
+
+  return (
+    <div>
+      {/* Step selector — horizontal row */}
+      <div className="flex items-center gap-0 mb-6 relative">
+        {/* Progress bar */}
+        <div className="absolute top-5 left-0 right-0 h-1 bg-muted rounded-full" />
+        <div
+          className="absolute top-5 left-0 h-1 bg-primary rounded-full transition-all duration-500 ease-out"
+          style={{ width: `${(activeStep / (phases.length - 1)) * 100}%` }}
+        />
+
+        {phases.map((phase, i) => (
+          <button
+            key={i}
+            onClick={() => setActiveStep(i)}
+            className="flex-1 flex flex-col items-center z-10 group"
+          >
+            <div
+              className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-300 ${
+                i === activeStep
+                  ? "bg-primary border-primary scale-110 shadow-lg shadow-primary/25"
+                  : i < activeStep
+                  ? "bg-primary/20 border-primary/50"
+                  : "bg-card border-border group-hover:border-primary/40 group-hover:scale-105"
+              }`}
+            >
+              <span className={`text-sm ${i === activeStep ? "scale-110" : ""} transition-transform`}>{phase.icon}</span>
+            </div>
+            <span
+              className={`text-[11px] font-bold mt-1.5 transition-colors ${
+                i === activeStep ? "text-primary" : "text-muted-foreground"
+              }`}
+            >
+              {phase.label}
+            </span>
+          </button>
+        ))}
+      </div>
+
+      {/* Active step detail */}
+      <div className="relative overflow-hidden rounded-xl border border-border bg-card">
+        {/* Gradient accent top */}
+        <div className={`h-1.5 bg-gradient-to-r ${phases[activeStep].color}`} />
+
+        <div className="p-5">
+          <div className="flex items-center gap-3 mb-4">
+            <span className="text-2xl">{phases[activeStep].icon}</span>
+            <div>
+              <p className="text-lg font-bold text-foreground">{phases[activeStep].title}</p>
+              <Badge variant="outline" className="text-xs mt-0.5">{phases[activeStep].label}</Badge>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            {phases[activeStep].items.map((item, j) => (
+              <div
+                key={j}
+                className="flex items-start gap-3 p-3 rounded-lg bg-muted/30 border border-border/50 animate-fade-in"
+                style={{ animationDelay: `${j * 80}ms`, animationFillMode: "both" }}
+              >
+                <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                <p className="text-sm text-foreground leading-relaxed">{item}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Navigation arrows */}
+      <div className="flex items-center justify-between mt-4">
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => setActiveStep(Math.max(0, activeStep - 1))}
+          disabled={activeStep === 0}
+          className="text-muted-foreground"
+        >
+          <ChevronRight className="w-4 h-4 rotate-180 mr-1" />
+          {activeStep > 0 ? phases[activeStep - 1].label : ""}
+        </Button>
+        <span className="text-xs text-muted-foreground">{activeStep + 1} / {phases.length}</span>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => setActiveStep(Math.min(phases.length - 1, activeStep + 1))}
+          disabled={activeStep === phases.length - 1}
+          className="text-muted-foreground"
+        >
+          {activeStep < phases.length - 1 ? phases[activeStep + 1].label : ""}
+          <ChevronRight className="w-4 h-4 ml-1" />
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+/* ═══════════════════════════════════════════════════ */
+/* Phase 2 — Interactive card-based layout            */
+/* ═══════════════════════════════════════════════════ */
+const Phase2Timeline = ({ language, t }: { language: Lang; t: Record<string, string> }) => {
+  const [activeGroup, setActiveGroup] = useState<string | null>(null);
+
+  return (
+    <div>
+      {/* Priority banner */}
+      <div className="flex items-center gap-3 mb-6 p-4 rounded-lg bg-primary/5 border border-primary/10">
+        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+          <Zap className="w-5 h-5 text-primary" />
+        </div>
+        <div>
+          <p className="text-sm font-bold text-foreground">{t.cronogramaP2Priority}</p>
+          <p className="text-xs text-muted-foreground">{t.cronogramaP2PriorityDesc}</p>
+        </div>
+      </div>
+
+      {/* Two-column: group list + detail */}
+      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">{t.cronogramaP2Scope}</p>
+
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 mb-6">
+        {/* Left: clickable group list */}
+        <div className="lg:col-span-2 space-y-2">
+          {moduleGroups.map((group) => {
+            const Icon = group.icon;
+            const isActive = activeGroup === group.id;
+            return (
+              <button
+                key={group.id}
+                onClick={() => setActiveGroup(isActive ? null : group.id)}
+                className={`w-full flex items-center gap-3 p-3 rounded-xl border text-left transition-all duration-200 ${
+                  isActive
+                    ? "border-primary bg-primary/5 shadow-md"
+                    : "border-border bg-card hover:border-primary/30 hover:bg-muted/30"
+                }`}
+              >
+                <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors ${
+                  isActive ? "bg-primary/20" : "bg-primary/10"
+                }`}>
+                  <Icon className="w-4 h-4 text-primary" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className={`text-sm font-semibold truncate transition-colors ${isActive ? "text-primary" : "text-foreground"}`}>
+                    {group.subtotalName[language]}
+                  </p>
+                  <p className="text-[10px] text-muted-foreground">{group.modules.length} {t.modules} · USD {group.subtotalMonthly}{t.perMonth}</p>
+                </div>
+                <Badge variant="outline" className={`text-[9px] font-mono flex-shrink-0 transition-colors ${isActive ? "border-primary text-primary" : ""}`}>
+                  {group.label}
+                </Badge>
+                <ChevronRight className={`w-4 h-4 text-muted-foreground transition-transform duration-200 flex-shrink-0 ${isActive ? "rotate-90 text-primary" : ""}`} />
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Right: detail panel */}
+        <div className="lg:col-span-3">
+          {activeGroup ? (
+            (() => {
+              const group = moduleGroups.find(g => g.id === activeGroup)!;
+              const Icon = group.icon;
+              return (
+                <div className="rounded-xl border border-primary/20 bg-card overflow-hidden animate-fade-in h-full">
+                  <div className="h-1.5 bg-gradient-to-r from-primary to-primary/50" />
+                  <div className="p-5">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                        <Icon className="w-5 h-5 text-primary" />
+                      </div>
+                      <div>
+                        <p className="font-bold text-foreground">{group.subtotalName[language]}</p>
+                        <p className="text-xs text-muted-foreground">{group.modules.length} {t.modules} · USD {group.subtotalMonthly}{t.perMonth}</p>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      {group.modules.map((mod, j) => (
+                        <div
+                          key={j}
+                          className="flex items-center justify-between gap-3 p-3 rounded-lg bg-muted/30 border border-border/50 animate-fade-in"
+                          style={{ animationDelay: `${j * 60}ms`, animationFillMode: "both" }}
+                        >
+                          <div className="flex items-center gap-2 min-w-0">
+                            <div className="w-2 h-2 rounded-full bg-primary flex-shrink-0" />
+                            <span className="text-sm text-foreground truncate">{mod.name[language]}</span>
+                          </div>
+                          <div className="flex items-center gap-3 flex-shrink-0">
+                            <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full border ${statusColor(mod.status)}`}>
+                              {mod.status}
+                            </span>
+                            <span className="text-xs font-bold text-primary whitespace-nowrap">{usd(mod.monthly)}{t.perMonth}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            })()
+          ) : (
+            <div className="rounded-xl border-2 border-dashed border-border bg-muted/10 flex items-center justify-center h-full min-h-[200px]">
+              <div className="text-center p-6">
+                <div className="w-12 h-12 rounded-full bg-muted/50 flex items-center justify-center mx-auto mb-3">
+                  <ChevronRight className="w-5 h-5 text-muted-foreground" />
+                </div>
+                <p className="text-sm text-muted-foreground font-medium">
+                  {language === "es" ? "Seleccione un grupo para ver sus módulos" : language === "fr" ? "Sélectionnez un groupe pour voir ses modules" : "Select a group to view its modules"}
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Bottom cards */}
+      <div className="grid md:grid-cols-2 gap-4">
+        <div className="rounded-lg border border-border bg-card p-4 hover:border-primary/30 transition-colors">
+          <div className="flex items-center gap-2 mb-2">
+            <Users className="w-4 h-4 text-primary" />
+            <p className="text-sm font-bold text-foreground">{t.cronogramaP2Support}</p>
+          </div>
+          <p className="text-xs text-muted-foreground leading-relaxed">{t.cronogramaP2SupportDesc}</p>
+        </div>
+        <div className="rounded-lg border border-primary/20 bg-primary/5 p-4">
+          <div className="flex items-center gap-2 mb-2">
+            <Calendar className="w-4 h-4 text-primary" />
+            <p className="text-sm font-bold text-foreground">{t.cronogramaP2NoteTitle}</p>
+          </div>
+          <p className="text-xs text-muted-foreground leading-relaxed">{t.cronogramaP2NoteDesc}</p>
+        </div>
+      </div>
+    </div>
   );
 };
 

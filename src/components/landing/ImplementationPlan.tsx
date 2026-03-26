@@ -441,13 +441,9 @@ const ImplementationPlan = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
             {t.title}
           </h2>
-          <Button variant="outline" size="sm" className="mt-2" onClick={() => setShowAll(!showAll)}>
-            {showAll ? <ChevronUp className="w-4 h-4 mr-1.5" /> : <ChevronDown className="w-4 h-4 mr-1.5" />}
-            {showAll ? t.collapseAll : t.expandAll}
-          </Button>
         </div>
 
-        <div className={`overflow-hidden transition-all duration-500 ${showAll ? "max-h-none opacity-100" : "max-h-0 opacity-0"}`}>
+        <div>
 
         {/* ═══════════════════════════════════════════════ */}
         {/* PROPUESTA INICIAL — Detailed Explanation */}

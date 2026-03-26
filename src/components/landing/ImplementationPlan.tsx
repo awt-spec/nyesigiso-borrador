@@ -444,115 +444,134 @@ const ImplementationPlan = () => {
 
 
         {/* ═══════════════════════════════════════════════ */}
-        {/* PROPUESTA INICIAL — Detailed Explanation */}
+        {/* PROPUESTAS — Side by Side */}
         {/* ═══════════════════════════════════════════════ */}
-        <div className={`mb-10 transition-all duration-700 delay-100 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-          <Card className="border-emerald-500/30 bg-emerald-500/5 relative overflow-hidden">
+        <div className={`grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10 transition-all duration-700 delay-100 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+          {/* LEFT — Propuesta Inicial */}
+          <Card className="border-emerald-500/30 bg-emerald-500/5 relative overflow-hidden flex flex-col">
             <div className="absolute top-0 left-0 w-full h-1 bg-emerald-500" />
-            <CardContent className="p-6">
-              {/* Top row: badge + pricing */}
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-                <div className="flex items-center gap-3">
-                  <Badge className="bg-emerald-500 text-white text-xs">{t.active}</Badge>
-                  <div>
-                    <p className="font-bold text-lg text-foreground">{t.phase1}</p>
-                    <p className="text-sm text-muted-foreground">{t.phase1desc}</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-5 flex-wrap">
-                  {/* Setup Fee - prominent */}
-                  <div className="text-center">
-                    <p className="text-xs text-muted-foreground font-medium mb-0.5">{t.setupFee}</p>
-                    <span className="text-2xl font-bold text-foreground">USD $35,000</span>
-                  </div>
-                  <div className="w-px h-10 bg-border hidden md:block" />
-                  {/* Monthly */}
-                  <div className="text-center">
-                    <p className="text-xs text-muted-foreground font-medium mb-0.5">{t.perMonthLabel}</p>
-                    <span className="text-2xl font-bold text-foreground">USD $7,500</span>
-                  </div>
-                  <div className="w-px h-10 bg-border hidden md:block" />
-                  {/* Quarterly */}
-                  <div className="text-center">
-                    <p className="text-xs text-muted-foreground font-medium mb-0.5">{t.perQuarterLabel}</p>
-                    <span className="text-2xl font-bold text-foreground">USD $22,500</span>
-                  </div>
-                  <Badge variant="secondary" className="text-xs">~69% {t.coverage}</Badge>
+            <CardContent className="p-6 flex flex-col flex-1">
+              <div className="flex items-center gap-3 mb-4">
+                <Badge className="bg-emerald-500 text-white text-xs">{t.active}</Badge>
+                <div>
+                  <p className="font-bold text-lg text-foreground">{t.phase1}</p>
+                  <p className="text-xs text-muted-foreground">{t.phase1desc}</p>
                 </div>
               </div>
 
-              {/* Detailed items grid */}
-              <div className="mb-4">
-                <p className="text-sm font-bold text-foreground mb-4">{t.phase1DetailTitle}</p>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                  {phase1Items.map((item, i) => {
-                    const Icon = item.icon;
-                    return (
-                      <div key={i} className="flex items-start gap-3 p-3 rounded-lg bg-background/60 border border-border/50 hover:border-emerald-500/30 transition-colors">
-                        <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <Icon className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                        </div>
-                        <div>
-                          <p className="text-sm font-semibold text-foreground leading-tight">{item.title}</p>
-                          <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{item.desc}</p>
-                        </div>
+              {/* Pricing row */}
+              <div className="grid grid-cols-3 gap-3 mb-5">
+                <div className="text-center p-3 rounded-lg bg-background/60 border border-border/50">
+                  <p className="text-[10px] text-muted-foreground font-medium mb-1">{t.setupFee}</p>
+                  <p className="text-lg font-bold text-foreground">USD $35,000</p>
+                </div>
+                <div className="text-center p-3 rounded-lg bg-background/60 border border-border/50">
+                  <p className="text-[10px] text-muted-foreground font-medium mb-1">{t.perMonthLabel}</p>
+                  <p className="text-lg font-bold text-foreground">USD $7,500</p>
+                </div>
+                <div className="text-center p-3 rounded-lg bg-background/60 border border-border/50">
+                  <p className="text-[10px] text-muted-foreground font-medium mb-1">{t.perQuarterLabel}</p>
+                  <p className="text-lg font-bold text-foreground">USD $22,500</p>
+                </div>
+              </div>
+
+              <Badge variant="secondary" className="text-xs w-fit mb-4">~69% {t.coverage} · 67 {t.modules}</Badge>
+
+              {/* Items */}
+              <p className="text-sm font-bold text-foreground mb-3">{t.phase1DetailTitle}</p>
+              <div className="grid grid-cols-1 gap-2 flex-1">
+                {phase1Items.map((item, i) => {
+                  const Icon = item.icon;
+                  return (
+                    <div key={i} className="flex items-start gap-2.5 p-2.5 rounded-lg bg-background/60 border border-border/50 hover:border-emerald-500/30 transition-colors">
+                      <div className="w-7 h-7 rounded-md bg-emerald-500/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <Icon className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                       </div>
-                    );
-                  })}
-                </div>
+                      <div>
+                        <p className="text-xs font-semibold text-foreground leading-tight">{item.title}</p>
+                        <p className="text-[11px] text-muted-foreground mt-0.5 leading-relaxed">{item.desc}</p>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
 
-              <div className="flex items-center gap-2 pt-2 border-t border-emerald-500/10">
+              <div className="flex items-center gap-2 pt-3 mt-4 border-t border-emerald-500/10">
                 <CheckCircle2 className="w-4 h-4 text-emerald-500" />
                 <p className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">{t.phase1note}</p>
               </div>
             </CardContent>
           </Card>
-        </div>
 
-        {/* ═══════════════════════════════════════════════ */}
-        {/* PROPUESTA INTEGRAL — Main Card */}
-        {/* ═══════════════════════════════════════════════ */}
-        <div className={`transition-all duration-700 delay-200 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-          <div className="mb-8">
-            <Card className="border-primary/40 bg-primary/5 relative overflow-hidden ring-2 ring-primary/20">
-              <div className="absolute top-0 left-0 w-full h-1 bg-primary" />
-              <div className="absolute top-3 right-3">
-                <Badge className="bg-primary text-primary-foreground text-xs">{t.recommended}</Badge>
+          {/* RIGHT — Propuesta Integral */}
+          <Card className="border-primary/40 bg-primary/5 relative overflow-hidden ring-2 ring-primary/20 flex flex-col">
+            <div className="absolute top-0 left-0 w-full h-1 bg-primary" />
+            <div className="absolute top-3 right-3">
+              <Badge className="bg-primary text-primary-foreground text-xs">{t.recommended}</Badge>
+            </div>
+            <CardContent className="p-6 flex flex-col flex-1">
+              <div className="mb-4">
+                <p className="font-bold text-lg text-foreground">{t.proposalTitle}</p>
+                <p className="text-xs text-muted-foreground">{t.proposalSubtitle}</p>
               </div>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-xl font-bold text-foreground">{t.proposalTitle}</CardTitle>
-                <p className="text-sm text-muted-foreground">{t.proposalSubtitle}</p>
-              </CardHeader>
-              <CardContent className="pt-0 space-y-4">
-                <p className="text-sm text-muted-foreground">{t.proposalDesc}</p>
-                <div className="flex items-center gap-5 flex-wrap pt-2">
-                  <div className="text-center">
-                    <p className="text-xs text-muted-foreground font-medium mb-0.5">{t.setupFee}</p>
-                    <span className="text-2xl font-bold text-foreground">USD $35,000</span>
-                  </div>
-                  <div className="w-px h-10 bg-border" />
-                  <div className="text-center">
-                    <p className="text-xs text-muted-foreground font-medium mb-0.5">{t.perMonthLabel}</p>
-                    <span className="text-3xl font-bold text-primary">USD $16,999</span>
-                  </div>
-                  <div className="w-px h-10 bg-border" />
-                  <div className="text-center">
-                    <p className="text-xs text-muted-foreground font-medium mb-0.5">{t.perQuarterLabel}</p>
-                    <span className="text-2xl font-bold text-primary">USD $50,997</span>
-                  </div>
+
+              {/* Pricing row */}
+              <div className="grid grid-cols-3 gap-3 mb-5">
+                <div className="text-center p-3 rounded-lg bg-background/60 border border-primary/20">
+                  <p className="text-[10px] text-muted-foreground font-medium mb-1">{t.setupFee}</p>
+                  <p className="text-lg font-bold text-foreground">USD $35,000</p>
                 </div>
-                <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                  <span className="bg-primary/10 text-primary px-2 py-0.5 rounded font-medium">{t.phase1Label}: USD $7,500</span>
-                  <span>+</span>
-                  <span className="bg-primary/10 text-primary px-2 py-0.5 rounded font-medium">{language === "es" ? "Módulos Adicionales" : language === "fr" ? "Modules Additionnels" : "Additional Modules"}: USD $9,499</span>
+                <div className="text-center p-3 rounded-lg bg-primary/10 border border-primary/20">
+                  <p className="text-[10px] text-muted-foreground font-medium mb-1">{t.perMonthLabel}</p>
+                  <p className="text-xl font-bold text-primary">USD $16,999</p>
                 </div>
+                <div className="text-center p-3 rounded-lg bg-background/60 border border-primary/20">
+                  <p className="text-[10px] text-muted-foreground font-medium mb-1">{t.perQuarterLabel}</p>
+                  <p className="text-lg font-bold text-primary">USD $50,997</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 text-xs text-muted-foreground mb-3">
+                <span className="bg-primary/10 text-primary px-2 py-0.5 rounded font-medium">{t.phase1Label}: $7,500</span>
+                <span>+</span>
+                <span className="bg-primary/10 text-primary px-2 py-0.5 rounded font-medium">{language === "es" ? "Adicionales" : language === "fr" ? "Additionnels" : "Additional"}: $9,499</span>
+              </div>
+
+              <Badge className="bg-primary text-primary-foreground text-xs w-fit mb-4">100% {t.coverage} · 97 {t.modules}</Badge>
+
+              <p className="text-sm text-muted-foreground mb-4">{t.proposalDesc}</p>
+
+              {/* Included groups */}
+              <p className="text-xs font-bold text-foreground mb-2">
+                {language === "es" ? "Incluye todo de la Propuesta Inicial +" : language === "fr" ? "Inclut tout de la Proposition Initiale +" : "Includes everything in Initial Proposal +"}
+              </p>
+              <div className="grid grid-cols-1 gap-1.5 flex-1">
+                {moduleGroups.map((group) => {
+                  const Icon = group.icon;
+                  return (
+                    <div key={group.id} className="flex items-center gap-2.5 p-2 rounded-lg bg-background/60 border border-border/50 hover:border-primary/30 transition-colors">
+                      <div className="w-7 h-7 rounded-md bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <Icon className="w-3.5 h-3.5 text-primary" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs font-semibold text-foreground truncate">{group.subtotalName[language]}</p>
+                        <p className="text-[10px] text-muted-foreground">{group.modules.length} {t.modules}</p>
+                      </div>
+                      <CheckCircle2 className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="flex items-center gap-2 pt-3 mt-4 border-t border-primary/10">
+                <CheckCircle2 className="w-4 h-4 text-primary" />
                 <p className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">
-                  {language === "es" ? "Sin setup fee adicional — todo incluido en USD $35,000" : language === "fr" ? "Pas de setup fee additionnel — tout inclus dans USD $35,000" : "No additional setup fee — everything included in USD $35,000"}
+                  {language === "es" ? "Sin setup fee adicional" : language === "fr" ? "Pas de setup fee additionnel" : "No additional setup fee"}
                 </p>
-              </CardContent>
-            </Card>
-          </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
 
           {/* ═══════════════════════════════════════════════ */}
           {/* INTERACTIVE TABS: Comparison / ALL IN Detail */}

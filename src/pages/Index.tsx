@@ -20,12 +20,16 @@ const IndexContent = () => {
   const [showDomains, setShowDomains] = useState(false);
   const dl = detailLabels[language];
 
+  const expandDomains = () => {
+    setShowDomains(true);
+  };
+
   return (
     <div className="min-h-screen">
       <Header />
       <Hero />
       <ImplementationPlan />
-      <SynthesisTable />
+      <SynthesisTable onDomainClick={expandDomains} />
 
       {/* Expandable domain detail */}
       <div className="py-8 px-4 bg-muted/20">

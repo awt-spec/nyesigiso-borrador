@@ -579,9 +579,16 @@ const ImplementationPlan = () => {
               </CardHeader>
               <CardContent className="pt-0 space-y-3">
                 <p className="text-sm text-muted-foreground">{t.option1Desc}</p>
-                <div className="flex items-baseline gap-1 pt-2">
-                  <span className="text-3xl font-bold text-foreground">{t.option1Price}</span>
-                  <span className="text-muted-foreground text-sm">{t.perMonth}</span>
+                <div className="pt-2 space-y-1">
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-3xl font-bold text-foreground">{t.option1Price}</span>
+                    <span className="text-muted-foreground text-sm">{t.perMonth}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <span className="bg-muted px-2 py-0.5 rounded font-medium">FASE 1: USD $7,500</span>
+                    <span>+</span>
+                    <span className="bg-muted px-2 py-0.5 rounded font-medium">FASE 2: USD $20,900</span>
+                  </div>
                 </div>
                 <p className="text-xs text-muted-foreground">{t.option1Note}</p>
               </CardContent>
@@ -599,9 +606,16 @@ const ImplementationPlan = () => {
               </CardHeader>
               <CardContent className="pt-0 space-y-3">
                 <p className="text-sm text-muted-foreground">{t.option2Desc}</p>
-                <div className="flex items-baseline gap-1 pt-2">
-                  <span className="text-3xl font-bold text-primary">{t.option2Price}</span>
-                  <span className="text-muted-foreground text-sm">{t.perMonth}</span>
+                <div className="pt-2 space-y-1">
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-3xl font-bold text-primary">{t.option2Price}</span>
+                    <span className="text-muted-foreground text-sm">{t.perMonth}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <span className="bg-primary/10 text-primary px-2 py-0.5 rounded font-medium">FASE 1: USD $7,500</span>
+                    <span>+</span>
+                    <span className="bg-primary/10 text-primary px-2 py-0.5 rounded font-medium">FASE 2: USD $9,499</span>
+                  </div>
                 </div>
                 <p className="text-xs text-muted-foreground">{t.option2Note}</p>
               </CardContent>

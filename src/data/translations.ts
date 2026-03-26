@@ -6,7 +6,7 @@ export const translations = {
     },
     hero: {
       title: "NYESIGISO DIGITAL",
-      subtitle: "El core bancario más robusto de África Occidental. Una plataforma. 87 bases. 94 agencias. Sin límites.",
+      subtitle: "87 bases. 94 agencias. Respaldadas por 35+ módulos SAF+. Diseñada para crecer. Construida para resistir.",
       cta: "Explorar Dominios",
       stats: {
         items: "Items Evaluados",
@@ -42,7 +42,7 @@ export const translations = {
     },
     hero: {
       title: "NYESIGISO DIGITAL",
-      subtitle: "Le core banking le plus robuste d'Afrique de l'Ouest. Une plateforme. 87 bases. 94 agences. Sans limites.",
+      subtitle: "87 bases. 94 agences. Soutenues par 35+ modules SAF+. Conçue pour croître. Construite pour résister.",
       cta: "Explorer les Domaines",
       stats: {
         items: "Items Évalués",
@@ -78,7 +78,7 @@ export const translations = {
     },
     hero: {
       title: "NYESIGISO DIGITAL",
-      subtitle: "West Africa's most robust core banking platform. One platform. 87 databases. 94 agencies. No limits.",
+      subtitle: "87 databases. 94 agencies. Backed by 35+ SAF+ modules. Designed to grow. Built to endure.",
       cta: "Explore Domains",
       stats: {
         items: "Items Evaluated",

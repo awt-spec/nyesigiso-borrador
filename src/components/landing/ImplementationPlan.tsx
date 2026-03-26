@@ -470,7 +470,7 @@ const ImplementationPlan = () => {
   const [showAll, setShowAll] = useState(false);
   const [showAllInDetail, setShowAllInDetail] = useState(false);
   const [selectedModules, setSelectedModules] = useState<Set<string>>(new Set());
-  const [activeTab, setActiveTab] = useState<"comparison" | "alacarte">("comparison");
+  const [activeTab, setActiveTab] = useState<"comparison" | "alacarte" | "allin">("comparison");
   const ref = useRef<HTMLElement>(null);
   const t = labels[language];
 
@@ -733,6 +733,17 @@ const ImplementationPlan = () => {
                 <ShoppingCart className="w-4 h-4 inline mr-1.5" />
                 {t.aLaCarteSimTitle}
               </button>
+              <button
+                onClick={() => setActiveTab("allin")}
+                className={`px-5 py-2.5 rounded-lg text-sm font-semibold transition-all ${
+                  activeTab === "allin"
+                    ? "bg-primary text-primary-foreground shadow-lg"
+                    : "bg-muted text-muted-foreground hover:bg-muted/80"
+                }`}
+              >
+                <Package className="w-4 h-4 inline mr-1.5" />
+                ALL IN
+              </button>
             </div>
 
             {/* TAB: Comparison */}
@@ -917,8 +928,118 @@ const ImplementationPlan = () => {
                 </Card>
               </div>
             )}
-          </div>
+            {/* TAB: ALL IN Detail */}
+            {activeTab === "allin" && (
+              <div className="animate-in fade-in duration-300">
+                <Card className="border-primary/20 overflow-hidden">
+                  <div className="h-1.5 bg-gradient-to-r from-primary to-primary/50" />
+                  <CardContent className="p-6">
+                    {/* Header */}
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                      <div>
+                        <div className="flex items-center gap-2 mb-1">
+                          <Badge className="bg-primary text-primary-foreground">{t.recommended}</Badge>
+                          <h4 className="font-bold text-lg text-foreground">{t.option2Title}</h4>
+                        </div>
+                        <p className="text-sm text-muted-foreground">{t.option2Desc}</p>
+                      </div>
+                      <div className="flex items-center gap-4 flex-shrink-0">
+                        <div className="text-right">
+                          <span className="text-3xl font-bold text-primary">USD $16,999</span>
+                          <span className="text-muted-foreground text-sm">{t.perMonth}</span>
+                        </div>
+                      </div>
+                    </div>
 
+                    {/* Price breakdown */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+                      <div className="rounded-lg border border-emerald-500/30 bg-emerald-500/5 p-4">
+                        <p className="text-xs text-muted-foreground uppercase font-medium mb-1">{t.phase1Label}</p>
+                        <p className="text-xl font-bold text-foreground">USD $7,500<span className="text-sm text-muted-foreground font-normal">{t.perMonth}</span></p>
+                        <p className="text-xs text-muted-foreground mt-1">67 {t.modules} · ~69% {t.coverage}</p>
+                      </div>
+                      <div className="rounded-lg border border-primary/30 bg-primary/5 p-4">
+                        <p className="text-xs text-muted-foreground uppercase font-medium mb-1">FASE 2</p>
+                        <p className="text-xl font-bold text-primary">USD $9,499<span className="text-sm text-muted-foreground font-normal">{t.perMonth}</span></p>
+                        <p className="text-xs text-muted-foreground mt-1">30 {t.modules} · +31% {t.coverage}</p>
+                      </div>
+                      <div className="rounded-lg border border-border bg-muted/30 p-4">
+                        <p className="text-xs text-muted-foreground uppercase font-medium mb-1">{t.setupFee}</p>
+                        <p className="text-xl font-bold text-foreground">USD $35,000</p>
+                        <p className="text-xs text-emerald-600 dark:text-emerald-400 mt-1 font-medium">
+                          {language === "es" ? "Sin setup fee adicional" : language === "fr" ? "Pas de setup fee additionnel" : "No additional setup fee"}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Savings highlight */}
+                    <div className="rounded-lg border border-emerald-500/30 bg-gradient-to-r from-emerald-500/10 to-emerald-500/5 p-4 mb-6">
+                      <div className="flex items-center gap-3">
+                        <TrendingDown className="w-5 h-5 text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
+                        <div>
+                          <p className="text-sm font-bold text-emerald-600 dark:text-emerald-400">
+                            {t.savingsTitle}: −USD $11,401{t.perMonth} (−40%)
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            {language === "es" ? "vs. USD $28,400/mes si contrata todos los módulos A la Carta" : language === "fr" ? "vs. USD $28,400/mois si vous contractez tous les modules À la Carte" : "vs. USD $28,400/mo if contracting all modules À la Carte"}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* All 8 groups with their modules */}
+                    <div>
+                      <p className="text-sm font-bold text-foreground mb-4">
+                        {language === "es" ? "97 Módulos Incluidos — Detalle por Grupo Funcional" : language === "fr" ? "97 Modules Inclus — Détail par Groupe Fonctionnel" : "97 Modules Included — Detail by Functional Group"}
+                      </p>
+
+                      {/* Phase 1 included note */}
+                      <div className="flex items-center gap-3 p-3 rounded-lg bg-emerald-500/5 border border-emerald-500/20 mb-4">
+                        <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0" />
+                        <div>
+                          <p className="text-sm font-semibold text-foreground">{t.phase1} — 67 {t.modules}</p>
+                          <p className="text-xs text-muted-foreground">{t.phase1includes}</p>
+                        </div>
+                        <Badge className="bg-emerald-500 text-white text-xs ml-auto flex-shrink-0">{t.active}</Badge>
+                      </div>
+
+                      {/* Phase 2 groups */}
+                      <div className="space-y-3">
+                        {moduleGroups.map((group) => {
+                          const Icon = group.icon;
+                          return (
+                            <div key={group.id} className="rounded-lg border border-border bg-card overflow-hidden">
+                              <div className="flex items-center gap-3 px-4 py-3 bg-muted/30">
+                                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                                  <Icon className="w-4 h-4 text-primary" />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <p className="text-sm font-semibold text-foreground">{group.subtotalName[language]}</p>
+                                  <p className="text-[10px] text-muted-foreground">{group.modules.length} {t.modules}</p>
+                                </div>
+                                <Badge variant="outline" className="text-[10px] font-mono">{t.group} {group.label}</Badge>
+                                <span className="text-xs font-bold text-primary whitespace-nowrap">
+                                  {language === "es" ? "Incluido" : language === "fr" ? "Inclus" : "Included"} ✓
+                                </span>
+                              </div>
+                              <div className="px-4 py-2 grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                                {group.modules.map((mod, j) => (
+                                  <div key={j} className="flex items-center gap-2 py-1.5 px-2 rounded-md hover:bg-muted/20 transition-colors">
+                                    <CheckCircle2 className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+                                    <span className="text-xs text-foreground truncate">{mod.name[language]}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            )}
+          </div>
           <p className="text-xs text-muted-foreground text-center mt-3 mb-8">
             💡 {t.billing}
           </p>

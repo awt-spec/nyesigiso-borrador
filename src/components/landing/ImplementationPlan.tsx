@@ -402,7 +402,7 @@ const usd = (v: string) => {
 const ImplementationPlan = () => {
   const { language } = useLanguage();
   const [visible, setVisible] = useState(false);
-  const [showAll, setShowAll] = useState(false);
+  const [activeTab, setActiveTab] = useState<"comparison" | "allin">("comparison");
   const [activeTab, setActiveTab] = useState<"comparison" | "allin">("comparison");
   const ref = useRef<HTMLElement>(null);
   const t = labels[language];

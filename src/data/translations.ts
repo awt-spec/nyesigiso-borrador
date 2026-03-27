@@ -6,7 +6,7 @@ export const translations = {
     },
     hero: {
       title: "NYESIGISO DIGITAL",
-      subtitle: "87 bases. 94 agencias. Respaldadas por 35+ módulos SAF+. Diseñada para crecer. Construida para resistir.",
+      subtitle: "Potenciando la transformación digital para beneficiar el servicio a los miembros de la comunidad",
       cta: "Explorar Dominios",
       stats: {
         items: "Items Evaluados",

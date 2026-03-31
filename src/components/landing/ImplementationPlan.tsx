@@ -399,6 +399,145 @@ const usd = (v: string) => {
   return v.startsWith("$") ? `USD ${v}` : v.startsWith("−$") ? `−USD ${v.slice(1)}` : v;
 };
 
+const breakdownGroups = [
+  { id: "A", name: { es: "Canales Digitales", fr: "Canaux Digitaux", en: "Digital Channels" }, subtotal: 2550, modules: [
+    { name: { es: "Internet Banking", fr: "Internet Banking", en: "Internet Banking" }, price: 1000 },
+    { name: { es: "Mobile Banking (iOS / Android + PWA)", fr: "Mobile Banking (iOS / Android + PWA)", en: "Mobile Banking (iOS / Android + PWA)" }, price: 1000 },
+    { name: { es: "SMS & Alertas Transaccionales", fr: "SMS & Alertes Transactionnelles", en: "SMS & Transactional Alerts" }, price: 550 },
+  ]},
+  { id: "B", name: { es: "CRM & Marketing", fr: "CRM & Marketing", en: "CRM & Marketing" }, subtotal: 900, modules: [
+    { name: { es: "Archivo de Prospectos", fr: "Archive de Prospects", en: "Prospect Archive" }, price: 200 },
+    { name: { es: "Carteras Comerciales", fr: "Portefeuilles Commerciaux", en: "Commercial Portfolios" }, price: 250 },
+    { name: { es: "Gestión de Eventos", fr: "Gestion des Événements", en: "Event Management" }, price: 200 },
+    { name: { es: "Seguimiento de Actividad del Asesor", fr: "Suivi d'Activité du Conseiller", en: "Advisor Activity Tracking" }, price: 250 },
+  ]},
+  { id: "C", name: { es: "Riesgos & Scoring", fr: "Risques & Scoring", en: "Risks & Scoring" }, subtotal: 999, modules: [
+    { name: { es: "Garantías", fr: "Garanties", en: "Guarantees" }, price: 350 },
+    { name: { es: "Calificación / Scoring", fr: "Qualification / Scoring", en: "Qualification / Scoring" }, price: 399 },
+    { name: { es: "Compromisos (upgrade PARCIAL → Completo)", fr: "Engagements (upgrade PARTIEL → Complet)", en: "Commitments (upgrade PARTIAL → Full)" }, price: 250 },
+  ]},
+  { id: "D", name: { es: "Jurídico & Contencioso", fr: "Juridique & Contentieux", en: "Legal & Litigation" }, subtotal: 800, modules: [
+    { name: { es: "Contencioso", fr: "Contentieux", en: "Litigation" }, price: 250 },
+    { name: { es: "Sucesiones", fr: "Successions", en: "Succession" }, price: 200 },
+    { name: { es: "Embargos / ATD", fr: "Saisies / ATD", en: "Seizures / ATD" }, price: 200 },
+    { name: { es: "Reclamaciones", fr: "Réclamations", en: "Claims" }, price: 150 },
+  ]},
+  { id: "E", name: { es: "ERP Financiero", fr: "ERP Financier", en: "Financial ERP" }, subtotal: 1300, modules: [
+    { name: { es: "Activos Fijos", fr: "Immobilisations", en: "Fixed Assets" }, price: 250 },
+    { name: { es: "Conciliación / Lettrage", fr: "Rapprochement / Lettrage", en: "Reconciliation / Lettrage" }, price: 300 },
+    { name: { es: "Compras / Inventarios", fr: "Achats / Inventaires", en: "Purchasing / Inventory" }, price: 250 },
+    { name: { es: "Proveedores", fr: "Fournisseurs", en: "Vendors" }, price: 150 },
+    { name: { es: "Obras y Proyectos", fr: "Chantiers et Projets", en: "Projects & Construction" }, price: 200 },
+    { name: { es: "Archivo", fr: "Archivage", en: "Archiving" }, price: 150 },
+  ]},
+  { id: "F", name: { es: "RRHH & Nómina", fr: "RH & Paie", en: "HR & Payroll" }, subtotal: 600, modules: [
+    { name: { es: "Nómina (DNSI, INPS)", fr: "Paie (DNSI, INPS)", en: "Payroll (DNSI, INPS)" }, price: 400 },
+    { name: { es: "Gestión del Personal", fr: "Gestion du Personnel", en: "Personnel Management" }, price: 200 },
+  ]},
+  { id: "I", name: { es: "BI & DataWarehouse", fr: "BI & DataWarehouse", en: "BI & DataWarehouse" }, subtotal: 1850, modules: [
+    { name: { es: "Tableros Avanzados (upgrade PARCIAL → Avanzado)", fr: "Tableaux Avancés (upgrade PARTIEL → Avancé)", en: "Advanced Dashboards (upgrade PARTIAL → Advanced)" }, price: 400 },
+    { name: { es: "Contabilidad Analítica", fr: "Comptabilité Analytique", en: "Analytical Accounting" }, price: 300 },
+    { name: { es: "Presupuesto", fr: "Budget", en: "Budget" }, price: 250 },
+    { name: { es: "DataWarehouse", fr: "DataWarehouse", en: "DataWarehouse" }, price: 550 },
+    { name: { es: "Herramientas BI / Soporte a la Decisión", fr: "Outils BI / Aide à la décision", en: "BI Tools / Decision Support" }, price: 350 },
+  ]},
+  { id: "J", name: { es: "Integración", fr: "Intégration", en: "Integration" }, subtotal: 500, modules: [
+    { name: { es: "Workflow / Gestión de Flujos", fr: "Workflow / Gestion des Flux", en: "Workflow / Flow Management" }, price: 300 },
+    { name: { es: "GED — Gestión Electrónica de Documentos", fr: "GED — Gestion Électronique de Documents", en: "DMS — Electronic Document Management" }, price: 200 },
+  ]},
+];
+
+const CostBreakdownTable = ({ language, t }: { language: Lang; t: Record<string, string> }) => {
+  const [expandedGroup, setExpandedGroup] = useState<string | null>(null);
+
+  return (
+    <div className="space-y-2">
+      {breakdownGroups.map((group) => {
+        const isExpanded = expandedGroup === group.id;
+        return (
+          <div key={group.id} className="rounded-lg border border-border bg-card overflow-hidden transition-all duration-300">
+            <button
+              onClick={() => setExpandedGroup(isExpanded ? null : group.id)}
+              className="w-full flex items-center gap-3 px-4 py-3 hover:bg-muted/30 transition-colors"
+            >
+              <Badge variant="outline" className="text-[10px] font-mono flex-shrink-0">{group.id}</Badge>
+              <span className="text-sm font-semibold text-foreground flex-1 text-left">{group.name[language]}</span>
+              <span className="text-xs text-muted-foreground">{group.modules.length} {t.modules}</span>
+              <span className="text-sm font-bold text-primary whitespace-nowrap">${group.subtotal.toLocaleString()}/{language === "es" ? "mes" : language === "fr" ? "mois" : "mo"}</span>
+              {isExpanded ? <ChevronUp className="w-4 h-4 text-muted-foreground" /> : <ChevronDown className="w-4 h-4 text-muted-foreground" />}
+            </button>
+            {isExpanded && (
+              <div className="px-4 pb-3 animate-in fade-in slide-in-from-top-1 duration-200">
+                <div className="rounded-md border border-border overflow-hidden">
+                  <table className="w-full text-xs">
+                    <thead>
+                      <tr className="bg-muted/50">
+                        <th className="text-left px-3 py-2 font-medium text-muted-foreground w-8">#</th>
+                        <th className="text-left px-3 py-2 font-medium text-muted-foreground">{t.module}</th>
+                        <th className="text-right px-3 py-2 font-medium text-muted-foreground">$ / {language === "es" ? "mes" : language === "fr" ? "mois" : "month"}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {group.modules.map((mod, j) => (
+                        <tr key={j} className="border-t border-border/50 hover:bg-muted/20 transition-colors">
+                          <td className="px-3 py-2 text-muted-foreground">{j + 1}</td>
+                          <td className="px-3 py-2 text-foreground">{mod.name[language]}</td>
+                          <td className="px-3 py-2 text-right font-semibold text-foreground">${mod.price.toLocaleString()}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                    <tfoot>
+                      <tr className="border-t-2 border-primary/20 bg-primary/5">
+                        <td colSpan={2} className="px-3 py-2 font-bold text-foreground">{t.subtotal}</td>
+                        <td className="px-3 py-2 text-right font-bold text-primary">${group.subtotal.toLocaleString()}</td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+            )}
+          </div>
+        );
+      })}
+
+      {/* Verification totals */}
+      <div className="mt-4 rounded-lg border-2 border-primary/30 bg-primary/5 overflow-hidden">
+        <div className="px-4 py-3 bg-primary/10 border-b border-primary/20">
+          <p className="text-sm font-bold text-foreground">
+            {language === "es" ? "Verificación de Totales" : language === "fr" ? "Vérification des Totaux" : "Total Verification"}
+          </p>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-xs">
+            <thead>
+              <tr className="bg-muted/30">
+                <th className="text-left px-4 py-2.5 font-medium text-muted-foreground">{t.group}</th>
+                <th className="text-center px-4 py-2.5 font-medium text-muted-foreground">{t.modules}</th>
+                <th className="text-right px-4 py-2.5 font-medium text-muted-foreground">{language === "es" ? "Subtotal / mes" : language === "fr" ? "Sous-total / mois" : "Subtotal / month"}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {breakdownGroups.map((group) => (
+                <tr key={group.id} className="border-t border-border/50 hover:bg-muted/20 transition-colors">
+                  <td className="px-4 py-2 text-foreground font-medium">{group.id} — {group.name[language]}</td>
+                  <td className="px-4 py-2 text-center text-foreground">{group.modules.length}</td>
+                  <td className="px-4 py-2 text-right font-semibold text-foreground">${group.subtotal.toLocaleString()}</td>
+                </tr>
+              ))}
+            </tbody>
+            <tfoot>
+              <tr className="border-t-2 border-primary/30 bg-primary/10">
+                <td className="px-4 py-3 font-black text-foreground text-sm">TOTAL</td>
+                <td className="px-4 py-3 text-center font-bold text-foreground text-sm">29</td>
+                <td className="px-4 py-3 text-right font-black text-primary text-sm">$9,499</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+};
 const ImplementationPlan = () => {
   const { language } = useLanguage();
   const [visible, setVisible] = useState(false);
@@ -752,6 +891,23 @@ const ImplementationPlan = () => {
                             </div>
                           );
                         })}
+                      </div>
+
+                      {/* ═══ COST BREAKDOWN — $9,499/mes ═══ */}
+                      <div className="mt-8 pt-6 border-t border-primary/20">
+                        <div className="flex items-center gap-3 mb-5">
+                          <DollarSign className="w-5 h-5 text-primary" />
+                          <div>
+                            <h5 className="text-sm font-bold text-foreground">
+                              {language === "es" ? "Desglose de Costos por Módulo" : language === "fr" ? "Détail des Coûts par Module" : "Cost Breakdown by Module"}
+                            </h5>
+                            <p className="text-xs text-muted-foreground">
+                              {language === "es" ? "USD $9,499 / mes — 29 módulos en 8 grupos funcionales" : language === "fr" ? "USD $9 499 / mois — 29 modules en 8 groupes fonctionnels" : "USD $9,499 / month — 29 modules in 8 functional groups"}
+                            </p>
+                          </div>
+                        </div>
+
+                        <CostBreakdownTable language={language} t={t} />
                       </div>
                     </div>
                   </CardContent>

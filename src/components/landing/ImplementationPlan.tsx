@@ -581,6 +581,27 @@ const ImplementationPlan = () => {
           </h2>
         </div>
 
+        {/* CTA Banner — Ver Desglose */}
+        <div className={`mb-8 transition-all duration-700 delay-75 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+          <button
+            onClick={() => {
+              setActiveTab("comparison");
+              setTimeout(() => {
+                document.getElementById("desglose-integral")?.scrollIntoView({ behavior: "smooth", block: "start" });
+              }, 150);
+            }}
+            className="w-full group relative overflow-hidden rounded-xl border-2 border-primary/30 bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 p-4 hover:border-primary/50 hover:from-primary/15 hover:to-primary/15 transition-all duration-300"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/5 to-primary/0 group-hover:via-primary/10 transition-all duration-500" />
+            <div className="relative flex items-center justify-center gap-3">
+              <DollarSign className="w-5 h-5 text-primary" />
+              <span className="text-sm font-bold text-primary">
+                {language === "es" ? "📊 Ver Desglose de la Propuesta Integral — $9,499/mes en 29 módulos" : language === "fr" ? "📊 Voir le Détail de la Proposition Intégrale — $9 499/mois en 29 modules" : "📊 View Integral Proposal Breakdown — $9,499/mo across 29 modules"}
+              </span>
+              <ChevronDown className="w-4 h-4 text-primary animate-bounce" />
+            </div>
+          </button>
+        </div>
 
         {/* ═══════════════════════════════════════════════ */}
         {/* PROPUESTAS — Side by Side */}

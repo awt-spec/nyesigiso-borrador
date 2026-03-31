@@ -538,8 +538,7 @@ const CostBreakdownTable = ({ language, t }: { language: Lang; t: Record<string,
     </div>
   );
 };
-
-
+const ImplementationPlan = () => {
   const { language } = useLanguage();
   const [visible, setVisible] = useState(false);
   const [activeTab, setActiveTab] = useState<"comparison" | "allin">("comparison");

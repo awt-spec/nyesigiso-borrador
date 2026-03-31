@@ -753,6 +753,23 @@ const ImplementationPlan = () => {
                           );
                         })}
                       </div>
+
+                      {/* ═══ COST BREAKDOWN — $9,499/mes ═══ */}
+                      <div className="mt-8 pt-6 border-t border-primary/20">
+                        <div className="flex items-center gap-3 mb-5">
+                          <DollarSign className="w-5 h-5 text-primary" />
+                          <div>
+                            <h5 className="text-sm font-bold text-foreground">
+                              {language === "es" ? "Desglose de Costos por Módulo" : language === "fr" ? "Détail des Coûts par Module" : "Cost Breakdown by Module"}
+                            </h5>
+                            <p className="text-xs text-muted-foreground">
+                              {language === "es" ? "USD $9,499 / mes — 29 módulos en 8 grupos funcionales" : language === "fr" ? "USD $9 499 / mois — 29 modules en 8 groupes fonctionnels" : "USD $9,499 / month — 29 modules in 8 functional groups"}
+                            </p>
+                          </div>
+                        </div>
+
+                        <CostBreakdownTable language={language} t={t} />
+                      </div>
                     </div>
                   </CardContent>
                 </Card>

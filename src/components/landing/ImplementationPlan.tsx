@@ -796,6 +796,27 @@ const ImplementationPlan = () => {
                     </table>
                   </div>
                 </Card>
+
+                {/* Cost Breakdown inside comparison tab */}
+                <div id="desglose-integral" className="mt-6">
+                  <Card className="border-primary/20 overflow-hidden">
+                    <div className="h-1.5 bg-gradient-to-r from-primary to-primary/50" />
+                    <CardContent className="p-6">
+                      <div className="flex items-center gap-3 mb-5">
+                        <DollarSign className="w-5 h-5 text-primary" />
+                        <div>
+                          <h5 className="text-sm font-bold text-foreground">
+                            {language === "es" ? "Desglose de Costos — Propuesta Integral" : language === "fr" ? "Détail des Coûts — Proposition Intégrale" : "Cost Breakdown — Integral Proposal"}
+                          </h5>
+                          <p className="text-xs text-muted-foreground">
+                            {language === "es" ? "USD $9,499 / mes — 29 módulos en 8 grupos funcionales" : language === "fr" ? "USD $9 499 / mois — 29 modules en 8 groupes fonctionnels" : "USD $9,499 / month — 29 modules in 8 functional groups"}
+                          </p>
+                        </div>
+                      </div>
+                      <CostBreakdownTable language={language} t={t} />
+                    </CardContent>
+                  </Card>
+                </div>
               </div>
             )}
 

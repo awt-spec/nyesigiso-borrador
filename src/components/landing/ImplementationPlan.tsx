@@ -535,7 +535,7 @@ const CostBreakdownTable = ({ language, t }: { language: Lang; t: Record<string,
               <tr className="border-t-2 border-primary/30 bg-primary/10">
                 <td className="px-4 py-3 font-black text-foreground text-sm">TOTAL</td>
                 <td className="px-4 py-3 text-center font-bold text-foreground text-sm">29</td>
-                <td className="px-4 py-3 text-right font-black text-primary text-sm">$9,499</td>
+                <td className="px-4 py-3 text-right font-black text-primary text-sm"><span className="line-through text-muted-foreground text-xs mr-1">$9,499</span>$6,649</td>
               </tr>
             </tfoot>
           </table>
@@ -602,7 +602,7 @@ const ImplementationPlan = () => {
             <div className="relative flex items-center justify-center gap-3">
               <DollarSign className="w-5 h-5 text-primary" />
               <span className="text-sm font-bold text-primary">
-                {language === "es" ? "📊 Ver Desglose de la Propuesta Integral — $9,499/mes en 29 módulos" : language === "fr" ? "📊 Voir le Détail de la Proposition Intégrale — $9 499/mois en 29 modules" : "📊 View Integral Proposal Breakdown — $9,499/mo across 29 modules"}
+                {language === "es" ? "📊 Ver Desglose de la Propuesta Integral — $6,649/mes en 29 módulos (30% dto.)" : language === "fr" ? "📊 Voir le Détail de la Proposition Intégrale — $6 649/mois en 29 modules (30% remise)" : "📊 View Integral Proposal Breakdown — $6,649/mo across 29 modules (30% off)"}
               </span>
               <ChevronDown className="w-4 h-4 text-primary animate-bounce" />
             </div>
@@ -689,18 +689,22 @@ const ImplementationPlan = () => {
                 </div>
                 <div className="text-center p-3 rounded-lg bg-primary/10 border border-primary/20">
                   <p className="text-[10px] text-muted-foreground font-medium mb-1">{t.perMonthLabel}</p>
-                  <p className="text-base font-bold text-primary">USD $16,999</p>
+                  <p className="text-[10px] line-through text-muted-foreground">USD $16,999</p>
+                  <p className="text-base font-bold text-primary">USD $11,899</p>
+                  <span className="text-[9px] font-bold text-green-600 bg-green-100 px-1.5 py-0.5 rounded">-30%</span>
                 </div>
                 <div className="text-center p-3 rounded-lg bg-background/60 border border-primary/20">
                   <p className="text-[10px] text-muted-foreground font-medium mb-1">{t.perQuarterLabel}</p>
-                  <p className="text-base font-bold text-primary">USD $50,997</p>
+                  <p className="text-[10px] line-through text-muted-foreground">USD $50,997</p>
+                  <p className="text-base font-bold text-primary">USD $35,698</p>
+                  <span className="text-[9px] font-bold text-green-600 bg-green-100 px-1.5 py-0.5 rounded">-30%</span>
                 </div>
               </div>
 
               <div className="flex items-center gap-2 text-xs text-muted-foreground mb-3">
                 <span className="bg-primary/10 text-primary px-2 py-0.5 rounded font-medium">{t.phase1Label}: $7,500</span>
                 <span>+</span>
-                <span className="bg-primary/10 text-primary px-2 py-0.5 rounded font-medium">{language === "es" ? "Adicionales" : language === "fr" ? "Additionnels" : "Additional"}: $9,499</span>
+                <span className="bg-primary/10 text-primary px-2 py-0.5 rounded font-medium">{language === "es" ? "Adicionales" : language === "fr" ? "Additionnels" : "Additional"}: <span className="line-through text-muted-foreground">$9,499</span> $6,649</span>
               </div>
 
               <Badge className="bg-primary text-primary-foreground text-xs w-fit mb-4">100% {t.coverage} · 97 {t.modules}</Badge>
@@ -797,17 +801,17 @@ const ImplementationPlan = () => {
                         <tr className="border-b border-border/50 hover:bg-muted/20 transition-colors">
                           <td className="px-4 py-3 font-medium text-foreground">{t.perMonthLabel}</td>
                           <td className="px-4 py-3 text-center text-foreground">USD $7,500</td>
-                          <td className="px-4 py-3 text-center font-bold text-primary">USD $16,999</td>
+                          <td className="px-4 py-3 text-center font-bold text-primary"><span className="line-through text-muted-foreground text-xs mr-1">$16,999</span> USD $11,899</td>
                         </tr>
                         <tr className="border-b border-border/50 hover:bg-muted/20 transition-colors">
                           <td className="px-4 py-3 font-medium text-foreground">{t.perQuarterLabel}</td>
                           <td className="px-4 py-3 text-center text-foreground">USD $22,500</td>
-                          <td className="px-4 py-3 text-center font-bold text-primary">USD $50,997</td>
+                          <td className="px-4 py-3 text-center font-bold text-primary"><span className="line-through text-muted-foreground text-xs mr-1">$50,997</span> USD $35,698</td>
                         </tr>
                         <tr className="border-b border-border/50 hover:bg-muted/20 transition-colors">
                           <td className="px-4 py-3 font-medium text-foreground">{t.perYearLabel}</td>
                           <td className="px-4 py-3 text-center text-foreground">USD $90,000</td>
-                          <td className="px-4 py-3 text-center font-bold text-primary">USD $203,988</td>
+                          <td className="px-4 py-3 text-center font-bold text-primary"><span className="line-through text-muted-foreground text-xs mr-1">$203,988</span> USD $142,792</td>
                         </tr>
                         <tr className="border-b border-border/50 hover:bg-muted/20 transition-colors">
                           <td className="px-4 py-3 font-medium text-foreground">{t.coverage}</td>
@@ -836,7 +840,7 @@ const ImplementationPlan = () => {
                             {language === "es" ? "Desglose de Costos — Propuesta Integral" : language === "fr" ? "Détail des Coûts — Proposition Intégrale" : "Cost Breakdown — Integral Proposal"}
                           </h5>
                           <p className="text-xs text-muted-foreground">
-                            {language === "es" ? "USD $9,499 / mes — 29 módulos en 8 grupos funcionales" : language === "fr" ? "USD $9 499 / mois — 29 modules en 8 groupes fonctionnels" : "USD $9,499 / month — 29 modules in 8 functional groups"}
+                            {language === "es" ? "USD $6,649 / mes — 29 módulos en 8 grupos funcionales (30% dto.)" : language === "fr" ? "USD $6 649 / mois — 29 modules en 8 groupes fonctionnels (30% remise)" : "USD $6,649 / month — 29 modules in 8 functional groups (30% off)"}
                           </p>
                         </div>
                       </div>
